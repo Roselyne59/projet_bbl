@@ -40,3 +40,21 @@
 # - We have create a new schema step by step for user and admin.
 # - We had do a list scenario and the cases exceptions error for user and admin.
 
+## Meeting 04/05/2024
+
+# Participant:
+#		-> Q3der
+#		-> Nehemie
+#		-> Rolande
+#		-> Farid
+#
+# Daily target:
+#
+# - Talking about project.
+# - We have work on schema drawio new version 1.1 .
+
+
+
+
+
+
