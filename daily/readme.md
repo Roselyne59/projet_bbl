@@ -44,9 +44,7 @@
 
 # Participant:
 #		-> Q3der
-#		-> Nehemie
 #		-> Rolande
-#		-> Farid
 #
 # Daily target:
 #
