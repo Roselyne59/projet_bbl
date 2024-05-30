@@ -67,10 +67,7 @@ def create_user_form():
         
         print(f"Created user: {user.firstname} {user.lastname}")
 
-        # Optionally clear the form or close the window after submission
-        # firstname_entry.delete(0, tk.END)  # Clear entry fields
-        # root.destroy()  # Close the window
-
+     
     submit_button = tk.Button(root, text="Add user", command=submit_form)
     submit_button.pack(pady=10)
 
