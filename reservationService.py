@@ -3,4 +3,7 @@ import os
 from reservation import Reservation 
 
 class resrvationService:
-    def(self, )
+    def __init__(self, json_file = "reservations.json"):
+        self.json_file = json_file
+        self.reservations = []
+        self.load.reservations()
