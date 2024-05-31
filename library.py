@@ -1,192 +1,103 @@
 import tkinter as tk
-from tkinter import messagebox, simpledialog
+from tkinter import ttk, messagebox, simpledialog
 from bookService import BookService
-from book import Book
 from userService import UserService
-from user import User
+from book import Book
 
 class Library:
-    def __init__(self, root) :
+    def __init__(self, root, book_service, user_service, current_user):
         self.root = root
+        self.book_service = book_service
+        self.user_service = user_service
+        self.current_user = current_user
         self.root.title("Library Application")
+        self.setup_widgets()
+        self.refresh_book_list()
 
-        self.book_service = BookService()
-        self.user_service = UserService()
+    def setup_widgets(self):
+        self.frame = ttk.Frame(self.root, padding="450 450 450 450")
+        self.frame.pack(fill=tk.BOTH, expand=True)
 
-        self.create_widgets()
-        self.update_list()
-#Créer une liste de genre
-#Vérifier collection
-    
-    def create_widgets(self):
-        self.list = tk.Listbox(self.root, width=114, height=10)
-        self.list.pack(pady=10)
+        self.list = tk.Listbox(self.frame, width=50, height=20)
+        self.list.grid(row=0, column=0, columnspan=4, pady=10)
 
-        self.add_book_button = tk.Button(self.root, text="Add a book", command=self.add_book)
-        self.add_book_button.pack(pady=10)
+        button_width = 8
 
-        self.delete_book_button = tk.Button(self.root, text="Delete a book", command=self.delete_book)
-        self.delete_book_button.pack(pady=10)
+        self.add_book_button = tk.Button(self.frame, text="Add Book", command=self.show_add_book_form, width=button_width)
+        self.add_book_button.grid(row=1, column=0, pady=5, padx=5)
 
-        self.search_book_button = tk.Button(self.root, text="Research", command=self.search_book)
-        self.search_book_button.pack(pady=10)
+        tk.Button(self.frame, text="Show Users", command=self.show_users, width=button_width).grid(row=1, column=1, pady=5, padx=5)
+        tk.Button(self.frame, text="Show Books", command=self.refresh_book_list, width=button_width).grid(row=1, column=2, pady=5, padx=5)
+        tk.Button(self.frame, text="Delete Book", command=self.delete_book, width=button_width).grid(row=1, column=3, pady=5, padx=5)
 
-        self.list_books_button = tk.Button(self.root, text="List of books", command=self.book_list)
-        self.list_books_button.pack(pady=10)
+    def show_add_book_form(self):
+        self.add_book_button.config(state=tk.DISABLED)
 
-        self.user_add_button = tk.Button(self.root, text="Add a user", command=self.user_add)
-        self.user_add_button.pack(pady=10)
+        labels = ['Title', 'Authors (comma-separated)', 'Publication Year', 'ISBN', 'Editor', 'Genres (comma-separated)']
+        self.entries = {}
+        self.form_widgets = []
 
-        self.user_list_button = tk.Button(self.root, text="List of users", command=self.user_list_show)
-        self.user_list_button.pack(pady=10)
+        for idx, label in enumerate(labels):
+            lbl = tk.Label(self.frame, text=label)
+            lbl.grid(row=5 + idx, column=0, pady=5, padx=5, sticky=tk.W)
+            entry = tk.Entry(self.frame, width=30)
+            entry.grid(row=5 + idx, column=1, pady=5, padx=5)
+            self.entries[label] = entry
+            self.form_widgets.append(lbl)
+            self.form_widgets.append(entry)
 
-#        self.add_shelf_button = tk.Button(self.root, text="Add a shelf", command=self.add_shelf)
-#        self.add_shelf_button.pack(pady=10)
+        self.submit_button = tk.Button(self.frame, text="Submit", command=self.submit_book)
+        self.submit_button.grid(row=5 + len(labels), column=0, columnspan=2, pady=10)
+        self.form_widgets.append(self.submit_button)
 
-    def add_book(self):
-        title = None
-        while not title:
-            title = simpledialog.askstring("Title", "Enter the title:")
-            if not title:
-                messagebox.showerror("Input Error", "Please fill in the title.")
-
-        authors = None
-        while not authors:
-            authors_input = simpledialog.askstring("Authors", "Enter the authors (comma-separated):")
-            if authors_input:
-                authors = authors_input.split(",")
-            else:
-                messagebox.showerror("Input Error", "Please fill in the authors.")
-
-        isbn = None
-        while not isbn:
-            isbn = simpledialog.askstring("ISBN", "Enter the ISBN:")
-            if not isbn:
-                messagebox.showerror("Input Error", "Please fill in the ISBN.")
-
-        editor = None
-        while not editor:
-            editor = simpledialog.askstring("Editor", "Enter the editor:")
-            if not editor:
-                messagebox.showerror("Input Error", "Please fill in the editor.")
-
-        publication_year = None
-        while not publication_year:
-            publication_year = simpledialog.askstring("Year of Publication", "Enter the year of publication:")
-            if not publication_year:
-                messagebox.showerror("Input Error", "Please fill in the year of publication.")
-
-        genders = None
-        while not genders:
-            genders_input = simpledialog.askstring("Genres", "Enter the genres (comma-separated):")
-            if genders_input:
-                genders = genders_input.split(",")
-            else:
-                messagebox.showerror("Input Error", "Please fill in the genres.")
-
+    def submit_book(self):
+        book_info = {label: entry.get() for label, entry in self.entries.items()}
+        if any(not info for info in book_info.values()):
+            messagebox.showerror("Error", "All fields must be filled out.")
+            return
         book = Book(
-            title=title,
-            authors=authors,
-            isbn=isbn,
-            editor=editor,
-            publication_year=int(publication_year),
-            genders=genders
+            title=book_info['Title'],
+            authors=book_info['Authors (comma-separated)'].split(','),
+            publication_year=int(book_info['Publication Year']),
+            isbn=book_info['ISBN'],
+            editor=book_info['Editor'],
+            genders=book_info['Genres (comma-separated)'].split(',')
         )
         self.book_service.add_book(book)
-        self.update_list()
+        self.refresh_book_list()
+        self.clear_form()
 
-
-    def user_add(self):
-        firstname = None 
-        while not firstname:
-            firstname = simpledialog.askstring("Firstname", "Enter your firstname : ")
-            if not firstname:
-                messagebox.showerror("Error ! ", "Please fill in the firstname !")
-        
-        lastname = None
-        while not lastname:
-            lastname = simpledialog.askstring("Last Name", "Enter the last name:")
-            if not lastname:
-                messagebox.showerror("Input Error", "Please fill in the last name.")
-
-        birthdate = None
-        while not birthdate:
-            birthdate = simpledialog.askstring("Birthdate", "Enter the birthdate (YYYY-MM-DD):")
-            if not birthdate:
-                messagebox.showerror("Input Error", "Please fill in the birthdate.")
-
-        email = None
-        while not email:
-            email = simpledialog.askstring("Email", "Enter the email address:")
-            if not email:
-                messagebox.showerror("Input Error", "Please fill in the email address.")
-
-        address = None
-        while not address:
-            address = simpledialog.askstring("Address", "Enter the address:")
-            if not address:
-                messagebox.showerror("Input Error", "Please fill in the address.")
-        
-        is_admin = messagebox.askyesno("Admin", "Are you an admin ?")
-
-        user = User(
-            firstname=firstname,
-            lastname=lastname,
-            birthdate=birthdate,
-            email=email,
-            address=address,
-            is_admin=is_admin
-        )
-        self.user_service.add_user(user)
-
+    def clear_form(self):
+        for widget in self.form_widgets:
+            widget.destroy()
+        self.add_book_button.config(state=tk.NORMAL)
+        self.form_widgets.clear()
 
     def delete_book(self):
-        title = simpledialog.askstring("Title", "Enter the title of the book to delete:")
-        if not title:
-            return
-        book = next((b for b in self.book_service.books if b.title == title), None)
-        if book is None:
-            messagebox.showerror("Error", "Book not found!")
-            return
-        
-        self.book_service.remove_book(book)
-        self.update_list()
-
-    def search_book(self):
-        title = simpledialog.askstring("Title", "Enter the title of the book to search:")
-        if not title:
-            return
-        
-        book = next((b for b in self.book_service.books if b.title == title), None)
-        if book is None:
-            messagebox.showinfo("Book not found !")
+        title = simpledialog.askstring("Delete Book", "Enter the title of the book to delete:")
+        book = self.book_service.find_book_by_title(title)
+        if book:
+            self.book_service.remove_book(book)
+            self.refresh_book_list()
         else:
-            messagebox.showinfo("Result : ", f"Found the book: {book.title} by {', ' .join(book.authors)}")
+            messagebox.showerror("Error", "Book not found!")
 
-    def book_list(self):
-        self.update_list()
-
- #   def add_shelf(self):
- #       pass
-
-    def update_list(self):
-        self.list.delete(0,tk.END)
+    def refresh_book_list(self):
+        self.list.delete(0, tk.END)
         for book in self.book_service.books:
-            self.list.insert(tk.END, f"{book.title} by {','.join(book.authors)}")
+            self.list.insert(tk.END, str(book))
 
-    
-    
-    def user_list_show(self):
+    def show_users(self):
         user_list_window = tk.Toplevel(self.root)
-        user_list_window.title("List of users.")
-
-        list_users = tk.Listbox(user_list_window, width=100, height=10)
-        list_users.pack(pady=10)
+        user_list_window.title("List of Users")
+        list_users = tk.Listbox(user_list_window, width=50, height=10)
+        list_users.pack(pady=20, padx=20)
 
         for user in self.user_service.get_users():
             list_users.insert(tk.END, str(user))
 
-    #search user by name
-    def user_search(self, name): 
-        results = self.user_service.search_user(name)
-        return results
+
+
+
+
+

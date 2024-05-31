@@ -1,91 +1,84 @@
-"""Create an interface for register"""
-from pathlib import Path
-import json
-import os
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 
+from library import Library
+from user import User
+from userService import UserService
+from bookService import BookService
 
 class Register:
-    def __init__(self, root):
+    def __init__(self, root, userService, bookService, is_admin=False):
         self.root = root
-        self.root.title("Register")
-        self.frame = ttk.Frame(self.root)
-        self.frame = ttk.Frame(self.root, padding="450 250 450 450")
+        self.userService = userService
+        self.bookService = bookService
+        self.is_admin = is_admin
+        self.root.title("Register as Admin" if is_admin else "Register as User")
+        self.frame = ttk.Frame(self.root, padding="450 450 450 450")
         self.frame.pack(fill=tk.BOTH, expand=True)
 
-        # Initialiser les variables pour chaque champ
         labels = ["First Name:", "Last Name:", "Birthdate:", "Email:", "Address:", "Login:", "Password:"]
-        self.variables = [tk.StringVar() for _ in labels]
+        self.entries = {}
+        for i, label in enumerate(labels):
+            ttk.Label(self.frame, text=label).grid(row=i, column=0, sticky=tk.W)
+            entry = ttk.Entry(self.frame, width=25, show="*" if label == "Password:" else "")
+            entry.grid(row=i, column=1, sticky=(tk.W, tk.E))
+            self.entries[label] = entry
 
-        # Créer les widgets pour chaque champ
-        for i, (label, var) in enumerate(zip(labels, self.variables)):
-            ttk.Label(self.frame, text=label).grid(column=0, row=i, sticky=tk.W)
-            ttk.Entry(self.frame, width=25, textvariable=var).grid(column=1, row=i, sticky=(tk.W, tk.E))
-
-        # Bouton pour s'enregistrer
-        ttk.Button(self.frame, text="Register", command=self.register_new_user).grid(column=1, row=len(labels),
-                                                                                     sticky=tk.E)
-
-        # Ajouter un peu d'espacement entre les widgets
-        for child in self.frame.winfo_children():
-            child.grid_configure(padx=5, pady=5)
+        ttk.Button(self.frame, text="Register", command=self.register_new_user).grid(row=len(labels), column=1, sticky=tk.E)
 
     def register_new_user(self):
-        # Affichage des informations collectées pour exemple
-        user_info = ["First Name", "Last Name", "Birthdate", "Email", "Address", "Login", "Password"]
-        for info, var in zip(user_info, self.variables):
-            print(f"{info}: {var.get()}")
-
-        for widget in self.frame.winfo_children():
-            widget.destroy()
+        user = User(
+            firstname=self.entries["First Name:"].get(),
+            lastname=self.entries["Last Name:"].get(),
+            birthdate=self.entries["Birthdate:"].get(),
+            email=self.entries["Email:"].get(),
+            address=self.entries["Address:"].get(),
+            login=self.entries["Login:"].get(),
+            password=self.entries["Password:"].get(),
+            is_admin=self.is_admin
+        )
+        self.userService.add_user(user)
         self.frame.destroy()
-        Login(self.root)
+        Login(self.root, self.userService, self.bookService)
 
 
 class Login:
-
-    def __init__(self, root):
+    def __init__(self, root, userService, bookService):
         self.root = root
+        self.userService = userService
+        self.bookService = bookService
         self.root.title("Login")
-        self.initialize_login_widgets()
+        self.setup_widgets()
 
-    def initialize_login_widgets(self):
-        self.frame = ttk.Frame(self.root, padding="450 250 450 450")
+    def setup_widgets(self):
+        self.frame = ttk.Frame(self.root, padding="450 450 450 450")
         self.frame.pack(fill=tk.BOTH, expand=True)
-        self.login = tk.StringVar()
-        self.password = tk.StringVar()
 
-        # Widgets pour la connexion
-        ttk.Label(self.frame, text="Login:").grid(column=0, row=0, sticky=tk.W)
-        ttk.Entry(self.frame, width=25, textvariable=self.login).grid(column=1, row=0, sticky=(tk.W, tk.E))
-        ttk.Label(self.frame, text="Password:").grid(column=0, row=1, sticky=tk.W)
-        ttk.Entry(self.frame, width=25, textvariable=self.password).grid(column=1, row=1, sticky=(tk.W, tk.E))
-        ttk.Button(self.frame, text="Sign in", command=self.submit).grid(column=2, row=2, sticky=(tk.W, tk.E))
-        ttk.Button(self.frame, text="Register a new user", command=self.load_register_form).grid(column=1, row=2,
-                                                                                                 sticky=(tk.W, tk.E))
-        ttk.Button(self.frame, text="Register a new admin", command=self.load_register_form).grid(column=0, row=2,
-                                                                                                  sticky=(tk.W, tk.E))
+        ttk.Label(self.frame, text="Login:").grid(row=0, column=0, sticky=tk.W)
+        self.login = ttk.Entry(self.frame, width=25)
+        self.login.grid(row=0, column=1, sticky=(tk.W, tk.E))
 
-        # Espacement
-        for child in self.frame.winfo_children():
-            child.grid_configure(padx=5, pady=5)
+        ttk.Label(self.frame, text="Password:").grid(row=1, column=0, sticky=tk.W)
+        self.password = ttk.Entry(self.frame, width=25, show="*")
+        self.password.grid(row=1, column=1, sticky=(tk.W, tk.E))
+
+        ttk.Button(self.frame, text="Connexion", command=self.submit).grid(row=2, column=2, sticky=tk.E)
+        ttk.Button(self.frame, text="Inscrire utilisateur", command=lambda: self.load_register_form(False)).grid(row=2, column=0, sticky=tk.W)
+        ttk.Button(self.frame, text="Inscrire administrateur", command=lambda: self.load_register_form(True)).grid(row=2, column=1, sticky=tk.E + tk.W)
 
     def submit(self):
-        print(f"Login: {self.login.get()}")
-        print(f"Password: {self.password.get()}")
+        username = self.login.get()
+        password = self.password.get()
+        user = self.userService.validate_credentials(username, password)
+        if user:
+            self.launch_library(user)
+        else:
+            messagebox.showerror("Login Failed", "The username or password is incorrect")
 
-    def load_register_form(self):
-        # Effacer les widgets actuels
-        for widget in self.frame.winfo_children():
-            widget.destroy()
+    def launch_library(self, user):
         self.frame.destroy()
+        Library(self.root, self.bookService, self.userService, user)
 
-        # Créer une instance de Register
-        Register(self.root)
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = Login(root)
-    root.mainloop()
+    def load_register_form(self, is_admin):
+        self.frame.destroy()
+        Register(self.root, self.userService, self.bookService, is_admin)

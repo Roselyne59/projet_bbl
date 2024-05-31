@@ -9,41 +9,17 @@ class UserService:
 
     def load_users(self):
         if not os.path.exists(self.json_file):
-            return[]
+            return []
         with open(self.json_file, 'r') as file:
             users_data = json.load(file)
-            users = []
-            for user_data in users_data:
-                user = User(
-                    firstname = user_data.get("firstname", ""),
-                    lastname = user_data.get("lastname", ""),
-                    birthdate = user_data.get("birthdate", ""),
-                    email = user_data.get("email", ""),
-                    address = user_data.get("address", ""),
-                    is_admin = user_data.get("is_admin", False)
-                )
+            return [
+                User(**user_data)
+                for user_data in users_data
+            ]
 
-                user.user_id = user_data.get("user_id")
-                users.append(user)
-            return users
-        
     def save_users(self):
-        users_data = []
-        for user in self.users:
-            user_data = {
-                "user_id" : user.user_id,
-                "firstname" : user.firstname,
-                "lastname" : user.lastnamme,
-                "birthdate" : user.birthdate,
-                "email" : user.email,
-                "address" : user.address,
-                "is_admin" : user.is_admin
-            }
-            
-            users_data.append(user_data)
-
         with open(self.json_file, 'w') as file:
-            json.dump(users_data, file, indent=4)
+            json.dump([user.__dict__ for user in self.users], file, indent=4)
 
     def add_user(self, user):
         self.users.append(user)
@@ -51,10 +27,9 @@ class UserService:
 
     def get_users(self):
         return self.users
-    
-    def search_user(self, name):
-        results = []
+
+    def validate_credentials(self, login, password):
         for user in self.users:
-            if name.lower() in f"{user.firstname} {user.lastname}".lower():
-                results.append(user)
-        return results
+            if user.login == login and user.password == password:
+                return user
+        return None
