@@ -15,7 +15,7 @@ class Library:
         self.refresh_book_list()
 
     def setup_widgets(self):
-        self.frame = ttk.Frame(self.root, padding="450 450 450 450")
+        self.frame = ttk.Frame(self.root, padding="250 250 250 250")
         self.frame.pack(fill=tk.BOTH, expand=True)
 
         self.list = tk.Listbox(self.frame, width=50, height=20)
