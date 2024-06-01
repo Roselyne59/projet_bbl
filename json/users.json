@@ -1,0 +1,13 @@
+[
+    {
+        "firstname": "kadir",
+        "lastname": "kadir",
+        "birthdate": "5/01/20",
+        "login": "kadir",
+        "password": "Azertyuiop123456",
+        "email": "test@gmail.com",
+        "address": "chausse de fleurus, 12, 6000 Charleroi",
+        "is_admin": false,
+        "user_id": 0
+    }
+]
