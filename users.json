@@ -1,0 +1,24 @@
+[
+    {
+        "firstname": "kadir",
+        "lastname": "kiratli",
+        "birthdate": "15/02/1789",
+        "login": "kadir",
+        "password": "kadir",
+        "email": "kadir@gmail.com",
+        "address": "12 chuassee ",
+        "is_admin": false,
+        "user_id": 0
+    },
+    {
+        "firstname": "Djeri",
+        "lastname": "Rolande",
+        "birthdate": "15/09/2000",
+        "login": "Roselyne59",
+        "password": "Roselyne59",
+        "email": "roselinerolo@gmail.com",
+        "address": "Rue de Ransart, 6041 Gosselies",
+        "is_admin": false,
+        "user_id": 2
+    }
+]
