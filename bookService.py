@@ -4,7 +4,7 @@ import os
 from book import Book
 
 class BookService:
-    def __init__(self, json_file="books.json"):
+    def __init__(self, json_file="json/books.json"):
         self.json_file = json_file
         self.books = self.load_books()
         self.next_id = self.get_next_id()

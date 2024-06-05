@@ -1,4 +1,3 @@
-
 class User:
     user_number = 0
 
