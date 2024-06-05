@@ -108,7 +108,7 @@ class UserApp:
         self.last_name_entry = tk.Entry(self.form_window)
         self.last_name_entry.grid(row=2, column=1)
 
-        self.birthdate_label = tk.Label(self.form_window, text="Date de naissance:")
+        self.birthdate_label = tk.Label(self.form_window, text="Date de naissance:") #format date de naissance 
         self.birthdate_label.grid(row=3, column=0, sticky='w')
         self.birthdate_entry = tk.Entry(self.form_window)
         self.birthdate_entry.grid(row=3, column=1)
@@ -156,7 +156,7 @@ class UserApp:
         self.form_window.destroy()
 
            
- #   def update_listbox(self):
+    def update_listbox(self):
         self.listbox.delete(0, tk.END)
 
         for user in self.user_manager.users:
@@ -178,11 +178,11 @@ class UserApp:
             # Insert separator line after each user
             self.listbox.insert(tk.END, "------------------------------")
             self.listbox.itemconfig(tk.END, foreground="gray")     
-    def update_listbox(self):
-        self.listbox.delete(0, tk.END)
-        for user in self.user_manager.users:
-            self.listbox.insert(tk.END, "------------------------------")
-            self.listbox.insert(tk.END, f" {user.user_id} {user.firstname} {user.lastname} {user.birthdate} {user.email} {user.address} {user.is_admin}")
+    #def update_listbox(self):
+     #   self.listbox.delete(0, tk.END)
+      #  for user in self.user_manager.users:
+       #     self.listbox.insert(tk.END, "------------------------------")
+        #    self.listbox.insert(tk.END, f" {user.user_id} {user.firstname} {user.lastname} {user.birthdate} {user.email} {user.address} {user.is_admin}")
 
 
 if __name__ == "__main__":
