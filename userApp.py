@@ -3,14 +3,27 @@ import tkinter as tk
 from user import User
 from tkinter import messagebox
 from tkcalendar import DateEntry
-import json
-import os
 import re
 
 class UserApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Gestion des Utilisateurs")
+        # Main window dimension
+        window_width = 1080
+        window_height = 760
+
+        # Get screen dimension
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        
+        position_x = (screen_width // 2) - (window_width // 2)
+        position_y = (screen_height // 2) - (window_height // 2)
+
+        # Définir la géométrie de la fenêtre
+        self.root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
+                           
         self.user_manager = UserManager()
 
         self.listbox = tk.Listbox(self.root, width=150, height=30)
@@ -34,8 +47,7 @@ class UserApp:
         user_id = int(self.listbox.get(selected_user_index[0]).split(":")[1].strip())
         user = next((u for u in self.user_manager.users if u.user_id == user_id), None)
 
-        if user:
-            self.show_user_form(user)
+        self.show_user_form(user)
 
     def delete_user(self):
         selected_user_index = self.listbox.curselection()
@@ -50,7 +62,18 @@ class UserApp:
     def show_user_form(self, user=None):
         self.form_window = tk.Toplevel(self.root)
         self.form_window.title("Formulaire Utilisateur")
-        self.form_window.geometry("700x350")
+
+        window_width = 700
+        window_height = 350
+
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+
+        position_x = (screen_width // 2) - (window_width // 2)
+        position_y = (screen_height // 2) - (window_height // 2)
+
+        # User_form window geometry
+        self.form_window.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
 
         user_id = user.user_id if user else User.user_number
 
@@ -59,27 +82,29 @@ class UserApp:
         self.user_id_entry = tk.Entry(self.form_window, state='readonly', textvariable=tk.StringVar(self.form_window, value=str(user_id)))
         self.user_id_entry.grid(row=0, column=1)
 
+        validate_cmd = (self.form_window.register(self.validate_alphabetic), '%P')
+
         self.first_name_label = tk.Label(self.form_window, text="Nom:")
         self.first_name_label.grid(row=1, column=0, sticky='E')
-        self.first_name_entry = tk.Entry(self.form_window)
+        self.first_name_entry = tk.Entry(self.form_window, validate="key", validatecommand=validate_cmd)
         self.first_name_entry.grid(row=1, column=1)
         self.first_name_entry.insert(0, user.firstname if user else "")
         self.first_name_entry.focus_set()  # Default cursor on this field
 
         self.last_name_label = tk.Label(self.form_window, text="Prénom:")
         self.last_name_label.grid(row=2, column=0, sticky='E')
-        self.last_name_entry = tk.Entry(self.form_window)
+        self.last_name_entry = tk.Entry(self.form_window, validate="key", validatecommand=validate_cmd)
         self.last_name_entry.grid(row=2, column=1)
         self.last_name_entry.insert(0, user.lastname if user else "")
 
         self.birthdate_label = tk.Label(self.form_window, text="Date de naissance:") 
         self.birthdate_label.grid(row=3, column=0, sticky='E')
-        self.birthdate_entry = tk.Entry(self.form_window)
+        self.birthdate_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day', year=2000, month=1, day=1)
         self.birthdate_entry.grid(row=3, column=1)
-        self.birthdate_entry.insert(0, user.birthdate if user else "")
-        # Check date format
-        self.birthdate_entry.bind('<FocusOut>', self.check_date_format)  
-
+        self.birthdate_entry.configure(width=17)
+        if user:
+            self.birthdate_entry.set_date(user.birthdate)
+ 
         self.email_label = tk.Label(self.form_window, text="Email:")  
         self.email_label.grid(row=4, column=0, sticky='E')
         self.email_entry = tk.Entry(self.form_window)
@@ -104,9 +129,10 @@ class UserApp:
 
         self.password_label = tk.Label(self.form_window, text="Password:")
         self.password_label.grid(row=7, column=0, sticky='E')
-        self.password_entry = tk.Entry(self.form_window)
+        self.password_entry = tk.Entry(self.form_window, show="*")
         self.password_entry.grid(row=7, column=1)
         self.password_entry.insert(0, user.password if user else "")
+        self.password_entry.bind('<FocusOut>', self.check_password_format)
 
         self.is_admin_label = tk.Label(self.form_window, text="Admin :")
         self.is_admin_label.grid(row=8, column=0, sticky='E')
@@ -117,25 +143,46 @@ class UserApp:
 
         self.submit_button = tk.Button(self.form_window, text="Valider", command=lambda: self.save_user(user))
         self.submit_button.grid(row=9, column=0, columnspan=2)
-
+    
+    #Firstname and Lastename entry validation (allow only alphabetic, "-" and " ")
+    def validate_alphabetic(self, value_if_allowed):
+        if re.match("^[A-Za-zÀ-ÿ -]*$", value_if_allowed):
+            return True
+        else:
+            return False
+    #Email entry format validation
     def check_email_format(self, event):
         email = self.email_entry.get()
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             messagebox.showerror("Erreur", "Format de l'email invalide. Veuillez entrer un email valide.")
             self.email_entry.focus_set()
 
+    #check if login exists
     def check_login(self, event):
         current_login = self.login_entry.get()
         if self.user_manager.login_exists(current_login):
-            messagebox.showerror("Erreur", "Ce login existe déjà. Veuillez en choisir un autre.")
+            messagebox.showerror("Erreur", "Ce login existe déjà. Choisissez un autre.")
             self.login_entry.delete(0, tk.END)
+            self.login_entry.focus_set()
+            # Mettez à jour l'état du login
+            self.valid_login = False
+        else:
+            # If login valid
+            self.valid_login = True
+
+# Check password format
+    def check_password_format(self, event):
+        # Check login validation before password validation
+        if self.valid_login:
+            password = self.password_entry.get()
+            if not re.match(r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", password):
+                messagebox.showerror("Erreur", "Le mot de passe doit comporter au moins 8 caractères, "
+                                            "une majuscule, un chiffre et un caractère spécial.")
+                self.password_entry.focus_set()
+        else:
+            pass
     
-    def check_date_format(self, event):
-        date = self.birthdate_entry.get()
-        if not re.match(r"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[0-9]{4}$", date):
-            messagebox.showerror("Erreur", "Format de la date invalide. Veuillez entrer une date au format jj/mm/aaaa.")
-            self.birthdate_entry.focus_set()
- 
+    #Create new user, or modify existing
     def save_user(self, old_user=None):
         user_id = int(self.user_id_entry.get())
         first_name = self.first_name_entry.get()
