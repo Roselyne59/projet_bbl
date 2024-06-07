@@ -47,8 +47,7 @@ class UserApp:
         user_id = int(self.listbox.get(selected_user_index[0]).split(":")[1].strip())
         user = next((u for u in self.user_manager.users if u.user_id == user_id), None)
 
-        if user:
-            self.show_user_form(user)
+        self.show_user_form(user)
 
     def delete_user(self):
         selected_user_index = self.listbox.curselection()
@@ -130,9 +129,10 @@ class UserApp:
 
         self.password_label = tk.Label(self.form_window, text="Password:")
         self.password_label.grid(row=7, column=0, sticky='E')
-        self.password_entry = tk.Entry(self.form_window)
+        self.password_entry = tk.Entry(self.form_window, show="*")
         self.password_entry.grid(row=7, column=1)
         self.password_entry.insert(0, user.password if user else "")
+        self.password_entry.bind('<FocusOut>', self.check_password_format)
 
         self.is_admin_label = tk.Label(self.form_window, text="Admin :")
         self.is_admin_label.grid(row=8, column=0, sticky='E')
@@ -144,9 +144,9 @@ class UserApp:
         self.submit_button = tk.Button(self.form_window, text="Valider", command=lambda: self.save_user(user))
         self.submit_button.grid(row=9, column=0, columnspan=2)
     
-    #Firstname and Lastename entry validation (allow only alphabetic and "-")
+    #Firstname and Lastename entry validation (allow only alphabetic, "-" and " ")
     def validate_alphabetic(self, value_if_allowed):
-        if re.match("^[A-Za-zÀ-ÿ-]*$", value_if_allowed):
+        if re.match("^[A-Za-zÀ-ÿ -]*$", value_if_allowed):
             return True
         else:
             return False
@@ -156,12 +156,31 @@ class UserApp:
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             messagebox.showerror("Erreur", "Format de l'email invalide. Veuillez entrer un email valide.")
             self.email_entry.focus_set()
-    #Check if the login exists
+
+    #check if login exists
     def check_login(self, event):
         current_login = self.login_entry.get()
         if self.user_manager.login_exists(current_login):
-            messagebox.showerror("Erreur", "Ce login existe déjà. Veuillez en choisir un autre.")
+            messagebox.showerror("Erreur", "Ce login existe déjà. Choisissez un autre.")
             self.login_entry.delete(0, tk.END)
+            self.login_entry.focus_set()
+            # Mettez à jour l'état du login
+            self.valid_login = False
+        else:
+            # If login valid
+            self.valid_login = True
+
+# Check password format
+    def check_password_format(self, event):
+        # Check login validation before password validation
+        if self.valid_login:
+            password = self.password_entry.get()
+            if not re.match(r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", password):
+                messagebox.showerror("Erreur", "Le mot de passe doit comporter au moins 8 caractères, "
+                                            "une majuscule, un chiffre et un caractère spécial.")
+                self.password_entry.focus_set()
+        else:
+            pass
     
     #Create new user, or modify existing
     def save_user(self, old_user=None):
