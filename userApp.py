@@ -11,7 +11,7 @@ class UserApp:
         self.root.title("Gestion des Utilisateurs")
         # Main window dimension
         window_width = 1080
-        window_height = 760
+        window_height = 860
 
         # Get screen dimension
         screen_width = self.root.winfo_screenwidth()
@@ -21,23 +21,81 @@ class UserApp:
         position_x = (screen_width // 2) - (window_width // 2)
         position_y = (screen_height // 2) - (window_height // 2)
 
-        # Définir la géométrie de la fenêtre
+        # Window geometry
         self.root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
                            
         self.user_manager = UserManager()
 
+        #Search user by name
+        self.search_label = tk.Label(self.root, text="Recherche par nom")
+        self.search_label.pack(pady=10)
+        self.search_entry = tk.Entry(self.root)
+        self.search_entry.pack(pady=10)
+        self.search_button = tk.Button(self.root, text="Rechercher", command=self.search_user)
+        self.search_button.pack(pady=10)
+
         self.listbox = tk.Listbox(self.root, width=150, height=30)
         self.listbox.pack(pady=10)
 
-        self.add_button = tk.Button(self.root, text="Ajouter Utilisateur", command=self.show_user_form)
-        self.add_button.pack(pady=10)
-        self.modify_button = tk.Button(self.root, text="Modifier Utilisateur", command=self.modify_user_form)
-        self.modify_button.pack(pady=10)
-        self.delete_button = tk.Button(self.root, text="Supprimer Utilisateur", command=self.delete_user)
-        self.delete_button.pack(pady=10)
+        # Frame for aligning buttons horizontally
+        button_frame = tk.Frame(self.root)
+        button_frame.pack(pady=10)
+
+        # Add User button
+        self.add_button = tk.Button(button_frame, text="Ajouter Utilisateur", command=self.show_user_form)
+        self.add_button.pack(side=tk.LEFT, padx=10)
+
+        # Modify User button
+        self.modify_button = tk.Button(button_frame, text="Modifier Utilisateur", command=self.modify_user_form)
+        self.modify_button.pack(side=tk.LEFT, padx=10)
+
+        # Delete User button
+        self.delete_button = tk.Button(button_frame, text="Supprimer Utilisateur", command=self.delete_user)
+        self.delete_button.pack(side=tk.LEFT, padx=10)
 
         self.update_listbox()
+    
+    #Search user by firstname
+    def search_user(self):
+        search_term = self.search_entry.get().strip().lower()
+        filtered_users = [user for user in self.user_manager.users if search_term in user.firstname.lower()]
+        self.show_search_results(filtered_users)
+    
+    #Search Result in new window
+    def show_search_results(self, filtered_users):
+        search_window = tk.Toplevel(self.root)
+        search_window.title("Résultats de la recherche")
+        
+        window_width = 700
+        window_height = 400
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        position_x = (screen_width // 2) - (window_width // 2)
+        position_y = (screen_height // 2) - (window_height // 2)
+        
+        search_window.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
+        
+        search_listbox = tk.Listbox(search_window, width=150, height=30)
+        search_listbox.pack(pady=10)
+        
+        for user in filtered_users:
+            search_listbox.insert(tk.END, f"Numero : {user.user_id}")
+            user_info = [
+                f"Nom : {user.firstname}",
+                f"Prénom : {user.lastname}",
+                f"Date de naissance : {user.birthdate}",
+                f"Email : {user.email}",
+                f"Rue et Numero : {user.street}",
+                f"Code postale : {user.zip_code}",
+                f"Login : {user.login}",
+                f"Password : {user.password}",
+                f"Admin : {user.is_admin}"
+            ]
+            for item in user_info:
+                search_listbox.insert(tk.END, item)
+            search_listbox.insert(tk.END, "------------------------------")
 
+    #Update selected user
     def modify_user_form(self):
         selected_user_index = self.listbox.curselection()
         if not selected_user_index:
@@ -49,6 +107,7 @@ class UserApp:
 
         self.show_user_form(user)
 
+    #Delete selected user 
     def delete_user(self):
         selected_user_index = self.listbox.curselection()
         if not selected_user_index:
@@ -59,6 +118,7 @@ class UserApp:
         self.user_manager.remove_user(user_id)
         self.update_listbox()
 
+    #Add user or modify existing one
     def show_user_form(self, user=None):
         self.form_window = tk.Toplevel(self.root)
         self.form_window.title("Formulaire Utilisateur")
@@ -225,7 +285,7 @@ class UserApp:
         self.update_listbox()
         self.form_window.destroy()
 
-    def update_listbox(self):                   #mettre la vielle version pour eviter le bug de la selection du user à modifier ou à supprimer
+    def update_listbox(self):                  
         self.listbox.delete(0, tk.END)
         for user in self.user_manager.users:
             self.listbox.insert(tk.END, f"Numero : {user.user_id}")
