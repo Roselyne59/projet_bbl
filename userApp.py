@@ -9,14 +9,15 @@ class UserApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Gestion des Utilisateurs")
-        # Main window dimension
-        window_width = 1080
-        window_height = 860
-
+        
         # Get screen dimension
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-  
+
+        # Main window dimension (percentage of screen size)
+        window_width = int(screen_width * 0.8)
+        window_height = int(screen_height * 0.8)
+
         position_x = (screen_width // 2) - (window_width // 2)
         position_y = (screen_height // 2) - (window_height // 2)
 
@@ -33,7 +34,7 @@ class UserApp:
         self.search_button = tk.Button(self.root, text="Rechercher", command=self.search_user)
         self.search_button.pack(pady=10)
 
-        self.listbox = tk.Listbox(self.root, width=150, height=30)
+        self.listbox = tk.Listbox(self.root, width=150, height=20)
         self.listbox.pack(pady=10)
 
         # Frame for aligning buttons horizontally
