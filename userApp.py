@@ -113,36 +113,44 @@ class UserApp:
         # Check email format
         self.email_entry.bind('<FocusOut>', self.check_email_format)  
 
-        self.address_label = tk.Label(self.form_window, text="Adresse:") 
-        self.address_label.grid(row=5, column=0, sticky='E')
-        self.address_entry = tk.Entry(self.form_window)
-        self.address_entry.grid(row=5, column=1)
-        self.address_entry.insert(0, user.address if user else "")
+        validate_street_cmd = (self.form_window.register(self.validate_street), '%P')
+
+        self.street_label = tk.Label(self.form_window, text="Rue et Numéro: ") 
+        self.street_label.grid(row=5, column=0, sticky='E')
+        self.street_entry = tk.Entry(self.form_window, validate="key", validatecommand=validate_street_cmd)
+        self.street_entry.grid(row=5, column=1)
+        self.street_entry.insert(0, user.street if user else "")
+
+        self.zip_code_label = tk.Label(self.form_window, text="Code postal :") 
+        self.zip_code_label.grid(row=6, column=0, sticky='E')
+        self.zip_code_entry = tk.Entry(self.form_window)
+        self.zip_code_entry.grid(row=6, column=1)
+        self.zip_code_entry.insert(0, user.zip_code if user else "")
 
         self.login_label = tk.Label(self.form_window, text="Login:")
-        self.login_label.grid(row=6, column=0, sticky='E')
+        self.login_label.grid(row=7, column=0, sticky='E')
         self.login_entry = tk.Entry(self.form_window)
-        self.login_entry.grid(row=6, column=1)
+        self.login_entry.grid(row=7, column=1)
         self.login_entry.insert(0, user.login if user else "")
         #Check login format
         self.login_entry.bind('<FocusOut>', self.check_login)
 
         self.password_label = tk.Label(self.form_window, text="Password:")
-        self.password_label.grid(row=7, column=0, sticky='E')
+        self.password_label.grid(row=8, column=0, sticky='E')
         self.password_entry = tk.Entry(self.form_window, show="*")
-        self.password_entry.grid(row=7, column=1)
+        self.password_entry.grid(row=8, column=1)
         self.password_entry.insert(0, user.password if user else "")
         self.password_entry.bind('<FocusOut>', self.check_password_format)
 
         self.is_admin_label = tk.Label(self.form_window, text="Admin :")
-        self.is_admin_label.grid(row=8, column=0, sticky='E')
+        self.is_admin_label.grid(row=9, column=0, sticky='E')
         self.is_admin_var = tk.BooleanVar()
         self.is_admin_var.set(user.is_admin if user else False)
         self.is_admin_checkbutton = tk.Checkbutton(self.form_window, text="Oui", variable=self.is_admin_var)
-        self.is_admin_checkbutton.grid(row=8, column=1)
+        self.is_admin_checkbutton.grid(row=9, column=1)
 
         self.submit_button = tk.Button(self.form_window, text="Valider", command=lambda: self.save_user(user))
-        self.submit_button.grid(row=9, column=0, columnspan=2)
+        self.submit_button.grid(row=10, column=0, columnspan=2)
     
     #Firstname and Lastename entry validation (allow only alphabetic, "-" and " ")
     def validate_alphabetic(self, value_if_allowed):
@@ -150,12 +158,20 @@ class UserApp:
             return True
         else:
             return False
+        
     #Email entry format validation
     def check_email_format(self, event):
         email = self.email_entry.get()
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             messagebox.showerror("Erreur", "Format de l'email invalide. Veuillez entrer un email valide.")
             self.email_entry.focus_set()
+    
+    #Street and number entry validation (allow only alphabetic, "-" and " " and digits)
+    def validate_street(self, value_if_allowed):
+        if re.match("^[A-Za-zÀ-ÿ0-9 -]*$", value_if_allowed):
+            return True
+        else:
+            return False
 
     #check if login exists
     def check_login(self, event):
@@ -170,7 +186,7 @@ class UserApp:
             # If login valid
             self.valid_login = True
 
-# Check password format
+    # Check password format
     def check_password_format(self, event):
         # Check login validation before password validation
         if self.valid_login:
@@ -181,7 +197,7 @@ class UserApp:
                 self.password_entry.focus_set()
         else:
             pass
-    
+
     #Create new user, or modify existing
     def save_user(self, old_user=None):
         user_id = int(self.user_id_entry.get())
@@ -189,16 +205,17 @@ class UserApp:
         last_name = self.last_name_entry.get()
         birthdate = self.birthdate_entry.get()
         email = self.email_entry.get()
-        address = self.address_entry.get()
+        street = self.street_entry.get()
+        zip_code = self.zip_code_entry.get()
         login = self.login_entry.get()
         password = self.password_entry.get()
         is_admin = self.is_admin_var.get()
 
-        if not all([first_name, last_name, birthdate, email, address, login, password]):
+        if not all([first_name, last_name, birthdate, email, street , zip_code, login, password]):
             messagebox.showwarning("Attention", "Tous les champs doivent être remplis.")
             return
 
-        new_user = User(user_id, first_name, last_name, birthdate, email, address, login, password, is_admin)
+        new_user = User(user_id, first_name, last_name, birthdate, email, street, zip_code, login, password, is_admin)
 
         if old_user:
             self.user_manager.update_user(new_user)
@@ -217,7 +234,8 @@ class UserApp:
                 f"Prénom : {user.lastname}",
                 f"Date de naissance : {user.birthdate}",
                 f"Email : {user.email}",
-                f"Adresse : {user.address}",
+                f"Rue et Numero : {user.street}",
+                f"Code postale : {user.zip_code}",
                 f"Login : {user.login}",
                 f"Password : {user.password}",
                 f"Admin : {user.is_admin}"
