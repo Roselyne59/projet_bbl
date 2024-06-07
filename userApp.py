@@ -16,8 +16,7 @@ class UserApp:
         # Get screen dimension
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-
-        
+  
         position_x = (screen_width // 2) - (window_width // 2)
         position_y = (screen_height // 2) - (window_height // 2)
 
@@ -41,15 +40,12 @@ class UserApp:
         button_frame = tk.Frame(self.root)
         button_frame.pack(pady=10)
 
-        # Add User button
         self.add_button = tk.Button(button_frame, text="Ajouter Utilisateur", command=self.show_user_form)
         self.add_button.pack(side=tk.LEFT, padx=10)
 
-        # Modify User button
         self.modify_button = tk.Button(button_frame, text="Modifier Utilisateur", command=self.modify_user_form)
         self.modify_button.pack(side=tk.LEFT, padx=10)
 
-        # Delete User button
         self.delete_button = tk.Button(button_frame, text="Supprimer Utilisateur", command=self.delete_user)
         self.delete_button.pack(side=tk.LEFT, padx=10)
 
