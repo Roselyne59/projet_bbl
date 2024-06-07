@@ -1,22 +1,42 @@
 class User:
-    user_number = 0
+    user_number = 1
 
-    def __init__(self, firstname, lastname, birthdate, login, password, email, address, is_admin=False, user_id=None):
+    def __init__(self, user_id, firstname, lastname, birthdate, email, address, login, password, is_admin=False):
+        self.user_id = user_id
         self.firstname = firstname
         self.lastname = lastname
         self.birthdate = birthdate
-        self.login = login
-        self.password = password
         self.email = email
         self.address = address
+        self.login = login
+        self.password = password
         self.is_admin = is_admin
-        if user_id is None:
-            self.user_id = User.user_number
-            User.user_number += 1
-        else:
-            self.user_id = user_id
-            User.user_number = max(User.user_number, user_id + 1)
+        if user_id >= User.user_number:
+            User.user_number = user_id + 1
 
-    def __str__(self):
-        user_type = "Admin" if self.is_admin else "Regular User"
-        return f"{user_type}: {self.firstname} {self.lastname} (ID: {self.user_id})"
+    def to_dict(self):
+        return {
+            "user_id": self.user_id,
+            "nom": self.firstname,
+            "prenom": self.lastname,
+            "date_de_naissance": self.birthdate,
+            "email": self.email,
+            "adresse": self.address,
+            "login": self.login,
+            "password": self.password,
+            "is_admin": self.is_admin
+        }
+
+    @staticmethod
+    def from_dict(data):
+        return User(
+            data["user_id"],
+            data["nom"],
+            data["prenom"],
+            data["date_de_naissance"],
+            data["email"],
+            data["adresse"],
+            data["login"],
+            data["password"],
+            data.get("is_admin", False)
+        )
