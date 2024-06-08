@@ -8,7 +8,7 @@ import os
 from library import Library
 from user import User
 from userService import UserService
-from bookService import BookService
+from bookManager import BookService
 
 class Register:
     def __init__(self, root, userService, bookService, is_admin=False):

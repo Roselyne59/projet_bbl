@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
-from bookService import BookService
-from userService import UserService
+from bookManager import BookManager
+from userManager import UserManager
 from book import Book
 
 class Library:

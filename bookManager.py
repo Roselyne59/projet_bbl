@@ -3,7 +3,7 @@ import json
 import os
 from book import Book
 
-class BookService:
+class BookManager:
     def __init__(self, json_file="json/books.json"):
         self.json_file = json_file
         self.books = self.load_books()
@@ -20,6 +20,11 @@ class BookService:
         books_data = [{**vars(book), "id": book.id} for book in self.books]
         with open(self.json_file, 'w') as file:
             json.dump(books_data, file, indent=4)
+
+    def load_genres(self):
+        json_file = os.path.join(os.path.dirname(__file__), 'json', 'genres.json')
+        with open(json_file, 'r') as file :
+            self.genres_data = json_file((file))
 
     def add_book(self, book):
         if book.id is None:
@@ -40,3 +45,4 @@ class BookService:
             return 0
         max_id = max(book.id for book in self.books)
         return max_id + 1
+    
