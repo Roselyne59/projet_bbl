@@ -3,7 +3,7 @@ import json
 class Book:
     book_number = 1
 
-    with open('genres.json', 'r') as file:
+    with open('json/genres.json', 'r') as file:
         all_genres = json.load(file)
 
     def __init__(self, book_id,title, authors, publication_year, isbn, editor, collections, genres):
