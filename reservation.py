@@ -1,46 +1,20 @@
-from user import User  # Import de la classe User
-from book import Book  # Import de la classe Book
-import datetime  # Import du module datetime pour la gestion des dates
+# reservation.py
+
+from datetime import datetime
 
 class Reservation:
-    def __init__(self, user, book, reservation_date=None):
+    def __init__(self, book_id, user_login, reservation_date=None):
         """
-        Initialise une réservation avec un utilisateur, un livre et une date de réservation (optionnelle).
+        Initialise une réservation de livre.
+        
+        :param book_id: Identifiant du livre réservé.
+        :param user_login: Login de l'utilisateur qui a réservé le livre.
+        :param reservation_date: Date de la réservation (par défaut à la date actuelle).
+        """
+        self.book_id = book_id
+        self.user_login = user_login
+        self.reservation_date = reservation_date if reservation_date else datetime.now()
 
-        Args:
-            user (User): L'utilisateur effectuant la réservation.
-            book (Book): Le livre réservé.
-            reservation_date (datetime.date, optionnel): La date de la réservation. Si non spécifié, la date actuelle est utilisée.
-        """
-        self.user = user
-        self.book = book
-        self.reservation_date = reservation_date or datetime.date.today()
-        self.cancelled = False  # Indique si la réservation a été annulée
-
-    def cancel(self):
-        """
-        Annule la réservation du livre.
-        """
-        if not self.cancelled:
-            self.cancelled = True
-            print(f"La réservation du livre '{self.book.title}' par l'utilisateur '{self.user.firstname} {self.user.lastname}' a été annulée.")
-        else:
-            print("La réservation a déjà été annulée.")
-
-    def update_reservation_date(self, new_date):
-        """
-        Met à jour la date de réservation.
-
-        Args:
-            new_date (datetime.date): La nouvelle date de réservation.
-        """
-        self.reservation_date = new_date
-        print(f"La date de réservation du livre '{self.book.title}' par l'utilisateur '{self.user.firstname} {self.user.lastname}' a été mise à jour.")
-
-    def delete(self):
-        """
-        Supprime la réservation.
-        """
-        print(f"La réservation du livre '{self.book.title}' par l'utilisateur '{self.user.firstname} {self.user.lastname}' a été supprimée.")
-        del self
-
+    def __repr__(self):
+        return (f"Reservation(book_id={self.book_id}, user_login={self.user_login}, "
+                f"reservation_date={self.reservation_date})")
