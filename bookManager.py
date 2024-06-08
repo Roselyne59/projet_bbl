@@ -1,4 +1,3 @@
-
 import json
 import os
 from book import Book
@@ -13,13 +12,11 @@ class BookManager:
         if not os.path.exists(self.json_file):
             return []
         with open(self.json_file, 'r') as file:
-            books_data = json.load(file)
-            return [Book(**data) for data in books_data]
+            return [Book.from_dict(book) for book in json.load(file)]
 
     def save_books(self):
-        books_data = [{**vars(book), "id": book.id} for book in self.books]
         with open(self.json_file, 'w') as file:
-            json.dump(books_data, file, indent=4)
+            json.dump([book.to_dict() for book in self.books], file, indent=4)
 
     def load_genres(self):
         json_file = os.path.join(os.path.dirname(__file__), 'json', 'genres.json')
@@ -27,22 +24,21 @@ class BookManager:
             self.genres_data = json_file((file))
 
     def add_book(self, book):
-        if book.id is None:
-            book.id = self.next_id
-            self.next_id += 1
         self.books.append(book)
         self.save_books()
 
-    def remove_book(self, book):
-        self.books = [b for b in self.books if b.id != book.id]
+    def remove_book(self, book_id):
+        self.books = [b for b in self.books if b.book_id != book_id]
         self.save_books()
 
-    def find_book_by_title(self, title):
-        return next((book for book in self.books if book.title == title), None)
+    def update_user(self, edit_book):
+        for i, book in enumerate(self.books):
+            if book.book_id == edit_book.book_id:
+                self.books[i] = edit_book
+                self.save_books()
+                return
 
-    def get_next_id(self):
-        if not self.books:
-            return 0
-        max_id = max(book.id for book in self.books)
-        return max_id + 1
+#    def find_book_by_title(self, title):
+#        return next((book for book in self.books if book.title == title), None)
+
     
