@@ -1,13 +1,21 @@
-
 import json
 from user import User
+from book import Book
 from userApp import UserApp
+from bookApp import BookApp
 from userManager import UserManager
+from bookManager import BookManager
 import tkinter as tk
 
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = UserApp(root)
-    user_manager = UserManager() 
-    root.mainloop()
+    root_user = tk.Tk()
+    root_book = tk.Tk()
+
+    user_manager = UserManager()
+    book_manager = BookManager()
+    user_app = UserApp(root_user)
+    book_app = BookApp(root_book, book_manager)
+
+    root_user.mainloop()
+    root_book.mainloop()
