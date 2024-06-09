@@ -5,7 +5,7 @@ from user import User
 
 #It takes an optional parameter, default :json_file
 class UserManager:
-    def __init__(self, json_file="users.json"):
+    def __init__(self, json_file="json/users.json"):
         self.json_file = json_file
         self.users = self.load_data()
 
