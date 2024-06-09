@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from userManager import UserManager
+from memberHomePage import MemberHomePage
+from adminHomePage import AdminHomePage
 import json
 #from library import Library
 
@@ -11,6 +13,8 @@ class LoginApp:
         self.root.title("Connexion")
 
         self.user_manager = UserManager()
+
+        self.user_app = None
         
         self.login_page()
 
@@ -47,30 +51,16 @@ class LoginApp:
         with open('users.json', 'r') as file:
             users = json.load(file)
 
-        # Check login credentials
+        # Check login and password and redirect to corresponding page
         for user in users:
             if user['login'] == login and user['password'] == password:
                 if user['is_admin']:
-                    self.admin_home_page()
+                    self.user_app = AdminHomePage (self.root)
                 else:
-                    self.member_home_page()
+                    self.user_app = MemberHomePage (self.root)
                 return
         
         messagebox.showerror("Erreur", "Login ou mot de passe incorrect.")
-
-    def admin_home_page(self):
-        self.clear_screen()
-        self.root.title("Interface Admin")
-
-        # Add the rest of your admin interface code here
-        # For example, you can call self.main_interface() if it is the same as admin interface
-
-    def member_home_page(self):
-        self.clear_screen()
-        self.root.title("Interface Utilisateur")
-
-        # Add the rest of your user interface code here
-        # For example, you can call self.main_interface() if it is the same as user interface
 
     def clear_screen(self):
         for widget in self.root.winfo_children():
@@ -78,8 +68,8 @@ class LoginApp:
 
     
 
-#if __name__ == "__main__":
- #   root = tk.Tk()
-  #  app = LoginApp(root)
-   #"" root.mainloop()
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = LoginApp(root)
+    root.mainloop()
 
