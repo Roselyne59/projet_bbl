@@ -1,24 +1,74 @@
 [
     {
-        "firstname": "kadir",
-        "lastname": "kadir",
-        "birthdate": "5/01/20",
-        "login": "kadir",
-        "password": "Azertyuiop123456",
-        "email": "test@gmail.com",
-        "address": "chausse de fleurus, 12, 6000 Charleroi",
-        "is_admin": false,
-        "user_id": 0
+        "user_id": 1,
+        "nom": "ASLOUN",
+        "prenom": "Farid",
+        "date_de_naissance": "01/10/1980",
+        "email": "admin@gmail.com",
+        "rue": "Rue du campus 1",
+        "code_postal": "6000 Charleroi",
+        "login": "admin",
+        "password": "Admin22/*",
+        "is_admin": true
     },
     {
-        "firstname": "nehemie",
-        "lastname": "nehemie",
-        "birthdate": "18/06/99",
-        "login": "nehemie",
-        "password": "Qwertyuiop123",
-        "email": "n@fre.fr",
-        "address": "chaussee de fleurs, 12, 6000 Charleroi",
-        "is_admin": false,
-        "user_id": 1
+        "user_id": 2,
+        "nom": "ASLOUNOOO",
+        "prenom": "Farid",
+        "date_de_naissance": "01/10/1980",
+        "email": "admin@gmail.com",
+        "rue": "Rue du campus 1",
+        "code_postal": "6000 Charleroi",
+        "login": "admin",
+        "password": "Admin22/*",
+        "is_admin": false
+    },
+    {
+        "user_id": 3,
+        "nom": "DOP",
+        "prenom": "Farid",
+        "date_de_naissance": "01/10/1980",
+        "email": "admin@gmail.com",
+        "rue": "Rue du campus 1",
+        "code_postal": "6000 Charleroi",
+        "login": "admin",
+        "password": "Admin22/*",
+        "is_admin": false
+    },
+    {
+        "user_id": 4,
+        "nom": "FOUFOU",
+        "prenom": "Farida",
+        "date_de_naissance": "01/10/1980",
+        "email": "admin@gmail.com",
+        "rue": "Rue du campus 1",
+        "code_postal": "6000 Charleroi",
+        "login": "admin",
+        "password": "Admin22/*",
+        "is_admin": false
+    },
+    {
+        "user_id": 5,
+        "nom": "asl",
+        "prenom": "Farid",
+        "date_de_naissance": "01/10/1980",
+        "email": "admin@gmail.com",
+        "rue": "Rue du campus 1",
+        "code_postal": "6000 Charleroi",
+        "login": "dmin22",
+        "password": "Admin22/*",
+        "is_admin": false
+    },
+    {
+        "user_id": 6,
+        "nom": "TEST",
+        "prenom": "Test",
+        "date_de_naissance": "01/01/2000",
+        "email": "TEST@GMAIL.COM",
+        "rue": "EDGFRDRG 150",
+        "code_postal": "6060 Gilly",
+        "login": "test",
+        "password": "Test22/*",
+        "is_admin": false
     }
 ]

@@ -1,13 +1,14 @@
 class User:
     user_number = 1
 
-    def __init__(self, user_id, firstname, lastname, birthdate, email, address, login, password, is_admin=False):
+    def __init__(self, user_id, firstname, lastname, birthdate, email, street, zip_code, login, password, is_admin=False):
         self.user_id = user_id
         self.firstname = firstname
         self.lastname = lastname
         self.birthdate = birthdate
         self.email = email
-        self.address = address
+        self.street = street
+        self.zip_code= zip_code
         self.login = login
         self.password = password
         self.is_admin = is_admin
@@ -21,7 +22,8 @@ class User:
             "prenom": self.lastname,
             "date_de_naissance": self.birthdate,
             "email": self.email,
-            "adresse": self.address,
+            "rue": self.street,
+            "code_postal": self.zip_code,
             "login": self.login,
             "password": self.password,
             "is_admin": self.is_admin
@@ -35,7 +37,8 @@ class User:
             data["prenom"],
             data["date_de_naissance"],
             data["email"],
-            data["adresse"],
+            data["rue"],
+            data["code_postal"],
             data["login"],
             data["password"],
             data.get("is_admin", False)
