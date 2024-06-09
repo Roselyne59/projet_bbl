@@ -1,13 +1,12 @@
 import json
 import os
 from book import Book
-from wishlist import Wishlist
+
 
 class BookManager:
     def __init__(self, json_file="json/books.json"):
         self.json_file = json_file
         self.books = self.load_books()
-        self.wishlist = Wishlist()
 
     def load_books(self):
         if not os.path.exists(self.json_file):
@@ -42,13 +41,6 @@ class BookManager:
 #    def find_book_by_title(self, title):
 #        return next((book for book in self.books if book.title == title), None)
 
-    def add_book_to_wishlist(self, book):
-        self.wishlist.add_book(book)
-
-    def remove_book_from_wishlist(self, book_id):
-        self.wishlist.remove_book(book_id)
-
-    def get_wishlist(self):
-        return self.wishlist.books
+    
 
     
