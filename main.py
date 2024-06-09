@@ -15,7 +15,7 @@ if __name__ == "__main__":
     user_manager = UserManager()
     book_manager = BookManager()
     user_app = UserApp(root_user)
-    book_app = BookApp(root_book, book_manager)
+    book_app = BookApp(root_book)
 
     root_user.mainloop()
     root_book.mainloop()
