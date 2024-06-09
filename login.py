@@ -4,7 +4,6 @@ from userManager import UserManager
 from memberHomePage import MemberHomePage
 from adminHomePage import AdminHomePage
 import json
-#from library import Library
 
 
 class LoginApp:
@@ -24,7 +23,7 @@ class LoginApp:
         login_frame = tk.Frame(self.root)
         login_frame.grid(row=0, column=0, sticky="nsew")
 
-        # Configure rows and columns of the frame to be resizable
+
         for i in range(3):
             login_frame.rowconfigure(i, weight=1)
         login_frame.columnconfigure(0, weight=1)
@@ -48,16 +47,16 @@ class LoginApp:
         password = self.password_entry.get()
 
         # Load users from JSON
-        with open('users.json', 'r') as file:
+        with open('json/users.json', 'r') as file:
             users = json.load(file)
 
-        # Check login and password and redirect to corresponding page
+        # Check login and password and redirect to corresponding page (admin or member)
         for user in users:
             if user['login'] == login and user['password'] == password:
                 if user['is_admin']:
-                    self.user_app = AdminHomePage (self.root)
+                    self.user_app = AdminHomePage (self.root, user['nom'], user['prenom'] )
                 else:
-                    self.user_app = MemberHomePage (self.root)
+                    self.user_app = MemberHomePage (self.root, user['nom'], user['prenom'])
                 return
         
         messagebox.showerror("Erreur", "Login ou mot de passe incorrect.")
