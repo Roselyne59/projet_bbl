@@ -1,28 +1,24 @@
-from user import User  # Import de la classe User
-from book import Book  # Import de la classe Book
-import datetime  # Import du module datetime pour la gestion des dates
+# borrow.py
+
+from datetime import datetime
 
 class Borrow:
-    def __init__(self, user, book, borrow_date=None):
+    def __init__(self, book_id, user_login, borrow_date=None, return_date=None):
         """
-        Initialise un emprunt avec un utilisateur, un livre et une date d'emprunt (optionnelle).
+        Initialise un emprunt avec l'ID du livre, le login de l'utilisateur,
+        la date d'emprunt, et éventuellement la date de retour.
+        """
+        self.book_id = book_id
+        self.user_login = user_login
+        self.borrow_date = borrow_date if borrow_date else datetime.now()
+        self.return_date = return_date
 
-        Args:
-            user (User): L'utilisateur qui emprunte le livre.
-            book (Book): Le livre emprunté.
-            borrow_date (datetime.date, optionnel): La date d'emprunt. Si non spécifiée, la date actuelle est utilisée.
+    def __str__(self):
         """
-        self.user = user
-        self.book = book
-        self.borrow_date = borrow_date or datetime.date.today()
-        self.returned = False  # Indique si le livre a été retourné
+        Fournit une représentation détaillée de l'objet Borrow,
+        utile pour le débogage et l'inspection.
+        """
+        return (f"Borrow(book_id={self.book_id}, user_login={self.user_login}, "
+                f"borrow_date={self.borrow_date}, return_date={self.return_date})")
 
-    def return_book(self):
-        """
-        Marque le livre comme retourné.
-        """
-        if not self.returned:
-            self.returned = True
-            print(f"Le livre '{self.book.title}' a été retourné par l'utilisateur '{self.user.firstname} {self.user.lastname}'.")
-        else:
-            print("Le livre a déjà été retourné.")
+
