@@ -1,14 +1,19 @@
 import tkinter as tk
 
 class MemberHomePage:
-    def __init__(self, root):
+    def __init__(self, root, nom, prenom):
         self.root = root
         self.clear_screen()
         self.root.title("Espace Membre")
 
-        # Add the rest of your user interface code here
-        # For example, you can call self.main_interface() if it is the same as user interface
+        self.welcome_message(nom, prenom)
 
+        
     def clear_screen(self):
         for widget in self.root.winfo_children():
             widget.destroy()
+    
+    def welcome_message(self, nom, prenom):
+        welcome_message= f"Bienvenue {nom} {prenom}"
+        welcome_label = tk.Label(self.root, text = welcome_message, font=('helvetica', 16, 'bold'), fg='red')
+        welcome_label.pack(pady=20)
