@@ -1,24 +1,31 @@
-# borrow.py
-
-from datetime import datetime
-
 class Borrow:
-    def __init__(self, book_id, user_login, borrow_date=None, return_date=None):
-        """
-        Initialise un emprunt avec l'ID du livre, le login de l'utilisateur,
-        la date d'emprunt, et éventuellement la date de retour.
-        """
+    def __init__(self, borrow_id, user_id, book_id, start_date, return_date, is_approved=False):
+        self.borrow_id = borrow_id
+        self.user_id = user_id
         self.book_id = book_id
-        self.user_login = user_login
-        self.borrow_date = borrow_date if borrow_date else datetime.now()
-        self.return_date = return_date
+        self.start_date = start_date
+        self.due_date = return_date
+        self.is_approved = is_approved
 
-    def __str__(self):
-        """
-        Fournit une représentation détaillée de l'objet Borrow,
-        utile pour le débogage et l'inspection.
-        """
-        return (f"Borrow(book_id={self.book_id}, user_login={self.user_login}, "
-                f"borrow_date={self.borrow_date}, return_date={self.return_date})")
+    def to_dict(self):
+        return {
+            "borrow_id": self.borrow_id,
+            "user_id": self.user_id,
+            "book_id": self.book_id,
+            "start_date": self.start_date,
+            "due_date": self.due_date,
+            "is_approved": self.is_approved
+        }
+
+    @staticmethod
+    def from_dict(data):
+        return Borrow(
+            data["borrow_id"],
+            data["user_id"],
+            data["book_id"],
+            data["start_date"],
+            data["due_date"],
+            data.get("is_approved", False)
+        )
 
 
