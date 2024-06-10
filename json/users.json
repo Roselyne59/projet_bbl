@@ -70,5 +70,17 @@
         "login": "test",
         "password": "Test22/*",
         "is_admin": false
+    },
+    {
+        "user_id": 7,
+        "nom": "LA STAR",
+        "prenom": "Des stars",
+        "date_de_naissance": "22/02/1988",
+        "email": "star@gmail.com",
+        "rue": "Rue du paradis123",
+        "code_postal": "6040 Jumet",
+        "login": "star",
+        "password": "Star22/*",
+        "is_admin": false
     }
 ]

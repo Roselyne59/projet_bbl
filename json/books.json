@@ -1,1 +1,19 @@
-[]
+[
+    {
+        "book_id": 1,
+        "titre": "SMskdjgsl",
+        "auteurs": [
+            "lskejfjhqzk"
+        ],
+        "année de publication": 1987,
+        "isbn": 2391847293857,
+        "éditeur": "FARID",
+        "collection": [
+            " GOLD"
+        ],
+        "genres": [
+            "Biographie/Autobiographie",
+            "Comédie"
+        ]
+    }
+]
