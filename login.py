@@ -16,7 +16,7 @@ class LoginApp:
         self.user_app = None
         
         self.login_page()
-
+    
     def login_page(self):
         self.clear_screen()
 
