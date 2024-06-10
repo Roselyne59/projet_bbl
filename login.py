@@ -1,10 +1,9 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import messagebox
 from userManager import UserManager
 from memberHomePage import MemberHomePage
 from adminHomePage import AdminHomePage
 import json
-
 
 class LoginApp:
     def __init__(self, root):
@@ -16,7 +15,7 @@ class LoginApp:
         self.user_app = None
         
         self.login_page()
-
+    
     def login_page(self):
         self.clear_screen()
 
@@ -64,11 +63,5 @@ class LoginApp:
     def clear_screen(self):
         for widget in self.root.winfo_children():
             widget.destroy()
-
-    
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = LoginApp(root)
-    root.mainloop()
+ 
 
