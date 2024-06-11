@@ -204,8 +204,3 @@ class ShelfApp:
                 for book in shelf.books:
                     self.list.insert(tk.END, f" - {book.title} by {', '.join(book.authors)}")
             self.list.insert(tk.END, "-------------------")
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = ShelfApp(root)
-    root.mainloop()
