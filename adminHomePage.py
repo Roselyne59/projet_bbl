@@ -2,6 +2,7 @@ import tkinter as tk
 from memberHomePage import MemberHomePage
 from userApp import UserApp
 from bookApp import BookApp
+from shelfApp import ShelfApp
 
 
 class AdminHomePage(MemberHomePage):
@@ -26,7 +27,7 @@ class AdminHomePage(MemberHomePage):
         self.user_button = tk.Button(button_frame, text="Livres", width=20, height=2, font=('Helvetica', 10, 'bold'), command= self.open_book_app)
         self.user_button.grid(row=0, column=1, padx=20, pady=20)
 
-        self.user_button = tk.Button(button_frame, text="Etagères", width=20, height=2, font=('Helvetica', 10, 'bold'), command= self.open_book_app)
+        self.user_button = tk.Button(button_frame, text="Etagères", width=20, height=2, font=('Helvetica', 10, 'bold'), command= self.open_shelf_app)
         self.user_button.grid(row=0, column=2, padx=20, pady=20)
 
         self.user_button = tk.Button(button_frame, text="Reservation", width=20, height=2, font=('Helvetica', 10, 'bold'), command= self.open_user_app)
@@ -42,6 +43,10 @@ class AdminHomePage(MemberHomePage):
     def open_book_app(self):
         user_window= tk.Tk()
         BookApp(user_window)
+
+    def open_shelf_app(self):
+        user_window= tk.Tk()
+        ShelfApp(user_window)
         
        
 
