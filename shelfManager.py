@@ -37,7 +37,7 @@ class ShelfManager:
     def add_book_to_shelf(self, shelf_number, book):
         for shelf in self.shelves:
             if shelf.number == shelf_number:
-                shelf.books.append(book.to_dict())
+                shelf.books.append(book)
                 self.save_shelves()
                 return
         raise ValueError("Etagère introuvable...")
@@ -45,7 +45,7 @@ class ShelfManager:
     def remove_book_from_shelf(self, shelf_number, book_id):
         for shelf in self.shelves:
             if shelf.number == shelf_number :
-                shelf.books = [book for book in shelf.books if book["book_id"] != book_id]
+                shelf.books = [book for book in shelf.books if book.book_id != book_id]
                 self.save_shelves()
                 return
         raise ValueError("Etagère introuvable...")

@@ -169,22 +169,18 @@ class ShelfApp:
         position_y = (screen_height // 2) - (wind_height // 2)
         self.book_wind.geometry(f"{wind_width}x{wind_height}+{position_x}+{position_y}")
 
-        self.book_id_label = tk.Label(self.book_wind, text="ID du libre : ")
-        self.book_id_label.grid(row=0, column=0, sticky='E')
-        self.book_id_entry = tk.Entry(self.book_wind)
-        self.book_id_entry.grid(row=0, column=1)
-        self.book_id_entry.focus_set()
+        self.book_title_label = tk.Label(self.book_wind, text="Titre : ")
+        self.book_title_label.grid(row=0, column=0, sticky='E')
+        self.book_title_entry = tk.Entry(self.book_wind)
+        self.book_title_entry.grid(row=0, column=1)
+        self.book_title_entry.focus_set()
 
         self.book_submit_button = tk.Button(self.book_wind, text="Valider", command=lambda: self.save_book_to_shelf(shelf_number))
         self.book_submit_button.grid(row=1, column=0, columnspan=2)
 
     def save_book_to_shelf(self, shelf_number):
-        book_id = self.book_id_entry.get()
-        if not book_id.isdigit():
-            messagebox.showwarning("L'ID du livre doit être un nombre.")
-            return
-        book_id = int(book_id)
-        book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
+        title = self.book_title_entry.get()
+        book = next((b for b in self.book_manager.books if b.title.lower() == title.lower()), None)
         if not book:
             messagebox.showwarning("Livre introuvable.")
             return

@@ -2,11 +2,30 @@
     {
         "shelf_id": 1,
         "number": 1,
-        "letter": "A"
+        "letter": "A",
+        "books": []
     },
     {
         "shelf_id": 2,
         "number": 2,
-        "letter": "A"
+        "letter": "A",
+        "books": [
+            {
+                "book_id": 2,
+                "titre": "Twisted Love",
+                "auteurs": [
+                    "Ana Huang"
+                ],
+                "année de publication": 2022,
+                "isbn": 9782755670356,
+                "éditeur": "Hugo Publishing",
+                "collection": [
+                    "Hugo Roman"
+                ],
+                "genres": [
+                    "Romance"
+                ]
+            }
+        ]
     }
 ]
