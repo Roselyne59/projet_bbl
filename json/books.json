@@ -1,19 +1,34 @@
 [
     {
         "book_id": 1,
-        "titre": "SMskdjgsl",
+        "titre": "Harry Potter et le prisonnier d'Azkaban",
         "auteurs": [
-            "lskejfjhqzk"
+            "J.K Rowling"
         ],
-        "année de publication": 1987,
-        "isbn": 2391847293857,
-        "éditeur": "FARID",
+        "année de publication": 1999,
+        "isbn": 9782070584925,
+        "éditeur": "Gallimard Jeunesse",
         "collection": [
-            " GOLD"
+            "Folio Junior"
         ],
         "genres": [
-            "Biographie/Autobiographie",
-            "Comédie"
+            "Fantasy"
+        ]
+    },
+    {
+        "book_id": 2,
+        "titre": "Twisted Love",
+        "auteurs": [
+            "Ana Huang"
+        ],
+        "année de publication": 2022,
+        "isbn": 9782755670356,
+        "éditeur": "Hugo Publishing",
+        "collection": [
+            "Hugo Roman"
+        ],
+        "genres": [
+            "Romance"
         ]
     }
 ]
