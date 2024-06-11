@@ -1,0 +1,10 @@
+BOOK : (Title, Author, Gender, Editor, Year of publication, [Language maybe], [description/maybe])
+
+Person : (Firstname, Lastname, Adress, GSM, Email) 
+
+        -> Member : (legacy of person)
+        -> Admin : (legacy of person)
+
+Reservation : (Book, member, date of reservation)
+
+Library : (book, person, reservation
