@@ -11,7 +11,7 @@ class MemberHomePage:
         self.logout_bouton()
 
         self.book_app = BookApp(root)
-        self._show_book_list()
+        self.__show_book_list()
 
     def clear_screen(self):
         for widget in self.root.winfo_children():
@@ -31,7 +31,7 @@ class MemberHomePage:
         from login import LoginApp #Avoid cicular import between LoginApp and MemberHomePage
         LoginApp(self.root)
     
-    def _show_book_list(self):
+    def __show_book_list(self):
         self.book_app.update_list()
     
 
