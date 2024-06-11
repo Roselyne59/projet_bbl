@@ -1,7 +1,9 @@
 import tkinter as tk
 from tkinter import messagebox
 from shelfManager import ShelfManager
+from bookManager import BookManager
 from shelf import Shelf
+from book import Book
 
 class ShelfApp:
     def __init__(self, root):
@@ -9,6 +11,7 @@ class ShelfApp:
         self.root.title("Gestion des Étagères")
 
         self.shelf_manager = ShelfManager()
+        self.book_manager = BookManager()
 
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
@@ -42,6 +45,9 @@ class ShelfApp:
 
         self.remove_button = tk.Button(button_frame, text="Supprimer une étagère", command=self.remove_shelf)
         self.remove_button.pack(side=tk.LEFT, padx=10)
+
+        self.add_book_button = tk.Button(button_frame, text="Ajouter un livre à l'étagère", command=self.add_book_to_shelf)
+        self.add_book_button.pack(side=tk.LEFT, padx=10)
 
         self.update_list()
 
@@ -146,10 +152,46 @@ class ShelfApp:
 
 
     def add_book_to_shelf(self):
-        pass
+        selected_shelf_index = self.list.curselection()
+        if not selected_shelf_index :
+            messagebox.showwarning("Veuillez sélectionner une étagère.")
+            return
+        
+        shelf_number = int(self.list.get(selected_shelf_index[0]).split(":")[1].strip())
+        self.book_wind = tk.Toplevel(self.root)
+        self.book_wind.title("Ajouter un livre à l'étagère")
+
+        wind_width = 500
+        wind_height = 300
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        position_x = (screen_width // 2) - (wind_width // 2)
+        position_y = (screen_height // 2) - (wind_height // 2)
+        self.book_wind.geometry(f"{wind_width}x{wind_height}+{position_x}+{position_y}")
+
+        self.book_id_label = tk.Label(self.book_wind, text="ID du libre : ")
+        self.book_id_label.grid(row=0, column=0, sticky='E')
+        self.book_id_entry = tk.Entry(self.book_wind)
+        self.book_id_entry.grid(row=0, column=1)
+        self.book_id_entry.focus_set()
+
+        self.book_submit_button = tk.Button(self.book_wind, text="Valider", command=lambda: self.save_book_to_shelf(shelf_number))
+        self.book_submit_button.grid(row=1, column=0, columnspan=2)
 
     def save_book_to_shelf(self, shelf_number):
-        pass
+        book_id = self.book_id_entry.get()
+        if not book_id.isdigit():
+            messagebox.showwarning("L'ID du livre doit être un nombre.")
+            return
+        book_id = int(book_id)
+        book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
+        if not book:
+            messagebox.showwarning("Livre introuvable.")
+            return
+        
+        self.shelf_manager.add_book_to_shelf(shelf_number, book)
+        self.update_list()
+        self.book_wind.destroy()
 
     def remove_book_from_shelf(self):
         pass
@@ -162,7 +204,10 @@ class ShelfApp:
         for shelf in self.shelf_manager.shelves:
             self.list.insert(tk.END, f"Numéro : {shelf.number}")
             self.list.insert(tk.END, f"Letter : {shelf.letter}")
-            self.list.insert(tk.END, "----------------------------")
+            if hasattr(self, 'books'):
+                for book in shelf.books:
+                    self.list.insert(tk.END, f" - {book.title} by {', '.join(book.authors)}")
+            self.list.insert(tk.END, "-------------------")
 
 if __name__ == "__main__":
     root = tk.Tk()
