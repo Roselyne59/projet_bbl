@@ -1,0 +1,12 @@
+[
+    {
+        "shelf_id": 1,
+        "number": 1,
+        "letter": "A"
+    },
+    {
+        "shelf_id": 2,
+        "number": 2,
+        "letter": "A"
+    }
+]
