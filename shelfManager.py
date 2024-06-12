@@ -19,12 +19,16 @@ class ShelfManager:
             json.dump([shelf.to_dict() for shelf in self.shelves], file, ensure_ascii=False, indent=4)
         
     def add_shelf(self, shelf):
+        if self.is_duplicate(shelf.number, shelf.letter):
+            raise ValueError("Une étagère avec cette combinaison existe déjà !")
         self.shelves.append(shelf)
         self.save_shelves()
 
-    def update_shelf(self, shelf_number, new_shelf):
+    def update_shelf(self, old_number, new_shelf):
         for i, s in enumerate(self.shelves):
-            if s.number == shelf_number :
+            if s.number == old_number :
+                if(new_shelf.number != old_number or new_shelf.letter != s.letter) and self.is_duplicate(new_shelf.number, new_shelf.letter):
+                    raise ValueError("Une étagère avec cette combinaison existe déjà !")
                 self.shelves[i] = new_shelf
                 self.save_shelves()
                 return
@@ -37,6 +41,8 @@ class ShelfManager:
     def add_book_to_shelf(self, shelf_number, book):
         for shelf in self.shelves:
             if shelf.number == shelf_number:
+                if any(b.book_id == book.book_id for b in shelf.books):
+                    raise ValueError("Ce livre est déjà dans cette étagère. ")
                 shelf.books.append(book)
                 self.save_shelves()
                 return
@@ -49,3 +55,6 @@ class ShelfManager:
                 self.save_shelves()
                 return
         raise ValueError("Etagère introuvable...")
+    
+    def is_duplicate(self, number, letter):
+        return any(shelf.number == number and shelf.letter == letter for shelf in self.shelves)
