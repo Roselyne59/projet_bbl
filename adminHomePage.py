@@ -1,11 +1,11 @@
 import tkinter as tk
-from memberHomePage import MemberHomePage
+from userHomePage import UserHomePage
 from userApp import UserApp
 from bookApp import BookApp
 from shelfApp import ShelfApp
 
 
-class AdminHomePage(MemberHomePage):
+class AdminHomePage(UserHomePage):
     def __init__(self, root, nom, prenom):
         super().__init__(root, nom, prenom)
         self.root.title("Espace Administrateur")
