@@ -49,6 +49,9 @@ class ShelfApp:
         self.add_book_button = tk.Button(button_frame, text="Ajouter un livre à l'étagère", command=self.add_book_to_shelf)
         self.add_book_button.pack(side=tk.LEFT, padx=10)
 
+        self.remove_book_button = tk.Button(button_frame, text="Retirer un livre de l'étagère", command=self.remove_book_from_shelf)
+        self.remove_book_button.pack(side=tk.LEFT, padx=10)
+
         self.update_list()
 
     def research_shelf(self):
@@ -75,6 +78,8 @@ class ShelfApp:
         for shelf in filtered_shelves:
             search_list.insert(tk.END, f"Numéro : {shelf.number}")
             search_list.insert(tk.END, f"Lettre : {shelf.letter}")
+            for book in shelf.books:
+                search_list.insert(tk.END, f" - {book.title} by {', '.join(book.authors)}")
             search_list.insert(tk.END, "-----------------------------")
             
     def edit_shelf(self):
@@ -142,14 +147,17 @@ class ShelfApp:
             return
         
         new_shelf = Shelf(Shelf.shelf_number, number, letter)
-        if shelf :
-            self.shelf_manager.update_shelf(shelf.number, new_shelf)
-        else :
-            self.shelf_manager.add_shelf(new_shelf)
+        try :
+            if shelf :
+                self.shelf_manager.update_shelf(shelf.number, new_shelf)
+            else :
+                self.shelf_manager.add_shelf(new_shelf)
+        except ValueError as e :
+            messagebox.showwarning("Erreur", str(e))
+            return
 
         self.update_list()
         self.shelf_wind.destroy()
-
 
     def add_book_to_shelf(self):
         selected_shelf_index = self.list.curselection()
@@ -169,38 +177,82 @@ class ShelfApp:
         position_y = (screen_height // 2) - (wind_height // 2)
         self.book_wind.geometry(f"{wind_width}x{wind_height}+{position_x}+{position_y}")
 
-        self.book_title_label = tk.Label(self.book_wind, text="Titre : ")
-        self.book_title_label.grid(row=0, column=0, sticky='E')
-        self.book_title_entry = tk.Entry(self.book_wind)
-        self.book_title_entry.grid(row=0, column=1)
-        self.book_title_entry.focus_set()
+        self.book_list = tk.Listbox(self.book_wind, width=150, height=20)
+        self.book_list.pack(pady=10)
+        for book in self.book_manager.books :
+            self.book_list.insert(tk.END, f"{book.book_id}: {book.title} by {', '.join(book.authors)}")
 
         self.book_submit_button = tk.Button(self.book_wind, text="Valider", command=lambda: self.save_book_to_shelf(shelf_number))
-        self.book_submit_button.grid(row=1, column=0, columnspan=2)
+        self.book_submit_button.pack(pady=10)
 
     def save_book_to_shelf(self, shelf_number):
-        title = self.book_title_entry.get()
-        book = next((b for b in self.book_manager.books if b.title.lower() == title.lower()), None)
-        if not book:
-            messagebox.showwarning("Livre introuvable.")
+        selected_book_index = self.book_list.curselection()
+        if not selected_book_index:
+            messagebox.showwarning("Veuillez sélectionner un livre.")
             return
         
-        self.shelf_manager.add_book_to_shelf(shelf_number, book)
+        book_id = int(self.book_list.get(selected_book_index[0]).split(":")[0].strip())
+        book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
+        if not book :
+            messagebox.showwarning("Livre introuvable")
+        
+        try :
+            self.shelf_manager.add_book_to_shelf(shelf_number, book)
+        except ValueError as e :
+            messagebox.showwarning("Erreur", str(e))
+            return
+
         self.update_list()
         self.book_wind.destroy()
 
     def remove_book_from_shelf(self):
-        pass
+        selected_shelf_index = self.list.curselection()
+        if not selected_shelf_index :
+            messagebox.showwarning("Veuillez sélectionner une étatgère. ")
+            return
+        
+        shelf_number = int(self.list.get(selected_shelf_index[0]).split(":")[1].strip())
+        self.remove_book_wind = tk.Toplevel(self.root)
+        self.remove_book_wind.title("Retirer' le livre de l'étagère. ")
+
+        wind_width = 500
+        wind_height = 300
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        position_x = (screen_width // 2) - (wind_width // 2)
+        position_y = (screen_height // 2) - (wind_height // 2)
+        self.remove_book_wind.geometry(f"{wind_width}x{wind_height}+{position_x}+{position_y}")
+
+        self.book_list = tk.Listbox(self.remove_book_wind, width=150, height=20)
+        self.book_list.pack(pady=10)
+        shelf = next((s for s in self.shelf_manager.shelves if s.number == shelf_number), None)
+        for book in shelf.books :
+            self.book_list.insert(tk.END, f"{book.book_id}: {book.title} by {', '.join(book.authors)}")
+
+        self.book_remove_button = tk.Button(self.remove_book_wind, text="Retirer", command=lambda: self.confirm_remove_book_from_shelf(shelf_number))
+        self.book_remove_button.pack(pady=10)
 
     def confirm_remove_book_from_shelf(self, shelf_number):
-        pass
+        selected_book_index = self.book_list.curselection()
+        if not selected_book_index :
+            messagebox.showwarning("Veuillez sélectionner un livre. ")
+            return
+        
+        book_id = int(self.book_list.get(selected_book_index[0]).split(":")[0].strip())
+        try :
+            self.shelf_manager.remove_book_from_shelf(shelf_number, book_id)
+        except ValueError as e :
+            messagebox.showwarning("Erreur", str(e))
+            return
+        
+        self.update_list()
+        self.remove_book_wind.destroy()
 
     def update_list(self):
         self.list.delete(0, tk.END)
         for shelf in self.shelf_manager.shelves:
             self.list.insert(tk.END, f"Numéro : {shelf.number}")
             self.list.insert(tk.END, f"Letter : {shelf.letter}")
-            if hasattr(self, 'books'):
-                for book in shelf.books:
-                    self.list.insert(tk.END, f" - {book.title} by {', '.join(book.authors)}")
+            for book in shelf.books:
+                self.list.insert(tk.END, f" - {book.title} by {', '.join(book.authors)}")
             self.list.insert(tk.END, "-------------------")
