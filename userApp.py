@@ -35,6 +35,10 @@ class UserApp:
         self.search_button = tk.Button(self.root, text="Rechercher", command=lambda : self.search_user(self.tree))
         self.search_button.pack(pady=10)
 
+        #Refresh users list
+        self.refresh_list_button = tk.Button(self.root, text="Actualiser la liste", command=lambda : self.refresh_list(self.tree))
+        self.refresh_list_button.pack(pady=10)
+
          # Treeview for displaying users
         self.tree = ttk.Treeview(self.root, columns=('ID', 'Nom', 'Prénom', 'Date de naissance', 'Email', 'Rue et Numéro', 'Code postal', 'Login', 'Password', 'Admin'), show='headings')
         self.tree.pack(pady=10, fill=tk.BOTH, expand=True)
@@ -91,6 +95,10 @@ class UserApp:
         for user in filtered_users:
             treeview.insert('', 'end', values=(user.user_id, user.firstname, user.lastname, user.birthdate, user.email, user.street, user.zip_code, user.login, user.password, user.is_admin))
     
+    #Refresh user list
+    def refresh_list(self, treeview):
+        self.update_treeview()
+
     #Update selected user
     def modify_user_form(self):
         selected_item = self.tree.selection()
