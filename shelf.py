@@ -3,11 +3,11 @@ from book import Book
 class Shelf :
     shelf_number = 1
     
-    def __init__(self, shelf_id, number, letter, books=None) :
+    def __init__(self, shelf_id, number, letter) :
         self.shelf_id = shelf_id
         self.number = number
         self.letter = letter
-        self.books = books if books is not None else []
+        self.books = []
         if shelf_id >= Shelf.shelf_number :
             Shelf.shelf_number = shelf_id + 1
 
@@ -24,10 +24,7 @@ class Shelf :
     
     @staticmethod
     def from_dict(data) :
-        books = [Book.from_dict(book_data) for book_data in data.get("books", [])]
-        return Shelf(
-            data["shelf_id"],
-            data["number"],
-            data["letter"],
-            books
-        )
+        shelf = Shelf(data["shelf_id"], data["number"], data["letter"])
+        shelf.books = [Book.from_dict(book) for book in data.get("books", [])]
+        return shelf
+    
