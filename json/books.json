@@ -7,7 +7,7 @@
         ],
         "année de publication": 1999,
         "isbn": 9782070584925,
-        "éditeur": "Gallimard Jeunesse",
+        "éditeurs": "Gallimard Jeunesse",
         "collection": [
             "Folio Junior"
         ],
@@ -24,7 +24,7 @@
         ],
         "année de publication": 2022,
         "isbn": 9782755670356,
-        "éditeur": "Hugo Publishing",
+        "éditeurs": "Hugo Publishing",
         "collection": [
             "Hugo Roman"
         ],
@@ -41,12 +41,12 @@
         ],
         "année de publication": 1965,
         "isbn": 9780450011849,
-        "éditeur": "Chilton Books",
+        "éditeurs": "Chilton Books",
         "collection": [
             "Dune Series"
         ],
         "genres": [
-            "Science Fiction"
+            "Science-Fiction"
         ],
         "is_available": true
     },
@@ -58,7 +58,7 @@
         ],
         "année de publication": 1925,
         "isbn": 9780743273565,
-        "éditeur": "Scribner",
+        "éditeurs": "Scribner",
         "collection": [
             "Scribner Classics"
         ],
@@ -75,12 +75,12 @@
         ],
         "année de publication": 1949,
         "isbn": 9780451524935,
-        "éditeur": "Signet Classic",
+        "éditeurs": "Signet Classic",
         "collection": [
             "Signet Classics"
         ],
         "genres": [
-            "Dystopian Fiction"
+            "Fiction dystopique"
         ],
         "is_available": true
     },
@@ -92,10 +92,10 @@
         ],
         "année de publication": 1960,
         "isbn": 9780061120084,
-        "éditeur": "Harper Perennial Modern Classics",
+        "éditeurs": "Harper Perennial Modern Classics",
         "collection": [],
         "genres": [
-            "Classics"
+            "Classique"
         ],
         "is_available": true
     },
@@ -107,7 +107,7 @@
         ],
         "année de publication": 1813,
         "isbn": 9780141439518,
-        "éditeur": "Penguin Classics",
+        "éditeurs": "Penguin Classics",
         "collection": [],
         "genres": [
             "Romance"
@@ -122,7 +122,7 @@
         ],
         "année de publication": 1954,
         "isbn": 9780544003415,
-        "éditeur": "Houghton Mifflin Harcourt",
+        "éditeurs": "Houghton Mifflin Harcourt",
         "collection": [],
         "genres": [
             "Fantasy"
@@ -137,10 +137,10 @@
         ],
         "année de publication": 1866,
         "isbn": 9780143107637,
-        "éditeur": "Penguin Classics",
+        "éditeurs": "Penguin Classics",
         "collection": [],
         "genres": [
-            "Philosophical Fiction"
+            "Fiction philosophique"
         ],
         "is_available": true
     },
@@ -152,7 +152,7 @@
         ],
         "année de publication": 1937,
         "isbn": 9780547928227,
-        "éditeur": "Houghton Mifflin Harcourt",
+        "éditeurs": "Houghton Mifflin Harcourt",
         "collection": [],
         "genres": [
             "Fantasy"
@@ -167,10 +167,10 @@
         ],
         "année de publication": 1890,
         "isbn": 9780141442464,
-        "éditeur": "Penguin Classics",
+        "éditeurs": "Penguin Classics",
         "collection": [],
         "genres": [
-            "Gothic Fiction"
+            "Fiction gothique"
         ],
         "is_available": true
     },
@@ -182,10 +182,10 @@
         ],
         "année de publication": 2006,
         "isbn": 9780307387899,
-        "éditeur": "Vintage International",
+        "éditeurs": "Vintage International",
         "collection": [],
         "genres": [
-            "Post-Apocalyptic Fiction"
+            "Fiction post-apocalyptique"
         ],
         "is_available": true
     },
@@ -197,10 +197,10 @@
         ],
         "année de publication": 1932,
         "isbn": 9780060850524,
-        "éditeur": "Harper Perennial Modern Classics",
+        "éditeurs": "Harper Perennial Modern Classics",
         "collection": [],
         "genres": [
-            "Dystopian Fiction"
+            "Fiction dystopique"
         ],
         "is_available": true
     },
@@ -212,10 +212,10 @@
         ],
         "année de publication": 1851,
         "isbn": 9780142437247,
-        "éditeur": "Penguin Classics",
+        "éditeurs": "Penguin Classics",
         "collection": [],
         "genres": [
-            "Adventure Fiction"
+            "Action/Aventure"
         ],
         "is_available": true
     },
@@ -227,10 +227,10 @@
         ],
         "année de publication": 2003,
         "isbn": 9780307474278,
-        "éditeur": "Anchor Books",
+        "éditeurs": "Anchor Books",
         "collection": [],
         "genres": [
-            "Mystery Fiction"
+            "Mystère"
         ],
         "is_available": true
     },
@@ -242,7 +242,7 @@
         ],
         "année de publication": 1951,
         "isbn": 9780316769488,
-        "éditeur": "Little, Brown and Company",
+        "éditeurs": "Little, Brown and Company",
         "collection": [],
         "genres": [
             "Fiction"
@@ -257,10 +257,10 @@
         ],
         "année de publication": 1960,
         "isbn": 9780061120084,
-        "éditeur": "Harper Perennial Modern Classics",
+        "éditeurs": "Harper Perennial Modern Classics",
         "collection": [],
         "genres": [
-            "Classics"
+            "Classique"
         ],
         "is_available": true
     },
@@ -272,7 +272,7 @@
         ],
         "année de publication": 1813,
         "isbn": 9780141439518,
-        "éditeur": "Penguin Classics",
+        "éditeurs": "Penguin Classics",
         "collection": [],
         "genres": [
             "Romance"
@@ -287,7 +287,7 @@
         ],
         "année de publication": 1954,
         "isbn": 9780544003415,
-        "éditeur": "Houghton Mifflin Harcourt",
+        "éditeurs": "Houghton Mifflin Harcourt",
         "collection": [],
         "genres": [
             "Fantasy"
@@ -302,10 +302,10 @@
         ],
         "année de publication": 1866,
         "isbn": 9780143107637,
-        "éditeur": "Penguin Classics",
+        "éditeurs": "Penguin Classics",
         "collection": [],
         "genres": [
-            "Philosophical Fiction"
+            "Fiction philosophique"
         ],
         "is_available": true
     },
@@ -317,7 +317,7 @@
         ],
         "année de publication": 1937,
         "isbn": 9780547928227,
-        "éditeur": "Houghton Mifflin Harcourt",
+        "éditeurs": "Houghton Mifflin Harcourt",
         "collection": [],
         "genres": [
             "Fantasy"
@@ -332,10 +332,10 @@
         ],
         "année de publication": 1890,
         "isbn": 9780141442464,
-        "éditeur": "Penguin Classics",
+        "éditeurs": "Penguin Classics",
         "collection": [],
         "genres": [
-            "Gothic Fiction"
+            "Fiction gothique"
         ],
         "is_available": true
     },
@@ -347,25 +347,10 @@
         ],
         "année de publication": 2006,
         "isbn": 9780307387899,
-        "éditeur": "Vintage International",
+        "éditeurs": "Vintage International",
         "collection": [],
         "genres": [
-            "Post-Apocalyptic Fiction"
-        ],
-        "is_available": true
-    },
-    {
-        "book_id": 25,
-        "titre": "Brave New World",
-        "auteurs": [
-            "Aldous Huxley"
-        ],
-        "année de publication": 1932,
-        "isbn": 9780060850524,
-        "éditeur": "Harper Perennial Modern Classics",
-        "collection": [],
-        "genres": [
-            "Dystopian Fiction"
+            "Fiction post-apocalyptique"
         ],
         "is_available": true
     }

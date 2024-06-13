@@ -1,11 +1,12 @@
 import tkinter as tk
+from tkinter.ttk import Treeview
 import re
-from tkinter import messagebox, Label, Entry, Button, Toplevel, Listbox, Frame, StringVar, BooleanVar, Checkbutton, END, LEFT, MULTIPLE
+from tkinter import messagebox, Label, Entry, Button, Toplevel, Listbox, Frame, StringVar, BooleanVar, Checkbutton, END, LEFT, MULTIPLE, BOTH
 from book import Book
 from bookManager import BookManager
 
 class BookApp:
-    def __init__(self, root):
+    def __init__(self, root) :
         self.root = root
         self.root.title("Gestion des livres")
 
@@ -22,31 +23,56 @@ class BookApp:
 
         self.root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
 
-        self.research_label = Label(self.root, text="Recherche par titre")
+        self.research_label = Label(self.root, font=('Verdana', 12, 'bold'), text="Recherche par titre")
         self.research_label.pack(pady=10)
         self.research_entry = Entry(self.root)
         self.research_entry.pack(pady=10)
-        self.research_button = Button(self.root, text="Recherche", command=self.research_book)
+        self.research_button = Button(self.root, text="Recherche", font=('Verdana', 12, 'bold'), command=lambda : self.research_book(self.tree))
         self.research_button.pack(pady=10)
 
-        self.list = Listbox(self.root, width=150, height=20)
-        self.list.pack(pady=10)
-    
+        self.refresh_list_button = Button(self.root, text="Actualiser la liste", font=('Verdana', 12, 'bold'), command=lambda : self.refresh_list(self.tree))
+        self.refresh_list_button.pack(pady=10)
+
+        self.tree = Treeview(self.root, columns=('ID', 'Titre', 'Auteurs', 'Année de publication', 'Numéro ISBN', 'Editeurs', 'Collections', 'Genres', 'Disponibilité'))
+        self.tree.pack(pady=10, fill=BOTH, expand=True)
+
+
+        self.tree.heading('ID', text='ID')
+        self.tree.heading('Titre', text='Titre')
+        self.tree.heading('Auteurs', text='Auteurs')
+        self.tree.heading('Année de publication', text='Année de publication')
+        self.tree.heading('Numéro ISBN', text='Numéro ISBN')
+        self.tree.heading('Editeurs', text='Editeurs')
+        self.tree.heading('Collections', text='Collections')
+        self.tree.heading('Genres', text='Genres')
+        self.tree.heading('Disponibilité', text='Disponibilité')
+
+        self.tree.column('ID', width=50)
+        self.tree.column('Titre', width=150)
+        self.tree.column('Auteurs', width=150)
+        self.tree.column('Année de publication', width=50)
+        self.tree.column('Numéro ISBN', width=100)
+        self.tree.column('Editeurs', width=150)
+        self.tree.column('Collections', width=150)
+        self.tree.column('Genres', width=150)
+        self.tree.column('Disponibilité', width=100)
+
+
         button_frame = Frame(self.root)
         button_frame.pack(pady=10)
 
-        self.add_button = Button(button_frame, text="Ajouter un livre", command=self.add_book)
+        self.add_button = Button(button_frame, text="Ajouter un livre", font=('Verdana', 12, 'bold'), command=self.add_book)
         self.add_button.pack(side=LEFT, padx=10)
 
-        self.edit_button = Button(button_frame, text="Modifier un livre", command=self.edit_book)
+        self.edit_button = Button(button_frame, text="Modifier un livre", font=('Verdana', 12, 'bold'), command=self.edit_book)
         self.edit_button.pack(side=LEFT, padx=10)
 
-        self.remove_button = Button(button_frame, text="Supprimer un livre", command=self.remove_book)
+        self.remove_button = Button(button_frame, text="Supprimer un livre", font=('Verdana', 12, 'bold'), command=self.remove_book)
         self.remove_button.pack(side=LEFT, padx=10)
 
-        self.update_list()
+        self.update_treeview()
 
-    def research_book(self):
+    def research_book(self) :
         search = self.research_entry.get().strip().lower()
         filtered_books = [
             book for book in self.book_manager.books
@@ -56,58 +82,49 @@ class BookApp:
         ]
         self.show_research(filtered_books)
 
-    def show_research(self, filtered_books):
-        search_wind = Toplevel(self.root)
-        search_wind.title("Resultats de la recherche")
+    def show_research(self, filtered_books) :
+        self.update_treeview(filtered_books)
 
-        wind_width = 700
-        wind_height = 400
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-        position_x = (screen_width // 2) - (wind_width // 2)
-        position_y = (screen_height // 2) - (wind_height // 2)
+    def update_treeview(self, books=None) :
+        self.tree.delete(*self.tree.get_children())
+        books = books or self.book_manager.books
+        for book in books :
+            self.tree.insert('', 'end', values=(
+                                                book.book_id,
+                                                book.title,
+                                                ', '.join(book.authors),
+                                                book.publication_year,
+                                                book.isbn,
+                                                ', '.join(book.editors),
+                                                ', '.join(book.collections),
+                                                ', '.join(book.genres),
+                                                'Disponible' if book.is_available else 'Indisponible'
+                                                ))
 
-        search_wind.geometry(f"{wind_width}x{wind_height}+{position_x}+{position_y}")
 
-        search_list = Listbox(search_wind, width=150, height=30)
-        search_list.pack(pady=10)
+    def refresh_list(self) :
+        self.update_treeview()
 
-        for book in filtered_books :
-            search_list.insert(END, f"Numero : {book.book_id}")
-            book_info = [
-                f"Titre : {book.title}",
-                f"Auteurs : {', '.join(book.authors)}",
-                f"Année de publication : {book.publication_year}",
-                f"ISBN : {book.isbn}",
-                f"Editeur : {book.editor}",
-                f"Collections : {', '.join(book.collections)}",
-                f"Genres : {', '.join(book.genres)}",
-                f"Disponibilité : {'Disponible' if book.is_available else 'Indisponible.'}"
-            ]
-            for item in book_info :
-                search_list.insert(END, item)
-            search_list.insert(END, "----------------------------")
-
-    def edit_book(self):
-        selected_book_index = self.list.curselection()
-        if not selected_book_index:
+    def edit_book(self) :
+        selected_item = self.tree.selection()
+        if not selected_item :
             messagebox.showwarning("Veuillez entrer un livre à modifier.")
             return
         
-        book_id = int(self.list.get(selected_book_index[0]).split(":")[1].strip())
-        book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
+        selected_book_id = self.tree.item(selected_item[0])['values'][0]
+        book = next((b for b in self.book_manager.books if b.book_id == selected_book_id), None)
 
         self.add_book(book)
 
     def remove_book(self):
-        selected_book_index = self.list.curselection()
-        if not selected_book_index:
+        selected_item = self.tree.selection()
+        if not selected_item:
             messagebox.showwarning("Veuillez entrer un livre à supprimer.")
             return
 
-        book_id = int(self.list.get(selected_book_index[0]).split(":")[1].strip())
-        self.book_manager.remove_book(book_id)
-        self.update_list()
+        selected_book_id = self.tree.item(selected_item[0])['values'][0]
+        self.book_manager.remove_book(selected_book_id)
+        self.update_treeview()
         
 
     def add_book(self, book=None):
@@ -130,8 +147,7 @@ class BookApp:
         self.book_id_label = Label(self.form_wind, text="N° : ")
         self.book_id_label.grid(row=0, column=0, sticky='E')
         self.book_id_entry = Entry(self.form_wind, state="readonly", textvariable=StringVar(self.form_wind, value=str(book_id)))
-        self.book_id_entry.grid(row=0, column=0)
-
+        self.book_id_entry.grid(row=0, column=1)
 
         validate_cmd = (self.form_wind.register(self.validate_title), '%P')
 
@@ -164,16 +180,16 @@ class BookApp:
         self.numb_entry.grid(row=4, column=1)
         self.numb_entry.insert(0, book.isbn if book else " ")
 
-        self.editor_label = Label(self.form_wind, text="Editeur(s) : ")
-        self.editor_label.grid(row=5, column=0, sticky='E')
-        self.editor_list = Listbox(self.form_wind, selectmode=MULTIPLE)
-        self.editor_list.grid(row=5, column=1)
+        self.editors_label = Label(self.form_wind, text="Editeur(s) : ")
+        self.editors_label.grid(row=5, column=0, sticky='E')
+        self.editors_list = Listbox(self.form_wind, selectmode=MULTIPLE)
+        self.editors_list.grid(row=5, column=1)
         for editor in self.book_manager.editors :
-            self.editor_list.insert(END, editor)
+            self.editors_list.insert(END, editor)
         if book :
             for editor in book.editors :
                 i = self.book_manager.editors.index(editor)
-                self.editor_list.select_set(i)
+                self.editors_list.select_set(i)
 
         self.coll_label = Label(self.form_wind, text="Collection(s) : ")
         self.coll_label.grid(row=6, column=0, sticky='E')
@@ -231,39 +247,21 @@ class BookApp:
             messagebox.showwarning("Le numéro ISBN doit être composer de 13 chiffres.")
             return
         isbn = int(isbn_str)
-        editor = self.editor_var.get()
+        editors = [self.editors_list.get(i) for i in self.editors_list.curselection()]
         collections = [self.coll_list.get(i) for i in self.coll_list.curselection()]
         genres = [self.genre_list.get(i) for i in self.genre_list.curselection()]
         is_available = self.available_var.get()
 
-        if not all([title, authors, publication_year, isbn, editor, collections, genres]):
+        if not all([title, authors, publication_year, isbn, editors, collections, genres]):
             messagebox.showwarning("Veuillez remplir tous les champs !")
             return
         
-        new_book = Book(book_id, title, authors, publication_year, isbn, editor, collections, genres, is_available)
+        new_book = Book(book_id, title, authors, publication_year, isbn, editors, collections, genres, is_available)
 
         if book:
             self.book_manager.update_book(new_book)
         else:
             self.book_manager.add_book(new_book)
 
-        self.update_list()
+        self.update_treeview()
         self.form_wind.destroy()
-
-    def update_list(self):
-        self.list.delete(0, END)
-        for book in self.book_manager.books:
-            self.list.insert(END, f"Numéro : {book.book_id}")
-            book_info = [
-                f"Titre : {book.title}",
-                f"Auteurs : {', '.join(book.authors)}",
-                f"Année de publication : {book.publication_year}",
-                f"ISBN : {book.isbn}",
-                f"Editeur : {book.editor}",
-                f"Collections : {', '.join(book.collections)}",
-                f"Genres : {','.join(book.genres)}",
-                f"Disponibilité : {'Disponible' if book.is_available else 'Indisponible.'}"
-            ]
-            for item in book_info :
-                self.list.insert(END, item)
-            self.list.insert(END, "--------------------------")
