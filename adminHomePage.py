@@ -3,6 +3,7 @@ from userHomePage import UserHomePage
 from userApp import UserApp
 from bookApp import BookApp
 from shelfApp import ShelfApp
+from borrowApp import BorrowApp
 
 
 class AdminHomePage(UserHomePage):
@@ -33,7 +34,7 @@ class AdminHomePage(UserHomePage):
         self.user_button = tk.Button(button_frame, text="Résérvations", width=20, height=2, font=('Helvetica', 10, 'bold'), command= self.open_user_app)
         self.user_button.grid(row=0, column=3, padx=20, pady=20)
 
-        self.user_button = tk.Button(button_frame, text="Emprunts", width=20, height=2, font=('Helvetica', 10, 'bold'), command= self.open_user_app)
+        self.user_button = tk.Button(button_frame, text="Emprunts", width=20, height=2, font=('Helvetica', 10, 'bold'), command= self.open_borrow_app)
         self.user_button.grid(row=0, column=4, padx=20, pady=20)
 
     def open_user_app(self):
@@ -47,6 +48,10 @@ class AdminHomePage(UserHomePage):
     def open_shelf_app(self):
         user_window= tk.Tk()
         ShelfApp(user_window)
+
+    def open_borrow_app(self):
+        user_window= tk.Tk()
+        BorrowApp(user_window)
     
     
         
