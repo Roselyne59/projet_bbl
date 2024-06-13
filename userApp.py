@@ -209,7 +209,7 @@ class UserApp:
         self.is_admin_checkbutton = tk.Checkbutton(self.form_window, text="Oui", variable=self.is_admin_var)
         self.is_admin_checkbutton.grid(row=9, column=1)
 
-        self.submit_button = tk.Button(self.form_window, text="Valider", command=lambda: self.save_user(user))
+        self.submit_button = tk.Button(self.form_window, text="Valider", font=('Helvetica', 10, 'bold'), command=lambda: self.save_user(user))
         self.submit_button.grid(row=10, column=0, columnspan=2)
     
     #Firstname and Lastename entry validation (allow only alphabetic, "-" and " ")
