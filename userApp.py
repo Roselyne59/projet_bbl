@@ -27,16 +27,16 @@ class UserApp:
                            
         self.user_manager = UserManager()
 
-        #Search user by name
-        self.search_label = tk.Label(self.root, text="Recherche par nom")
+        #Search user by name button
+        self.search_label = tk.Label(self.root, font=('Helvetica', 10, 'bold'), text="Recherche par nom")
         self.search_label.pack(pady=10)
         self.search_entry = tk.Entry(self.root)
         self.search_entry.pack(pady=10)
-        self.search_button = tk.Button(self.root, text="Rechercher", command=lambda : self.search_user(self.tree))
+        self.search_button = tk.Button(self.root, text="Rechercher", font=('Helvetica', 10, 'bold'), command=lambda : self.search_user(self.tree))
         self.search_button.pack(pady=10)
 
-        #Refresh users list
-        self.refresh_list_button = tk.Button(self.root, text="Actualiser la liste", command=lambda : self.refresh_list(self.tree))
+        #Refresh users list button
+        self.refresh_list_button = tk.Button(self.root, text="Actualiser la liste", font=('Helvetica', 10, 'bold'), command=lambda : self.refresh_list(self.tree))
         self.refresh_list_button.pack(pady=10)
 
          # Treeview for displaying users
@@ -71,13 +71,13 @@ class UserApp:
         button_frame = tk.Frame(self.root)
         button_frame.pack(pady=10)
 
-        self.add_button = tk.Button(button_frame, text="Ajouter Utilisateur", command=self.show_user_form)
+        self.add_button = tk.Button(button_frame, text="Ajouter Utilisateur", font=('Helvetica', 10, 'bold'), command=self.show_user_form)
         self.add_button.pack(side=tk.LEFT, padx=10)
 
-        self.modify_button = tk.Button(button_frame, text="Modifier Utilisateur", command=self.modify_user_form)
+        self.modify_button = tk.Button(button_frame, text="Modifier Utilisateur", font=('Helvetica', 10, 'bold'), command=self.modify_user_form)
         self.modify_button.pack(side=tk.LEFT, padx=10)
 
-        self.delete_button = tk.Button(button_frame, text="Supprimer Utilisateur", command=self.delete_user)
+        self.delete_button = tk.Button(button_frame, text="Supprimer Utilisateur", font=('Helvetica', 10, 'bold'), command=self.delete_user)
         self.delete_button.pack(side=tk.LEFT, padx=10)
 
         self.update_treeview()
@@ -289,5 +289,14 @@ class UserApp:
         for item in self.tree.get_children():
             self.tree.delete(item)
         for user in self.user_manager.users:
-            self.tree.insert('', 'end', values=(user.user_id, user.firstname, user.lastname, user.birthdate, user.email, user.street, user.zip_code, user.login, user.password, user.is_admin))
+            self.tree.insert('', 'end', values=(user.user_id, 
+                                                user.firstname, 
+                                                user.lastname, 
+                                                user.birthdate, 
+                                                user.email, 
+                                                user.street, 
+                                                user.zip_code, 
+                                                user.login, 
+                                                user.password, 
+                                                user.is_admin))
         

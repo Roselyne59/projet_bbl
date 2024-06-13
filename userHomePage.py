@@ -18,7 +18,7 @@ class UserHomePage:
         welcome_label.pack(pady=20)
     
     def logout_bouton(self):
-        logout_button = tk.Button(self.root, text = "Se deconnecter", command=self.logout)
+        logout_button = tk.Button(self.root, text = "Se deconnecter", font=('Helvetica', 10, 'bold'), command=self.logout)
         logout_button.pack(pady=20)
 
     def logout(self):
