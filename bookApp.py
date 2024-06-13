@@ -27,10 +27,10 @@ class BookApp:
         self.research_label.pack(pady=10)
         self.research_entry = Entry(self.root)
         self.research_entry.pack(pady=10)
-        self.research_button = Button(self.root, text="Recherche", font=('Verdana', 12, 'bold'), command=lambda : self.research_book(self.tree))
+        self.research_button = Button(self.root, text="Recherche", font=('Verdana', 12, 'bold'), command = self.research_book)
         self.research_button.pack(pady=10)
 
-        self.refresh_list_button = Button(self.root, text="Actualiser la liste", font=('Verdana', 12, 'bold'), command=lambda : self.refresh_list(self.tree))
+        self.refresh_list_button = Button(self.root, text="Actualiser la liste", font=('Verdana', 12, 'bold'), command = self.refresh_list)
         self.refresh_list_button.pack(pady=10)
 
         self.tree = Treeview(self.root, columns=('ID', 'Titre', 'Auteurs', 'Année de publication', 'Numéro ISBN', 'Editeurs', 'Collections', 'Genres', 'Disponibilité'))
