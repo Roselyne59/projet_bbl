@@ -38,7 +38,7 @@ class Book:
             data["auteurs"],
             data["année de publication"],
             data["isbn"],
-            data["éditeurs"],
+            data.get("éditeurs", ""),
             data["collection"],
             data["genres"],
             data.get("is_available", True)
