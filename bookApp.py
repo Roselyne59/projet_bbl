@@ -56,7 +56,7 @@ class BookApp:
         self.refresh_list_button = Button(self.root, text="Actualiser la liste", font=('Verdana', 12, 'bold'), command = self.refresh_list)
         self.refresh_list_button.pack(pady=10)
 
-        self.tree = Treeview(self.root, columns=('ID', 'Titre', 'Auteurs', 'Année de publication', 'Numéro ISBN', 'Editeurs', 'Collections', 'Genres', 'Disponibilité'))
+        self.tree = Treeview(self.root, columns=('ID', 'Titre', 'Auteurs', 'Année de publication', 'Numéro ISBN', 'Editeurs', 'Collections', 'Genres', 'Disponibilité'), show='headings')
         self.tree.pack(pady=10, fill=BOTH, expand=True)
 
 
@@ -71,11 +71,11 @@ class BookApp:
         self.tree.heading('Disponibilité', text='Disponibilité')
 
         self.tree.column('ID', width=50)
-        self.tree.column('Titre', width=150)
+        self.tree.column('Titre', width=200)
         self.tree.column('Auteurs', width=150)
-        self.tree.column('Année de publication', width=50)
+        self.tree.column('Année de publication', width=150)
         self.tree.column('Numéro ISBN', width=100)
-        self.tree.column('Editeurs', width=150)
+        self.tree.column('Editeurs', width=200)
         self.tree.column('Collections', width=150)
         self.tree.column('Genres', width=150)
         self.tree.column('Disponibilité', width=100)
@@ -115,16 +115,16 @@ class BookApp:
         books = books or self.book_manager.books
         for book in books :
             self.tree.insert('', 'end', values=(
-                                                book.book_id,
-                                                book.title,
-                                                ', '.join(book.authors),
-                                                book.publication_year,
-                                                book.isbn,
-                                                ', '.join(book.editors),
-                                                ', '.join(book.collections),
-                                                ', '.join(book.genres),
-                                                'Disponible' if book.is_available else 'Indisponible'
-                                                ))
+                book.book_id,
+                book.title,
+                 ', '.join(book.authors),
+                book.publication_year,
+                book.isbn,
+                 ', '.join(book.editors),
+                ', '.join(book.collections),
+                ', '.join(book.genres),
+                'Disponible' if book.is_available else 'Indisponible'
+                ))
 
 
     def refresh_list(self) :
