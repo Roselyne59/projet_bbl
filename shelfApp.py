@@ -76,8 +76,8 @@ class ShelfApp:
         search_list.pack(pady=10)
 
         for shelf in filtered_shelves:
-            search_list.insert(tk.END, f"Numéro : {shelf.number}")
-            search_list.insert(tk.END, f"Lettre : {shelf.letter}")
+            search_list.insert(tk.END, f"Allée : {shelf.number}")
+            search_list.insert(tk.END, f"Rayon : {shelf.letter}")
             for book in shelf.books:
                 search_list.insert(tk.END, f" - {book.title} by {', '.join(book.authors)}")
             search_list.insert(tk.END, "-----------------------------")
@@ -114,14 +114,14 @@ class ShelfApp:
         position_y = (screen_height // 2) - (wind_height // 2)
         self.shelf_wind.geometry(f"{wind_width}x{wind_height}+{position_x}+{position_y}")
 
-        self.number_label = tk.Label(self.shelf_wind, text="Numéro : ")
+        self.number_label = tk.Label(self.shelf_wind, text="Allée : ")
         self.number_label.grid(row=0, column=0, sticky='E')
         self.number_entry = tk.Entry(self.shelf_wind)
         self.number_entry.grid(row=0, column=1)
         self.number_entry.insert(0, shelf.number if shelf else "")
         self.number_entry.focus_set()
 
-        self.letter_label = tk.Label(self.shelf_wind, text="Lettre : ")
+        self.letter_label = tk.Label(self.shelf_wind, text="Rayon : ")
         self.letter_label.grid(row=1, column=0, sticky='E')
         self.letter_entry = tk.Entry(self.shelf_wind)
         self.letter_entry.grid(row=1, column=1)
@@ -251,8 +251,8 @@ class ShelfApp:
     def update_list(self):
         self.list.delete(0, tk.END)
         for shelf in self.shelf_manager.shelves:
-            self.list.insert(tk.END, f"Numéro : {shelf.number}")
-            self.list.insert(tk.END, f"Lettre : {shelf.letter}")
+            self.list.insert(tk.END, f"Allée : {shelf.number}")
+            self.list.insert(tk.END, f"Rayon : {shelf.letter}")
             for book in shelf.books:
                 self.list.insert(tk.END, f" - {book.title} by {', '.join(book.authors)}")
             self.list.insert(tk.END, "-------------------")
