@@ -1,5 +1,4 @@
-import json
-from datetime import date, datetime
+from datetime import datetime
 
 class Reservation:
     def __init__(self, user_id, book_id, start_date, end_date, status="en attente"):
