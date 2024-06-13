@@ -131,14 +131,14 @@ class ShelfApp:
         self.submit_button.grid(row=2, column=0, columnspan=2)
 
     def save_shelf(self, shelf=None):
-        try :
+        try:
             number = int(self.number_entry.get())
         except ValueError:
             messagebox.showwarning("Attention ! Veuillez entrez un chiffre")
             return
 
         letter = self.letter_entry.get().strip().upper()
-        if not letter.isalpha() or len(letter) != 1 :
+        if not letter.isalpha() or len(letter) != 1:
             messagebox.showwarning("Attention ! Veuillez entrez une lettre")
             return
 
@@ -147,12 +147,12 @@ class ShelfApp:
             return
         
         new_shelf = Shelf(Shelf.shelf_number, number, letter)
-        try :
-            if shelf :
+        try:
+            if shelf:
                 self.shelf_manager.update_shelf(shelf.number, new_shelf)
-            else :
+            else:
                 self.shelf_manager.add_shelf(new_shelf)
-        except ValueError as e :
+        except ValueError as e:
             messagebox.showwarning("Erreur", str(e))
             return
 
@@ -161,7 +161,7 @@ class ShelfApp:
 
     def add_book_to_shelf(self):
         selected_shelf_index = self.list.curselection()
-        if not selected_shelf_index :
+        if not selected_shelf_index:
             messagebox.showwarning("Veuillez sélectionner une étagère.")
             return
         
@@ -179,7 +179,7 @@ class ShelfApp:
 
         self.book_list = tk.Listbox(self.book_wind, width=150, height=20)
         self.book_list.pack(pady=10)
-        for book in self.book_manager.books :
+        for book in self.book_manager.books:
             self.book_list.insert(tk.END, f"{book.book_id}: {book.title} by {', '.join(book.authors)}")
 
         self.book_submit_button = tk.Button(self.book_wind, text="Valider", command=lambda: self.save_book_to_shelf(shelf_number))
@@ -193,12 +193,12 @@ class ShelfApp:
         
         book_id = int(self.book_list.get(selected_book_index[0]).split(":")[0].strip())
         book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
-        if not book :
+        if not book:
             messagebox.showwarning("Livre introuvable")
         
-        try :
+        try:
             self.shelf_manager.add_book_to_shelf(shelf_number, book)
-        except ValueError as e :
+        except ValueError as e:
             messagebox.showwarning("Erreur", str(e))
             return
 
@@ -207,13 +207,13 @@ class ShelfApp:
 
     def remove_book_from_shelf(self):
         selected_shelf_index = self.list.curselection()
-        if not selected_shelf_index :
-            messagebox.showwarning("Veuillez sélectionner une étatgère. ")
+        if not selected_shelf_index:
+            messagebox.showwarning("Veuillez sélectionner une étatgère.")
             return
         
         shelf_number = int(self.list.get(selected_shelf_index[0]).split(":")[1].strip())
         self.remove_book_wind = tk.Toplevel(self.root)
-        self.remove_book_wind.title("Retirer' le livre de l'étagère. ")
+        self.remove_book_wind.title("Retirer le livre de l'étagère")
 
         wind_width = 500
         wind_height = 300
@@ -226,7 +226,7 @@ class ShelfApp:
         self.book_list = tk.Listbox(self.remove_book_wind, width=150, height=20)
         self.book_list.pack(pady=10)
         shelf = next((s for s in self.shelf_manager.shelves if s.number == shelf_number), None)
-        for book in shelf.books :
+        for book in shelf.books:
             self.book_list.insert(tk.END, f"{book.book_id}: {book.title} by {', '.join(book.authors)}")
 
         self.book_remove_button = tk.Button(self.remove_book_wind, text="Retirer", command=lambda: self.confirm_remove_book_from_shelf(shelf_number))
@@ -234,14 +234,14 @@ class ShelfApp:
 
     def confirm_remove_book_from_shelf(self, shelf_number):
         selected_book_index = self.book_list.curselection()
-        if not selected_book_index :
-            messagebox.showwarning("Veuillez sélectionner un livre. ")
+        if not selected_book_index:
+            messagebox.showwarning("Veuillez sélectionner un livre.")
             return
         
         book_id = int(self.book_list.get(selected_book_index[0]).split(":")[0].strip())
-        try :
+        try:
             self.shelf_manager.remove_book_from_shelf(shelf_number, book_id)
-        except ValueError as e :
+        except ValueError as e:
             messagebox.showwarning("Erreur", str(e))
             return
         
