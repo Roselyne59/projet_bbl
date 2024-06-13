@@ -27,4 +27,3 @@ class Shelf :
         shelf = Shelf(data["shelf_id"], data["number"], data["letter"])
         shelf.books = [Book.from_dict(book) for book in data.get("books", [])]
         return shelf
-    

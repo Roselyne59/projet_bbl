@@ -64,3 +64,4 @@ class ShelfManager:
             if any(book.book_id == book_id for book in shelf.books):
                 return True
         return False
+
