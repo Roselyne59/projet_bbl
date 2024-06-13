@@ -252,7 +252,7 @@ class ShelfApp:
         self.list.delete(0, tk.END)
         for shelf in self.shelf_manager.shelves:
             self.list.insert(tk.END, f"Numéro : {shelf.number}")
-            self.list.insert(tk.END, f"Letter : {shelf.letter}")
+            self.list.insert(tk.END, f"Lettre : {shelf.letter}")
             for book in shelf.books:
                 self.list.insert(tk.END, f" - {book.title} by {', '.join(book.authors)}")
             self.list.insert(tk.END, "-------------------")
