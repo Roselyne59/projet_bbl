@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from borrow import Borrow
-from user import User
 from borrowManager import BorrowManager
 from userManager import UserManager
 from bookManager import BookManager
@@ -194,7 +193,6 @@ class BorrowApp:
 
         self.update_treeview(self.tree)  # Assuming you have a treeview widget to update
         self.form_window.destroy()
-
     def modify_borrow_form ():
         pass
 

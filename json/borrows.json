@@ -25,5 +25,32 @@
         "book_title": "To Kill a Mockingbird",
         "start_date": "2024-01-18",
         "due_date": "2024-01-31"
+    },
+    {
+        "borrow_id": 4,
+        "user_id": "2",
+        "user_name": "MEMBER Member",
+        "book_id": "3",
+        "book_title": "Dune",
+        "start_date": "2024-01-09",
+        "due_date": "2024-01-24"
+    },
+    {
+        "borrow_id": 5,
+        "user_id": "2",
+        "user_name": "MEMBER Member",
+        "book_id": "3",
+        "book_title": "Dune",
+        "start_date": "2024-01-01",
+        "due_date": "2024-01-01"
+    },
+    {
+        "borrow_id": 6,
+        "user_id": "2",
+        "user_name": "MEMBER Member",
+        "book_id": "5",
+        "book_title": "1984",
+        "start_date": "2024-01-01",
+        "due_date": "2024-01-01"
     }
 ]
