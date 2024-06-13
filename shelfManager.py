@@ -26,8 +26,8 @@ class ShelfManager:
 
     def update_shelf(self, old_number, new_shelf):
         for i, s in enumerate(self.shelves):
-            if s.number == old_number :
-                if(new_shelf.number != old_number or new_shelf.letter != s.letter) and self.is_duplicate(new_shelf.number, new_shelf.letter):
+            if s.number == old_number:
+                if (new_shelf.number != old_number or new_shelf.letter != s.letter) and self.is_duplicate(new_shelf.number, new_shelf.letter):
                     raise ValueError("Une étagère avec cette combinaison existe déjà !")
                 self.shelves[i] = new_shelf
                 self.save_shelves()
@@ -39,10 +39,10 @@ class ShelfManager:
         self.save_shelves()
 
     def add_book_to_shelf(self, shelf_number, book):
+        if self.is_book_in_any_shelf(book.book_id):
+            raise ValueError("Ce livre est déjà dans une autre étagère.")
         for shelf in self.shelves:
             if shelf.number == shelf_number:
-                if any(b.book_id == book.book_id for b in shelf.books):
-                    raise ValueError("Ce livre est déjà dans cette étagère. ")
                 shelf.books.append(book)
                 self.save_shelves()
                 return
@@ -50,7 +50,7 @@ class ShelfManager:
 
     def remove_book_from_shelf(self, shelf_number, book_id):
         for shelf in self.shelves:
-            if shelf.number == shelf_number :
+            if shelf.number == shelf_number:
                 shelf.books = [book for book in shelf.books if book.book_id != book_id]
                 self.save_shelves()
                 return
@@ -58,3 +58,9 @@ class ShelfManager:
     
     def is_duplicate(self, number, letter):
         return any(shelf.number == number and shelf.letter == letter for shelf in self.shelves)
+    
+    def is_book_in_any_shelf(self, book_id):
+        for shelf in self.shelves:
+            if any(book.book_id == book_id for book in shelf.books):
+                return True
+        return False
