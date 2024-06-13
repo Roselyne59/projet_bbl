@@ -32,8 +32,3 @@ class BorrowManager:
                 self.save_data()
                 return
 
-    def get_pending_borrows(self):
-        return [borrow for borrow in self.borrows if not borrow.is_approved]
-
-    def get_approved_borrows(self):
-        return [borrow for borrow in self.borrows if borrow.is_approved]
