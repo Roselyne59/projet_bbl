@@ -144,7 +144,6 @@ class BorrowApp:
         self.submit_button.grid(row=8, column=0, columnspan=2)
 
     def get_available_books(self):
-        # Filtrer les livres disponibles
         available_books = [book for book in self.book_manager.books if book.is_available]
         return [f"{book.book_id} - {book.title}" for book in available_books]
 
@@ -152,23 +151,23 @@ class BorrowApp:
         borrow_id = int(self.borrow_id_entry.get())
         user_info = self.user_id_var.get().split(' - ')
         user_id = user_info[0]
-        user_name = user_info[1]  # Assuming user name is the second part after splitting
+        user_name = user_info[1]
 
         book_info = self.book_id_var.get().split(' - ')
         book_id = book_info[0]
-        book_title = book_info[1]  # Assuming book title is the second part after splitting
+        book_title = book_info[1] 
 
         start_date = self.start_date_entry.get_date().strftime('%Y-%m-%d')
         due_date = self.due_date_entry.get_date().strftime('%Y-%m-%d')
 
-        # Vérifier si le livre est disponible
+        # Check if book is availble
         book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
         if book and not book.is_available:
             messagebox.showerror("Erreur", f"Le livre '{book.title}' n'est pas disponible.")
             return
 
         if borrow:
-            # Update existing borrow details
+            
             borrow.user_id = user_id
             borrow.user_name = user_name
             borrow.book_id = book_id
@@ -176,19 +175,29 @@ class BorrowApp:
             borrow.start_date = start_date
             borrow.due_date = due_date
         else:
-            # Create new borrow
+            # create new borrow
             new_borrow = Borrow(borrow_id, user_id, user_name, book_id, book_title, start_date, due_date)
             self.borrow_manager.add_borrow(new_borrow)
-            # Mark the book as unavailable
+            # book marqued as unavailble 
             book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
             if book:
-                book.is_available = False  # Mark the book as unavailable
+                book.is_available = False
 
-        self.update_treeview(self.tree)  # Assuming you have a treeview widget to update
+        self.update_treeview(self.tree)  
         self.form_window.destroy()
 
-    def modify_borrow_form ():
-        pass
+    def modify_borrow_form(self):
+        selected_item = self.tree.selection()
+        if not selected_item:
+            messagebox.showwarning("Attention", "Veuillez sélectionner un emprunt à modifier.")
+            return
+        
+        selected_borrow_id = self.tree.item(selected_item[0])['values'][0]
+        borrow = next((b for b in self.borrow_manager.borrows if b.borrow_id == selected_borrow_id), None)
+        if borrow:
+            self.show_borrow_form(borrow)
+        else:
+            messagebox.showerror("Erreur", f"Impossible de trouver l'emprunt avec l'ID {selected_borrow_id}.")
 
     def delete_borrow(self):
         selected_item = self.tree.selection()
@@ -212,8 +221,3 @@ class BorrowApp:
                 borrow.start_date,
                 borrow.due_date,
             ))
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BorrowApp(root)
-    root.mainloop()
