@@ -1,4 +1,3 @@
-import json
 
 class Book:
     book_number = 1
