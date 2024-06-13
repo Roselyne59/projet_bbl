@@ -13,11 +13,7 @@ class BookManager:
             return []
         with open(self.json_file, 'r', encoding='utf-8') as file:
             books_data = json.load(file)
-            books = []
-            for book_data in books_data:
-                book = Book.from_dict(book_data)
-                books.append(book)
-            return books
+            return [Book.from_dict(book_data) for book_data in books_data]
 
     def save_books(self):
         with open(self.json_file, 'w', encoding='utf-8') as file:
