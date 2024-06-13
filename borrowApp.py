@@ -118,7 +118,7 @@ class BorrowApp:
         self.book_id_label = tk.Label(self.form_window, text="Livre:")
         self.book_id_label.grid(row=2, column=0, sticky='E')
         self.book_id_var = tk.StringVar(self.form_window)
-        self.book_id_menu = ttk.Combobox(self.form_window, textvariable=self.book_id_var, values=[f"{book.book_id} - {book.title}" for book in self.book_manager.books])
+        self.book_id_menu = ttk.Combobox(self.form_window, textvariable=self.book_id_var, values=self.get_available_books())
         self.book_id_menu.grid(row=2, column=1)
         if borrow:
             book = next(book for book in self.book_manager.books if book.book_id == borrow.book_id)
@@ -143,6 +143,11 @@ class BorrowApp:
         self.submit_button = tk.Button(self.form_window, text="Valider", font=('Helvetica', 10, 'bold'), command=lambda: self.save_borrow(borrow))
         self.submit_button.grid(row=8, column=0, columnspan=2)
 
+    def get_available_books(self):
+        # Filtrer les livres disponibles
+        available_books = [book for book in self.book_manager.books if book.is_available]
+        return [f"{book.book_id} - {book.title}" for book in available_books]
+
     def save_borrow(self, borrow):
         borrow_id = int(self.borrow_id_entry.get())
         user_info = self.user_id_var.get().split(' - ')
@@ -161,18 +166,6 @@ class BorrowApp:
         if book and not book.is_available:
             messagebox.showerror("Erreur", f"Le livre '{book.title}' n'est pas disponible.")
             return
-
-        # Filtrer les livres disponibles
-        available_books = [b for b in self.book_manager.books if b.is_available]
-
-        if not available_books:
-            messagebox.showerror("Erreur", "Aucun livre disponible pour l'emprunt.")
-            return
-
-        # Mettre à jour la liste des livres disponibles dans l'interface utilisateur
-        self.book_id_var.set("")  # Réinitialiser la sélection du livre
-        book_choices = [f"{b.book_id} - {b.title}" for b in available_books]
-        self.book_id_menu['values'] = book_choices
 
         if borrow:
             # Update existing borrow details
@@ -193,11 +186,18 @@ class BorrowApp:
 
         self.update_treeview(self.tree)  # Assuming you have a treeview widget to update
         self.form_window.destroy()
+
     def modify_borrow_form ():
         pass
 
-    def delete_borrow():
-        pass
+    def delete_borrow(self):
+        selected_item = self.tree.selection()
+        if not selected_item:
+            messagebox.showwarning("Attention", "Veuillez sélectionner un emprunt à supprimer.")
+            return
+        selected_borrow_id = self.tree.item(selected_item[0])['values'][0]
+        self.borrow_manager.remove_borrow(selected_borrow_id)
+        self.update_treeview(self.tree)
 
     def update_treeview(self, treeview):
         for item in treeview.get_children():
