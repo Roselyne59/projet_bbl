@@ -1,17 +1,10 @@
 class User:
     user_number = 1
 
-<<<<<<< Updated upstream
     def __init__(self, user_id, firstname, lastname, birthdate, email, street, zip_code, login, password, is_admin=False):
         self.user_id = user_id
         self.firstname = firstname
         self.lastname = lastname
-=======
-    def __init__(self, user_id, lastname, firstname, birthdate, email, street, zip_code, login, password, is_admin=False):
-        self.user_id = user_id
-        self.lastname = lastname
-        self.firstname = firstname
->>>>>>> Stashed changes
         self.birthdate = birthdate
         self.email = email
         self.street = street
@@ -25,13 +18,8 @@ class User:
     def to_dict(self):
         return {
             "user_id": self.user_id,
-<<<<<<< Updated upstream
             "nom": self.firstname,
             "prenom": self.lastname,
-=======
-            "nom": self.lastname,
-            "prenom": self.firstname,
->>>>>>> Stashed changes
             "date_de_naissance": self.birthdate,
             "email": self.email,
             "rue": self.street,
