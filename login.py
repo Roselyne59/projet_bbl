@@ -45,19 +45,15 @@ class LoginApp:
         login = self.login_entry.get()
         password = self.password_entry.get()
 
-        # Load users from JSON
-        with open('json/users.json', 'r') as file:
-            users = json.load(file)
+        user = self.user_manager.get_user_by_login(login)
 
-        # Check login and password and redirect to corresponding page (admin or member)
-        for user in users:
-            if user['login'] == login and user['password'] == password:
-                if user['is_admin']:
-                    self.user_app = AdminHomePage (self.root, user['nom'], user['prenom'] )
-                else:
-                    self.user_app = MemberHomePage (self.root, user['nom'], user['prenom'])
-                return
-        
+        if user and user.password == password:
+            if user.is_admin:
+                self.user_app = AdminHomePage(self.root, user.nom, user.prenom)
+            else:
+                self.user_app = MemberHomePage(self.root, user.nom, user.prenom, user.user_id)
+            return
+
         messagebox.showerror("Erreur", "Login ou mot de passe incorrect.")
 
     def clear_screen(self):

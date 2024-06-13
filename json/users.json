@@ -8,7 +8,7 @@
         "rue": "Avnue du Charme 50",
         "code_postal": "6040 Jumet",
         "login": "admin",
-        "password": "Admin22/*",
+        "password": "admin",
         "is_admin": true
     },
     {
@@ -20,7 +20,7 @@
         "rue": "Avenue de l arepiblique 150",
         "code_postal": "6044 Roux",
         "login": "member",
-        "password": "Member22/*",
+        "password": "admin",
         "is_admin": false
     },
     {

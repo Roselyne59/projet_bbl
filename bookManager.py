@@ -40,5 +40,15 @@ class BookManager:
         with open('json/genres.json', 'r', encoding='utf-8') as file:
             return json.load(file)
 
+    def get_book_id_by_title(self, title):
+        for book in self.books:
+            if book.title == title:
+                return book.book_id
+        return None
 
+    def get_book_title_by_id(self, book_id):
+        for book in self.books:
+            if book.book_id == book_id:
+                return book.title
+        return "Unknown Title"
     
