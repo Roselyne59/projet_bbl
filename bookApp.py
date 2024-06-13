@@ -76,7 +76,8 @@ class BookApp:
                 f"ISBN : {book.isbn}",
                 f"Editeur : {book.editor}",
                 f"Collections : {', '.join(book.collections)}",
-                f"Genres : {', '.join(book.genres)}"
+                f"Genres : {', '.join(book.genres)}",
+                f"Disponibilité : {'Disponible' if book.is_available else 'Indisponible.'}"
             ]
             for item in book_info :
                 search_list.insert(tk.END, item)
@@ -181,8 +182,14 @@ class BookApp:
                 i = self.book_manager.genres.index(genre)
                 self.genre_list.select_set(i)
 
+        self.available_label = tk.Label(self.form_wind, text="Disponibilité : ")
+        self.available_label.grid(row=8, column=0, sticky='E')
+        self.available_var = tk.BooleanVar(value=book.is_available if book else True)
+        self.available_check = tk.Checkbutton(self.form_wind, variable=self.available_var)
+        self.available_check.grid(row=8, column=1)
+
         self.submit_button = tk.Button(self.form_wind, text="Valider", command=lambda: self.save_book(book))
-        self.submit_button.grid(row=8, column=0, columnspan=2)
+        self.submit_button.grid(row=9, column=0, columnspan=2)
 
     def validate_title(self, value):
         if value == "":
@@ -212,12 +219,13 @@ class BookApp:
         editor = self.editor_entry.get()
         collections = self.coll_entry.get().split(", ")
         genres = [self.genre_list.get(i) for i in self.genre_list.curselection()]
+        is_available = self.available_var.get()
 
         if not all([title, authors, publication_year, isbn, editor, collections, genres]):
             messagebox.showwarning("Veuillez remplir tous les champs !")
             return
         
-        new_book = Book(book_id, title, authors, publication_year, isbn, editor, collections, genres)
+        new_book = Book(book_id, title, authors, publication_year, isbn, editor, collections, genres, is_available)
 
         if book:
             self.book_manager.update_book(new_book)
@@ -238,8 +246,14 @@ class BookApp:
                 f"ISBN : {book.isbn}",
                 f"Editeur : {book.editor}",
                 f"Collections : {', '.join(book.collections)}",
-                f"Genres : {','.join(book.genres)}"
+                f"Genres : {','.join(book.genres)}",
+                f"Disponibilité : {'Disponible' if book.is_available else 'Indisponible.'}"
             ]
             for item in book_info :
                 self.list.insert(tk.END, item)
             self.list.insert(tk.END, "--------------------------")
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = BookApp(root)
+    root.mainloop()
