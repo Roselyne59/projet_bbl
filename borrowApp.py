@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from borrow import Borrow
+from user import User
 from borrowManager import BorrowManager
 from userManager import UserManager
 from bookManager import BookManager
