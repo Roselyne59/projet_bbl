@@ -1,10 +1,10 @@
 class User:
     user_number = 1
 
-    def __init__(self, user_id, nom, prenom, birthdate, email, street, zip_code, login, password, is_admin=False):
+    def __init__(self, user_id, firstname, lastname, birthdate, email, street, zip_code, login, password, is_admin=False):
         self.user_id = user_id
-        self.nom = nom
-        self.prenom = prenom
+        self.firstname = firstname
+        self.lastname = lastname
         self.birthdate = birthdate
         self.email = email
         self.street = street
@@ -18,8 +18,8 @@ class User:
     def to_dict(self):
         return {
             "user_id": self.user_id,
-            "nom": self.nom,
-            "prenom": self.prenom,
+            "nom": self.firstname,
+            "prenom": self.lastname,
             "date_de_naissance": self.birthdate,
             "email": self.email,
             "rue": self.street,
