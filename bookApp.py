@@ -23,12 +23,35 @@ class BookApp:
 
         self.root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
 
-        self.research_label = Label(self.root, font=('Verdana', 12, 'bold'), text="Recherche par titre")
-        self.research_label.pack(pady=10)
-        self.research_entry = Entry(self.root)
-        self.research_entry.pack(pady=10)
-        self.research_button = Button(self.root, text="Recherche", font=('Verdana', 12, 'bold'), command = self.research_book)
-        self.research_button.pack(pady=10)
+        search_frame = Frame(self.root)
+        search_frame.pack(pady=10)
+        
+        self.title_search_frame = Frame(search_frame)
+        self.title_search_frame.grid(row=0, column=0, padx=10)
+        self.research_label_title = Label(self.title_search_frame, font=('Verdana', 12, 'bold'), text="Recherche par titre")
+        self.research_label_title.pack(side=LEFT)
+        self.research_entry_title = Entry(self.title_search_frame)
+        self.research_entry_title.pack(side=LEFT)
+        self.research_button = Button(self.title_search_frame, text="Recherche", font=('Verdana', 12, 'bold'), command = self.research_book_by_title)
+        self.research_button.pack(side=LEFT)
+
+        self.isbn_search_frame = Frame(search_frame)
+        self.isbn_search_frame.grid(row=0, column=1, padx=10)
+        self.research_label_isbn = Label(self.isbn_search_frame, font=('Verdana', 12, 'bold'), text="Recherche par numéro ISBN")
+        self.research_label_isbn.pack(side=LEFT)
+        self.research_entry_isbn = Entry(self.isbn_search_frame)
+        self.research_entry_isbn.pack(side=LEFT)
+        self.research_button = Button(self.isbn_search_frame, text="Recherche", font=('Verdana', 12, 'bold'), command = self.research_book_by_isbn)
+        self.research_button.pack(side=LEFT)
+
+        self.authors_search_frame = Frame(search_frame)
+        self.authors_search_frame.grid(row=0, column=2, padx=10)
+        self.research_label_authors = Label(self.authors_search_frame, font=('Verdana', 12, 'bold'), text="Recherche par auteurs")
+        self.research_label_authors.pack(side=LEFT)
+        self.research_entry_authors = Entry(self.authors_search_frame)
+        self.research_entry_authors.pack(side=LEFT)
+        self.research_button = Button(self.authors_search_frame, text="Recherche", font=('Verdana', 12, 'bold'), command = self.research_book_by_authors)
+        self.research_button.pack(side=LEFT)
 
         self.refresh_list_button = Button(self.root, text="Actualiser la liste", font=('Verdana', 12, 'bold'), command = self.refresh_list)
         self.refresh_list_button.pack(pady=10)
@@ -72,17 +95,19 @@ class BookApp:
 
         self.update_treeview()
 
-    def research_book(self) :
-        search = self.research_entry.get().strip().lower()
-        filtered_books = [
-            book for book in self.book_manager.books
-            if search in book.title.lower()
-            or any(search in author.lower() for author in book.authors)
-            or search in str(book.isbn)
-        ]
-        self.show_research(filtered_books)
+    def research_book_by_title(self) :
+        search_title = self.research_entry_title.get().strip().lower()
+        filtered_books = [b for b in self.book_manager.books if search_title in b.title.lower()]
+        self.update_treeview(filtered_books)
 
-    def show_research(self, filtered_books) :
+    def research_book_by_isbn(self) :
+        search_isbn = self.research_entry_isbn.get().strip().lower()
+        filtered_books = [b for b in self.book_manager.books if search_isbn in str(b.isbn).lower()]
+        self.update_treeview(filtered_books)
+
+    def research_book_by_authors(self) :
+        search_authors = self.research_entry_authors.get().strip().lower()
+        filtered_books = [b for b in self.book_manager.books if any(search_authors in author.lower() for author in b.authors)]
         self.update_treeview(filtered_books)
 
     def update_treeview(self, books=None) :
