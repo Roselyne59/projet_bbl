@@ -121,19 +121,19 @@ class BorrowApp:
 
         self.start_date_label = tk.Label(self.form_window, text="Date Emprunt:")
         self.start_date_label.grid(row=3, column=0, sticky='E')
-        self.start_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day', year=2024, month=1, day=1)
+        self.start_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day')
         self.start_date_entry.grid(row=3, column=1)
         self.start_date_entry.configure(width=17)
         if borrow:
-            self.start_date_entry.set_date(borrow.start_date)
+            self.start_date_entry.set_date(datetime.strptime(borrow.start_date, '%Y-%m-%d'))
 
         self.due_date_label = tk.Label(self.form_window, text="Date Retour:")
         self.due_date_label.grid(row=4, column=0, sticky='E')
-        self.due_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day', year=2024, month=1, day=15)
+        self.due_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day')
         self.due_date_entry.grid(row=4, column=1)
         self.due_date_entry.configure(width=17)
         if borrow:
-            self.due_date_entry.set_date(borrow.due_date)
+            self.due_date_entry.set_date(datetime.strptime(borrow.due_date, '%Y-%m-%d'))
 
         self.is_approved_label = tk.Label(self.form_window, text="Approuvé:")
         self.is_approved_label.grid(row=5, column=0, sticky='E')
@@ -149,8 +149,8 @@ class BorrowApp:
         borrow_id = int(self.borrow_id_entry.get())
         user_id = self.user_id_var.get().split(' - ')[0]  # Extract the user_id
         book_id = self.book_id_var.get().split(' - ')[0]  # Extract the book_id
-        start_date = self.start_date_entry.get_date()
-        due_date = self.due_date_entry.get_date()
+        start_date = self.start_date_entry.get_date().strftime('%Y-%m-%d')
+        due_date = self.due_date_entry.get_date().strftime('%Y-%m-%d')
         is_approved = self.is_approved_var.get()
 
         if borrow:
