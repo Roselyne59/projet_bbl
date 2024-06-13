@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 from borrow import Borrow
 from borrowManager import BorrowManager
 from userManager import UserManager
@@ -155,7 +156,26 @@ class BorrowApp:
         start_date = self.start_date_entry.get_date().strftime('%Y-%m-%d')
         due_date = self.due_date_entry.get_date().strftime('%Y-%m-%d')
 
+        # Vérifier si le livre est disponible
+        book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
+        if book and not book.is_available:
+            messagebox.showerror("Erreur", f"Le livre '{book.title}' n'est pas disponible.")
+            return
+
+        # Filtrer les livres disponibles
+        available_books = [b for b in self.book_manager.books if b.is_available]
+
+        if not available_books:
+            messagebox.showerror("Erreur", "Aucun livre disponible pour l'emprunt.")
+            return
+
+        # Mettre à jour la liste des livres disponibles dans l'interface utilisateur
+        self.book_id_var.set("")  # Réinitialiser la sélection du livre
+        book_choices = [f"{b.book_id} - {b.title}" for b in available_books]
+        self.book_id_menu['values'] = book_choices
+
         if borrow:
+            # Update existing borrow details
             borrow.user_id = user_id
             borrow.user_name = user_name
             borrow.book_id = book_id
@@ -163,8 +183,13 @@ class BorrowApp:
             borrow.start_date = start_date
             borrow.due_date = due_date
         else:
+            # Create new borrow
             new_borrow = Borrow(borrow_id, user_id, user_name, book_id, book_title, start_date, due_date)
             self.borrow_manager.add_borrow(new_borrow)
+            # Mark the book as unavailable
+            book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
+            if book:
+                book.is_available = False  # Mark the book as unavailable
 
         self.update_treeview(self.tree)  # Assuming you have a treeview widget to update
         self.form_window.destroy()
@@ -189,4 +214,7 @@ class BorrowApp:
                 borrow.due_date,
             ))
 
-        
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = BorrowApp(root)
+    root.mainloop()
