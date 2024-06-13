@@ -14,7 +14,7 @@
         "genres": [
             "Fantasy"
         ],
-        "is_available" : "True"
+        "is_available": "True"
     },
     {
         "book_id": 2,
@@ -31,6 +31,342 @@
         "genres": [
             "Romance"
         ],
-        "is_available" : "True"
+        "is_available": "True"
+    },
+    {
+        "book_id": 3,
+        "titre": "Dune",
+        "auteurs": [
+            "Frank Herbert"
+        ],
+        "année de publication": 1965,
+        "isbn": 9780450011849,
+        "éditeur": "Chilton Books",
+        "collection": [
+            "Dune Series"
+        ],
+        "genres": [
+            "Science Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 4,
+        "titre": "The Great Gatsby",
+        "auteurs": [
+            "F. Scott Fitzgerald"
+        ],
+        "année de publication": 1925,
+        "isbn": 9780743273565,
+        "éditeur": "Scribner",
+        "collection": [
+            "Scribner Classics"
+        ],
+        "genres": [
+            "Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 5,
+        "titre": "1984",
+        "auteurs": [
+            "George Orwell"
+        ],
+        "année de publication": 1949,
+        "isbn": 9780451524935,
+        "éditeur": "Signet Classic",
+        "collection": [
+            "Signet Classics"
+        ],
+        "genres": [
+            "Dystopian Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 7,
+        "titre": "To Kill a Mockingbird",
+        "auteurs": [
+            "Harper Lee"
+        ],
+        "année de publication": 1960,
+        "isbn": 9780061120084,
+        "éditeur": "Harper Perennial Modern Classics",
+        "collection": [],
+        "genres": [
+            "Classics"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 8,
+        "titre": "Pride and Prejudice",
+        "auteurs": [
+            "Jane Austen"
+        ],
+        "année de publication": 1813,
+        "isbn": 9780141439518,
+        "éditeur": "Penguin Classics",
+        "collection": [],
+        "genres": [
+            "Romance"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 9,
+        "titre": "The Lord of the Rings",
+        "auteurs": [
+            "J.R.R. Tolkien"
+        ],
+        "année de publication": 1954,
+        "isbn": 9780544003415,
+        "éditeur": "Houghton Mifflin Harcourt",
+        "collection": [],
+        "genres": [
+            "Fantasy"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 10,
+        "titre": "Crime and Punishment",
+        "auteurs": [
+            "Fyodor Dostoevsky"
+        ],
+        "année de publication": 1866,
+        "isbn": 9780143107637,
+        "éditeur": "Penguin Classics",
+        "collection": [],
+        "genres": [
+            "Philosophical Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 11,
+        "titre": "The Hobbit",
+        "auteurs": [
+            "J.R.R. Tolkien"
+        ],
+        "année de publication": 1937,
+        "isbn": 9780547928227,
+        "éditeur": "Houghton Mifflin Harcourt",
+        "collection": [],
+        "genres": [
+            "Fantasy"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 12,
+        "titre": "The Picture of Dorian Gray",
+        "auteurs": [
+            "Oscar Wilde"
+        ],
+        "année de publication": 1890,
+        "isbn": 9780141442464,
+        "éditeur": "Penguin Classics",
+        "collection": [],
+        "genres": [
+            "Gothic Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 13,
+        "titre": "The Road",
+        "auteurs": [
+            "Cormac McCarthy"
+        ],
+        "année de publication": 2006,
+        "isbn": 9780307387899,
+        "éditeur": "Vintage International",
+        "collection": [],
+        "genres": [
+            "Post-Apocalyptic Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 14,
+        "titre": "Brave New World",
+        "auteurs": [
+            "Aldous Huxley"
+        ],
+        "année de publication": 1932,
+        "isbn": 9780060850524,
+        "éditeur": "Harper Perennial Modern Classics",
+        "collection": [],
+        "genres": [
+            "Dystopian Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 15,
+        "titre": "Moby-Dick",
+        "auteurs": [
+            "Herman Melville"
+        ],
+        "année de publication": 1851,
+        "isbn": 9780142437247,
+        "éditeur": "Penguin Classics",
+        "collection": [],
+        "genres": [
+            "Adventure Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 16,
+        "titre": "The Da Vinci Code",
+        "auteurs": [
+            "Dan Brown"
+        ],
+        "année de publication": 2003,
+        "isbn": 9780307474278,
+        "éditeur": "Anchor Books",
+        "collection": [],
+        "genres": [
+            "Mystery Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 17,
+        "titre": "The Catcher in the Rye",
+        "auteurs": [
+            "J.D. Salinger"
+        ],
+        "année de publication": 1951,
+        "isbn": 9780316769488,
+        "éditeur": "Little, Brown and Company",
+        "collection": [],
+        "genres": [
+            "Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 18,
+        "titre": "To Kill a Mockingbird",
+        "auteurs": [
+            "Harper Lee"
+        ],
+        "année de publication": 1960,
+        "isbn": 9780061120084,
+        "éditeur": "Harper Perennial Modern Classics",
+        "collection": [],
+        "genres": [
+            "Classics"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 19,
+        "titre": "Pride and Prejudice",
+        "auteurs": [
+            "Jane Austen"
+        ],
+        "année de publication": 1813,
+        "isbn": 9780141439518,
+        "éditeur": "Penguin Classics",
+        "collection": [],
+        "genres": [
+            "Romance"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 20,
+        "titre": "The Lord of the Rings",
+        "auteurs": [
+            "J.R.R. Tolkien"
+        ],
+        "année de publication": 1954,
+        "isbn": 9780544003415,
+        "éditeur": "Houghton Mifflin Harcourt",
+        "collection": [],
+        "genres": [
+            "Fantasy"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 21,
+        "titre": "Crime and Punishment",
+        "auteurs": [
+            "Fyodor Dostoevsky"
+        ],
+        "année de publication": 1866,
+        "isbn": 9780143107637,
+        "éditeur": "Penguin Classics",
+        "collection": [],
+        "genres": [
+            "Philosophical Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 22,
+        "titre": "The Hobbit",
+        "auteurs": [
+            "J.R.R. Tolkien"
+        ],
+        "année de publication": 1937,
+        "isbn": 9780547928227,
+        "éditeur": "Houghton Mifflin Harcourt",
+        "collection": [],
+        "genres": [
+            "Fantasy"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 23,
+        "titre": "The Picture of Dorian Gray",
+        "auteurs": [
+            "Oscar Wilde"
+        ],
+        "année de publication": 1890,
+        "isbn": 9780141442464,
+        "éditeur": "Penguin Classics",
+        "collection": [],
+        "genres": [
+            "Gothic Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 24,
+        "titre": "The Road",
+        "auteurs": [
+            "Cormac McCarthy"
+        ],
+        "année de publication": 2006,
+        "isbn": 9780307387899,
+        "éditeur": "Vintage International",
+        "collection": [],
+        "genres": [
+            "Post-Apocalyptic Fiction"
+        ],
+        "is_available": true
+    },
+    {
+        "book_id": 25,
+        "titre": "Brave New World",
+        "auteurs": [
+            "Aldous Huxley"
+        ],
+        "année de publication": 1932,
+        "isbn": 9780060850524,
+        "éditeur": "Harper Perennial Modern Classics",
+        "collection": [],
+        "genres": [
+            "Dystopian Fiction"
+        ],
+        "is_available": true
     }
 ]
