@@ -8,7 +8,7 @@ class User:
         self.birthdate = birthdate
         self.email = email
         self.street = street
-        self.zip_code= zip_code
+        self.zip_code = zip_code
         self.login = login
         self.password = password
         self.is_admin = is_admin

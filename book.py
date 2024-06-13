@@ -1,4 +1,3 @@
-
 class Book:
     book_number = 1
 
@@ -47,4 +46,3 @@ class Book:
             data["genres"],
             data.get("is_available", True)
         )
-

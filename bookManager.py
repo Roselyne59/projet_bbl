@@ -3,20 +3,25 @@ import os
 from book import Book
 
 class BookManager:
-    def __init__(self, json_file="json/books.json"):
-        self.json_file = json_file
+    def __init__(self, books_json="json/books.json", editors_json="json/editors.json", collections_json="json/collections.json", genres_json="json/genres.json"):
+        self.books_json = books_json
+        self.editors_json = editors_json
+        self.collections_json = collections_json
+        self.genres_json = genres_json
         self.books = self.load_books()
+        self.editors = self.load_editors()
+        self.collections = self.load_collections()
         self.genres = self.load_genres()
 
     def load_books(self):
-        if not os.path.exists(self.json_file):
+        if not os.path.exists(self.books_json):
             return []
-        with open(self.json_file, 'r', encoding='utf-8') as file:
+        with open(self.books_json, 'r', encoding='utf-8') as file:
             books_data = json.load(file)
             return [Book.from_dict(book_data) for book_data in books_data]
 
     def save_books(self):
-        with open(self.json_file, 'w', encoding='utf-8') as file:
+        with open(self.books_json, 'w', encoding='utf-8') as file:
             books_data = [book.to_dict() for book in self.books]
             json.dump(books_data, file, ensure_ascii=False, indent=4)
 
@@ -36,8 +41,22 @@ class BookManager:
         self.books = [book for book in self.books if book.book_id != book_id]
         self.save_books()
 
+    def load_editors(self):
+        if not os.path.exists(self.editors_json) :
+            return []
+        with open(self.editors_json, 'r', encoding='utf-8') as file:
+            return json.load(file)
+        
+    def load_collections(self):
+        if not os.path.exists(self.collections_json) :
+            return []
+        with open(self.collections_json, 'r', encoding='utf-8') as file:
+            return json.load(file)
+
     def load_genres(self):
-        with open('json/genres.json', 'r', encoding='utf-8') as file:
+        if not os.path.exists(self.genres_json) :
+            return []
+        with open(self.genres_json, 'r', encoding='utf-8') as file:
             return json.load(file)
 
     def get_book_id_by_title(self, title):

@@ -44,7 +44,7 @@ class ViewAllReservationsApp:
         for reservation in self.reservation_manager.get_all_reservations():
             user = self.user_manager.get_user_by_id(reservation.user_id)
             book_title = self.book_manager.get_book_title_by_id(reservation.book_id)
-            user_name = f"{user.nom} {user.prenom}"
+            user_name = f"{user.lastname} {user.firstname}"
             status = getattr(reservation, "status", "attente")
             item_id = self.tree.insert("", "end", values=(reservation.user_id, user_name, user.email, reservation.book_id, book_title, reservation.start_date, reservation.end_date, status))
             self.reservation_dict[item_id] = reservation
@@ -61,7 +61,7 @@ class ViewAllReservationsApp:
                 book_title = self.book_manager.get_book_title_by_id(reservation.book_id)
                 reservation.status = "Acceptée"
                 self.update_reservation(reservation)
-                self.tree.item(item, values=(reservation.user_id, f"{user.nom} {user.prenom}", user.email, reservation.book_id, book_title, reservation.start_date, reservation.end_date, "Acceptée"))
+                self.tree.item(item, values=(reservation.user_id, f"{user.lastname} {user.firstname}", user.email, reservation.book_id, book_title, reservation.start_date, reservation.end_date, "Acceptée"))
                 print(f"Réservation acceptée: {reservation.to_dict()}")
 
     def reject_reservation(self):
@@ -76,7 +76,7 @@ class ViewAllReservationsApp:
                 book_title = self.book_manager.get_book_title_by_id(reservation.book_id)
                 reservation.status = "Refusée"
                 self.update_reservation(reservation)
-                self.tree.item(item, values=(reservation.user_id, f"{user.nom} {user.prenom}", user.email, reservation.book_id, book_title, reservation.start_date, reservation.end_date, "Refusée"))
+                self.tree.item(item, values=(reservation.user_id, f"{user.lastname} {user.firstname}", user.email, reservation.book_id, book_title, reservation.start_date, reservation.end_date, "Refusée"))
                 print(f"Réservation refusée: {reservation.to_dict()}")
 
     def delete_reservation(self):
@@ -97,7 +97,3 @@ class ViewAllReservationsApp:
         self.reservation_manager.update_reservation(reservation)
         print(f"Réservation mise à jour dans le gestionnaire: {reservation.to_dict()}")
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = ViewAllReservationsApp(root)
-    root.mainloop()

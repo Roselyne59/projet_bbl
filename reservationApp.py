@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from tkcalendar import Calendar, DateEntry
+from tkcalendar import DateEntry
 from reservationManager import ReservationManager
 from reservation import Reservation
 from bookManager import BookManager
@@ -58,8 +58,20 @@ class ReservationApp:
         book_id = self.book_manager.get_book_id_by_title(book_title)
         start_date = self.start_date_entry.get_date()
         end_date = self.end_date_entry.get_date()
+        today = date.today()
 
-        # Vérifier si la réservation existe déjà pour ce livre
+        if start_date < today:
+            messagebox.showerror("Erreur", "La date de début ne peut pas être dans le passé.")
+            return
+
+        if end_date < today:
+            messagebox.showerror("Erreur", "La date de fin ne peut pas être dans le passé.")
+            return
+
+        if end_date < start_date:
+            messagebox.showerror("Erreur", "La date de fin ne peut pas être antérieure à la date de début.")
+            return
+
         existing_reservations = self.reservation_manager.get_all_reservations()
         for res in existing_reservations:
             if res.user_id == self.user_id and res.book_id == book_id:
@@ -88,7 +100,3 @@ class ReservationApp:
                                          values=(res.book_id, book_title, res.start_date, res.end_date, status))
 
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = ReservationApp(root, user_id="test_user")
-    root.mainloop()

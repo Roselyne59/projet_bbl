@@ -49,9 +49,9 @@ class LoginApp:
 
         if user and user.password == password:
             if user.is_admin:
-                self.user_app = AdminHomePage(self.root, user.nom, user.prenom)
+                self.user_app = AdminHomePage(self.root, user.lastname, user.firstname)
             else:
-                self.user_app = MemberHomePage(self.root, user.nom, user.prenom, user.user_id)
+                self.user_app = MemberHomePage(self.root, user.lastname, user.firstname, user.user_id)
             return
 
         messagebox.showerror("Erreur", "Login ou mot de passe incorrect.")
