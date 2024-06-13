@@ -4,7 +4,7 @@ from borrow import Borrow
 from borrowManager import BorrowManager
 from userManager import UserManager
 from bookManager import BookManager
-from datetime import datetime
+from tkcalendar import DateEntry
 
 class BorrowApp:
     def __init__(self, root):
@@ -35,28 +35,32 @@ class BorrowApp:
         self.search_label.pack(pady=10)
         self.search_entry = tk.Entry(self.root)
         self.search_entry.pack(pady=10)
-        self.search_button = tk.Button(self.root, text="Rechercher", command=lambda : self.search_borrow(self.tree))
+        self.search_button = tk.Button(self.root, text="Rechercher", font=('Helvetica', 10, 'bold'), command=lambda : self.search_borrow(self.tree))
         self.search_button.pack(pady=10)
 
         #Refresh borrow list button 
-        self.refresh_list_button = tk.Button(self.root, text="Actualiser la liste", command=lambda : self.refresh_list(self.tree))
+        self.refresh_list_button = tk.Button(self.root, text="Actualiser la liste", font=('Helvetica', 10, 'bold'), command=lambda : self.refresh_list(self.tree))
         self.refresh_list_button.pack(pady=10)
 
         # Treeview for displaying borrows
-        self.tree = ttk.Treeview(self.root, columns=('ID_Emprunt', 'Id_Membre', 'Id_Livre', 'Date Emprunt', 'Date Retour'), show='headings')
+        self.tree = ttk.Treeview(self.root, columns=('ID_Emprunt', 'Id_Membre', 'Nom Utilisateur', 'Id_Livre', 'Titre Livre', 'Date Emprunt', 'Date Retour'), show='headings')
         self.tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
         # Define headings
         self.tree.heading('ID_Emprunt', text='ID Emprunt')
         self.tree.heading('Id_Membre', text='Id Membre')
+        self.tree.heading('Nom Utilisateur', text='Nom Utilisateur')
         self.tree.heading('Id_Livre', text='Id Livre')
+        self.tree.heading('Titre Livre', text='Titre Livre')
         self.tree.heading('Date Emprunt', text='Date Emprunt')
         self.tree.heading('Date Retour', text='Date Retour')
 
         # Define column widths
         self.tree.column('ID_Emprunt', width=100)
         self.tree.column('Id_Membre', width=100)
+        self.tree.column('Nom Utilisateur', width=150)
         self.tree.column('Id_Livre', width=100)
+        self.tree.column('Titre Livre', width=150)
         self.tree.column('Date Emprunt', width=150)
         self.tree.column('Date Retour', width=150)
 
@@ -64,13 +68,13 @@ class BorrowApp:
         button_frame = tk.Frame(self.root)
         button_frame.pack(pady=10)
 
-        self.add_button = tk.Button(button_frame, text="Créer Emprunt", command=self.show_borrow_form)
+        self.add_button = tk.Button(button_frame, text="Créer Emprunt", font=('Helvetica', 10, 'bold'), command=self.show_borrow_form)
         self.add_button.pack(side=tk.LEFT, padx=10)
 
-        self.modify_button = tk.Button(button_frame, text="Modifier Emprunt", command=self.modify_borrow_form)
+        self.modify_button = tk.Button(button_frame, text="Modifier Emprunt", font=('Helvetica', 10, 'bold'), command=self.modify_borrow_form)
         self.modify_button.pack(side=tk.LEFT, padx=10)
 
-        self.delete_button = tk.Button(button_frame, text="Supprimer Emprunt", command=self.delete_borrow)
+        self.delete_button = tk.Button(button_frame, text="Supprimer Emprunt", font=('Helvetica', 10, 'bold'), command=self.delete_borrow)
         self.delete_button.pack(side=tk.LEFT, padx=10)
 
         self.update_treeview(self.tree)
@@ -121,50 +125,50 @@ class BorrowApp:
 
         self.start_date_label = tk.Label(self.form_window, text="Date Emprunt:")
         self.start_date_label.grid(row=3, column=0, sticky='E')
-        self.start_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day')
+        self.start_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day', year=2024, month=1, day=1)
         self.start_date_entry.grid(row=3, column=1)
-        self.start_date_entry.configure(width=17)
+        self.start_date_entry.configure(width=20)
         if borrow:
-            self.start_date_entry.set_date(datetime.strptime(borrow.start_date, '%Y-%m-%d'))
+            self.start_date_entry.set_date(borrow.start_date)
 
         self.due_date_label = tk.Label(self.form_window, text="Date Retour:")
         self.due_date_label.grid(row=4, column=0, sticky='E')
-        self.due_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day')
+        self.due_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day', year=2024, month=1, day=1)
         self.due_date_entry.grid(row=4, column=1)
-        self.due_date_entry.configure(width=17)
+        self.due_date_entry.configure(width=20)
         if borrow:
-            self.due_date_entry.set_date(datetime.strptime(borrow.due_date, '%Y-%m-%d'))
+            self.due_date_entry.set_date(borrow.due_date)
 
-        self.is_approved_label = tk.Label(self.form_window, text="Approuvé:")
-        self.is_approved_label.grid(row=5, column=0, sticky='E')
-        self.is_approved_var = tk.BooleanVar()
-        self.is_approved_var.set(borrow.is_approved if borrow else False)
-        self.is_approved_checkbutton = tk.Checkbutton(self.form_window, text="Oui", variable=self.is_approved_var)
-        self.is_approved_checkbutton.grid(row=5, column=1)
-
-        self.submit_button = tk.Button(self.form_window, text="Valider", command=lambda: self.save_borrow(borrow))
-        self.submit_button.grid(row=6, column=0, columnspan=2)
+        self.submit_button = tk.Button(self.form_window, text="Valider", font=('Helvetica', 10, 'bold'), command=lambda: self.save_borrow(borrow))
+        self.submit_button.grid(row=8, column=0, columnspan=2)
 
     def save_borrow(self, borrow):
         borrow_id = int(self.borrow_id_entry.get())
-        user_id = self.user_id_var.get().split(' - ')[0]  # Extract the user_id
-        book_id = self.book_id_var.get().split(' - ')[0]  # Extract the book_id
+        user_info = self.user_id_var.get().split(' - ')
+        user_id = user_info[0]
+        user_name = user_info[1]  # Assuming user name is the second part after splitting
+
+        book_info = self.book_id_var.get().split(' - ')
+        book_id = book_info[0]
+        book_title = book_info[1]  # Assuming book title is the second part after splitting
+
         start_date = self.start_date_entry.get_date().strftime('%Y-%m-%d')
         due_date = self.due_date_entry.get_date().strftime('%Y-%m-%d')
-        is_approved = self.is_approved_var.get()
 
         if borrow:
             borrow.user_id = user_id
+            borrow.user_name = user_name
             borrow.book_id = book_id
+            borrow.book_title = book_title
             borrow.start_date = start_date
             borrow.due_date = due_date
-            borrow.is_approved = is_approved
         else:
-            new_borrow = Borrow(borrow_id, user_id, book_id, start_date, due_date, is_approved)
+            new_borrow = Borrow(borrow_id, user_id, user_name, book_id, book_title, start_date, due_date)
             self.borrow_manager.add_borrow(new_borrow)
 
         self.update_treeview(self.tree)  # Assuming you have a treeview widget to update
         self.form_window.destroy()
+
     def modify_borrow_form ():
         pass
 
@@ -178,14 +182,11 @@ class BorrowApp:
             treeview.insert('', 'end', values=(
                 borrow.borrow_id,
                 borrow.user_id,
+                borrow.user_name,
                 borrow.book_id,
+                borrow.book_title,
                 borrow.start_date,
                 borrow.due_date,
-                borrow.is_approved
             ))
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BorrowApp(root)
-    root.mainloop()
         
