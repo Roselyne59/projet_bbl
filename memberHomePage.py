@@ -16,13 +16,13 @@ class MemberHomePage(UserHomePage):
         self.logout_bouton()
 
         self.book_app = BookApp(root)
-        self.__show_book_list()
+        self.show_book_list()
 
         self.reservation_button = tk.Button(root, text="Faire une réservation", command=self.open_reservation_app)
         self.reservation_button.pack(pady=10)
 
-    def __show_book_list(self):
-        self.book_app.update_list()
+    def show_book_list(self):
+        self.book_app.update_list
 
     def open_reservation_app(self):
         reservation_window = Toplevel(self.root)

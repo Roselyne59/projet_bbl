@@ -44,6 +44,22 @@
         "shelf_id": 8,
         "number": 1,
         "letter": "A",
-        "books": []
+        "books": [
+            {
+                "book_id": 14,
+                "titre": "Brave New World",
+                "auteurs": [
+                    "Aldous Huxley"
+                ],
+                "année de publication": 1932,
+                "isbn": 9780060850524,
+                "éditeur": "Harper Perennial Modern Classics",
+                "collection": [],
+                "genres": [
+                    "Dystopian Fiction"
+                ],
+                "is_available": true
+            }
+        ]
     }
 ]

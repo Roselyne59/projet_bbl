@@ -15,9 +15,9 @@
     },
     {
         "user_id": 2,
-        "book_id": 10,
+        "book_id": 13,
         "start_date": "2024-06-13",
-        "end_date": "2024-06-26",
-        "status": "Accept\u00e9e"
+        "end_date": "2024-06-27",
+        "status": "en attente"
     }
 ]
