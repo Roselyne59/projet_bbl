@@ -1,11 +1,5 @@
 [
     {
-        "shelf_id": 1,
-        "number": 1,
-        "letter": "A",
-        "books": []
-    },
-    {
         "shelf_id": 2,
         "number": 2,
         "letter": "A",
@@ -24,8 +18,32 @@
                 ],
                 "genres": [
                     "Romance"
-                ]
+                ],
+                "is_available": true
+            },
+            {
+                "book_id": 1,
+                "titre": "Harry Potter et le prisonnier d'Azkaban",
+                "auteurs": [
+                    "J.K Rowling"
+                ],
+                "année de publication": 1999,
+                "isbn": 9782070584925,
+                "éditeur": "Gallimard Jeunesse",
+                "collection": [
+                    "Folio Junior"
+                ],
+                "genres": [
+                    "Fantasy"
+                ],
+                "is_available": "True"
             }
         ]
+    },
+    {
+        "shelf_id": 8,
+        "number": 1,
+        "letter": "A",
+        "books": []
     }
 ]

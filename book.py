@@ -45,5 +45,6 @@ class Book:
             data["éditeur"],
             data["collection"],
             data["genres"],
-            data["is_available"]
+            data.get("is_available", True)
         )
+

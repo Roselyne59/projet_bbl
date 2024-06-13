@@ -252,8 +252,3 @@ class BookApp:
             for item in book_info :
                 self.list.insert(tk.END, item)
             self.list.insert(tk.END, "--------------------------")
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BookApp(root)
-    root.mainloop()
