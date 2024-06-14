@@ -89,7 +89,7 @@ class BorrowApp:
 
         self.update_treeview(self.tree)
          
-    
+    #Add new or modify existing borrow
     def show_borrow_form(self, borrow=None):
         self.form_window = tk.Toplevel(self.root)
         self.form_window.title("Formulaire Emprunt")
@@ -125,7 +125,7 @@ class BorrowApp:
             if user:
                 self.user_id_var.set(f"{user.user_id} - {user.firstname} {user.lastname}")
             else:
-                messagebox.showerror("Erreur", "Utilisateur non trouvé.")
+                messagebox.showerror("Debugging....", "Utilisateur non trouvé.") #modifying problem
                 self.form_window.destroy()
                 return
 
@@ -164,6 +164,7 @@ class BorrowApp:
         self.submit_button = tk.Button(self.form_window, text="Valider", font=('Helvetica', 10, 'bold'), command=lambda: self.save_borrow(borrow))
         self.submit_button.grid(row=8, column=0, columnspan=2)
 
+    #User to filtre available books
     def get_available_books(self):
         available_books = [book for book in self.book_manager.books if book.is_available]
         return [f"{book.book_id} - {book.title}" for book in available_books]
@@ -222,7 +223,7 @@ class BorrowApp:
         selected_borrow_id = self.tree.item(selected_item[0])['values'][0]
         borrow = next((b for b in self.borrow_manager.borrows if b.borrow_id == selected_borrow_id), None)
         if borrow:
-            print(f"Debug: Emprunt sélectionné trouvé: {borrow}")  # Debug message
+            print(f"Debug: Emprunt sélectionné trouvé: {borrow}")  # for debugging
             self.show_borrow_form(borrow)
         else:
             messagebox.showerror("Erreur", f"Impossible de trouver l'emprunt avec l'ID {selected_borrow_id}.")
@@ -230,7 +231,7 @@ class BorrowApp:
     def delete_borrow(self):
         selected_item = self.tree.selection()
         if not selected_item:
-            messagebox.showwarning("Attention", "Veuillez sélectionner un emprunt à supprimer.")
+            messagebox.showwarning("Attention", "Veuillez sélectionner un emprunt à supprimer !")
             return
         selected_borrow_id = self.tree.item(selected_item[0])['values'][0]
         self.borrow_manager.remove_borrow(selected_borrow_id)
@@ -267,7 +268,6 @@ class BorrowApp:
                 borrow.due_date,
                 days_delayed,
                 amount_to_pay,
-
             ))
 
     #Refresh borrow list after search
@@ -300,6 +300,9 @@ class BorrowApp:
                 amount_to_pay,
             ))
 
+#the search_borrow_by_user function works perfectly if borrowApp is executed separately
+# but the same function does not work on the borrwApp 
+# once called from the adminHomePage page by clicking on the "Emprunts" button
 if __name__ == "__main__":
     root = tk.Tk()
     app = BorrowApp(root)

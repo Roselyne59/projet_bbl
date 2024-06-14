@@ -4,7 +4,7 @@ from tkinter import messagebox, Label, Entry, Button, Toplevel, Frame, Listbox, 
 from shelfManager import ShelfManager
 from bookManager import BookManager
 from shelf import Shelf
-from book import Book
+
 
 class ShelfApp:
     def __init__(self, root):

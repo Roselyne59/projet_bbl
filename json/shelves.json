@@ -101,5 +101,29 @@
                 "is_available": true
             }
         ]
+    },
+    {
+        "shelf_id": 9,
+        "number": 3,
+        "letter": "B",
+        "books": [
+            {
+                "book_id": 22,
+                "titre": "The Hobbit",
+                "auteurs": [
+                    "J.R.R. Tolkien"
+                ],
+                "année de publication": 1937,
+                "isbn": 9780547928227,
+                "éditeurs": [
+                    "Houghton Mifflin Harcourt"
+                ],
+                "collection": [],
+                "genres": [
+                    "Fantasy"
+                ],
+                "is_available": true
+            }
+        ]
     }
 ]
