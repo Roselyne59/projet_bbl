@@ -15,7 +15,7 @@ class MemberHomePage(UserHomePage):
         self.welcome_message(nom, prenom)
         self.logout_bouton()
 
-        self.book_app = BookApp(root)
+        self.book_app = BookApp(root, show_books_buttons=False)
         self.show_book_list()
 
         self.reservation_button = tk.Button(root, text="Faire une réservation", command=self.open_reservation_app)

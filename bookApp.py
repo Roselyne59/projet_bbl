@@ -6,7 +6,7 @@ from book import Book
 from bookManager import BookManager
 
 class BookApp:
-    def __init__(self, root):
+    def __init__(self, root, show_books_buttons=True):
         self.root = root
         self.root.title("Gestion des livres")
 
@@ -79,17 +79,18 @@ class BookApp:
         self.tree.column('Genres', width=150)
         self.tree.column('Disponibilité', width=100)
 
-        button_frame = Frame(self.root)
-        button_frame.pack(pady=10)
+        if show_books_buttons :
+            button_frame = Frame(self.root)
+            button_frame.pack(pady=10)
 
-        self.add_button = Button(button_frame, text="Ajouter un livre", font=('Verdana', 12, 'bold'), command=self.add_book)
-        self.add_button.pack(side=LEFT, padx=10)
+            self.add_button = Button(button_frame, text="Ajouter un livre", font=('Verdana', 12, 'bold'), command=self.add_book)
+            self.add_button.pack(side=LEFT, padx=10)
 
-        self.edit_button = Button(button_frame, text="Modifier un livre", font=('Verdana', 12, 'bold'), command=self.edit_book)
-        self.edit_button.pack(side=LEFT, padx=10)
+            self.edit_button = Button(button_frame, text="Modifier un livre", font=('Verdana', 12, 'bold'), command=self.edit_book)
+            self.edit_button.pack(side=LEFT, padx=10)
 
-        self.remove_button = Button(button_frame, text="Supprimer un livre", font=('Verdana', 12, 'bold'), command=self.remove_book)
-        self.remove_button.pack(side=LEFT, padx=10)
+            self.remove_button = Button(button_frame, text="Supprimer un livre", font=('Verdana', 12, 'bold'), command=self.remove_book)
+            self.remove_button.pack(side=LEFT, padx=10)
 
         self.update_treeview()
 

@@ -1,85 +1,6 @@
 [
     {
-        "shelf_id": 2,
-        "number": 2,
-        "letter": "A",
-        "books": [
-            {
-                "book_id": 2,
-                "titre": "Twisted Love",
-                "auteurs": [
-                    "Ana Huang"
-                ],
-                "année de publication": 2022,
-                "isbn": 9782755670356,
-                "éditeurs": [
-                    ""
-                ],
-                "collection": [
-                    "Hugo Roman"
-                ],
-                "genres": [
-                    "Romance"
-                ],
-                "is_available": true
-            },
-            {
-                "book_id": 1,
-                "titre": "Harry Potter et le prisonnier d'Azkaban",
-                "auteurs": [
-                    "J.K Rowling"
-                ],
-                "année de publication": 1999,
-                "isbn": 9782070584925,
-                "éditeurs": [
-                    ""
-                ],
-                "collection": [
-                    "Folio Junior"
-                ],
-                "genres": [
-                    "Fantasy"
-                ],
-                "is_available": "True"
-            },
-            {
-                "book_id": 13,
-                "titre": "The Road",
-                "auteurs": [
-                    "Cormac McCarthy"
-                ],
-                "année de publication": 2006,
-                "isbn": 9780307387899,
-                "éditeurs": [
-                    "Vintage International"
-                ],
-                "collection": [],
-                "genres": [
-                    "Fiction post-apocalyptique"
-                ],
-                "is_available": true
-            },
-            {
-                "book_id": 10,
-                "titre": "Crime and Punishment",
-                "auteurs": [
-                    "Fyodor Dostoevsky"
-                ],
-                "année de publication": 1866,
-                "isbn": 9780143107637,
-                "éditeurs": [
-                    "Penguin Classics"
-                ],
-                "collection": [],
-                "genres": [
-                    "Fiction philosophique"
-                ],
-                "is_available": true
-            }
-        ]
-    },
-    {
-        "shelf_id": 8,
+        "shelf_id": 1,
         "number": 1,
         "letter": "A",
         "books": [
@@ -103,24 +24,60 @@
         ]
     },
     {
-        "shelf_id": 9,
-        "number": 3,
+        "shelf_id": 2,
+        "number": 1,
         "letter": "B",
+        "books": []
+    },
+    {
+        "shelf_id": 3,
+        "number": 2,
+        "letter": "D",
+        "books": []
+    },
+    {
+        "shelf_id": 4,
+        "number": 5,
+        "letter": "H",
         "books": [
             {
-                "book_id": 22,
-                "titre": "The Hobbit",
+                "book_id": 10,
+                "titre": "Crime and Punishment",
                 "auteurs": [
-                    "J.R.R. Tolkien"
+                    "Fyodor Dostoevsky"
                 ],
-                "année de publication": 1937,
-                "isbn": 9780547928227,
+                "année de publication": 1866,
+                "isbn": 9780143107637,
                 "éditeurs": [
-                    "Houghton Mifflin Harcourt"
+                    "Penguin Classics"
                 ],
                 "collection": [],
                 "genres": [
-                    "Fantasy"
+                    "Fiction philosophique"
+                ],
+                "is_available": true
+            }
+        ]
+    },
+    {
+        "shelf_id": 5,
+        "number": 3,
+        "letter": "A",
+        "books": [
+            {
+                "book_id": 12,
+                "titre": "The Picture of Dorian Gray",
+                "auteurs": [
+                    "Oscar Wilde"
+                ],
+                "année de publication": 1890,
+                "isbn": 9780141442464,
+                "éditeurs": [
+                    "Penguin Classics"
+                ],
+                "collection": [],
+                "genres": [
+                    "Fiction gothique"
                 ],
                 "is_available": true
             }
