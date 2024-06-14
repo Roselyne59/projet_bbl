@@ -49,7 +49,7 @@ class BorrowApp:
         self.refresh_list_button.pack(pady=10)
 
         # Treeview for displaying borrows
-        self.tree = ttk.Treeview(self.root, columns=('ID_Emprunt', 'Id_Membre', 'Nom Utilisateur', 'Id_Livre', 'Titre Livre', 'Date Emprunt', 'Date Retour'), show='headings')
+        self.tree = ttk.Treeview(self.root, columns=('ID_Emprunt', 'Id_Membre', 'Nom Utilisateur', 'Id_Livre', 'Titre Livre', 'Date Emprunt', 'Date Retour', 'Retard en jours', 'Montant Amende'), show='headings')
         self.tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
         # Define headings
@@ -60,15 +60,23 @@ class BorrowApp:
         self.tree.heading('Titre Livre', text='Titre Livre')
         self.tree.heading('Date Emprunt', text='Date Emprunt')
         self.tree.heading('Date Retour', text='Date Retour')
+        self.tree.heading('Retard en jours', text='Retard en jours')
+        self.tree.heading('Montant Amende', text='Montant Amende en €')
 
         # Define column widths
-        self.tree.column('ID_Emprunt', width=100)
-        self.tree.column('Id_Membre', width=100)
-        self.tree.column('Nom Utilisateur', width=150)
-        self.tree.column('Id_Livre', width=100)
-        self.tree.column('Titre Livre', width=150)
-        self.tree.column('Date Emprunt', width=150)
-        self.tree.column('Date Retour', width=150)
+        self.tree.column('ID_Emprunt', width=50, anchor=tk.CENTER)
+        self.tree.column('Id_Membre', width=50, anchor=tk.CENTER)
+        self.tree.column('Nom Utilisateur', width=150, anchor=tk.CENTER)
+        self.tree.column('Id_Livre', width=50, anchor=tk.CENTER)
+        self.tree.column('Titre Livre', width=150, anchor=tk.CENTER)
+        self.tree.column('Date Emprunt', width=80, anchor=tk.CENTER)
+        self.tree.column('Date Retour', width=80, anchor=tk.CENTER)
+        self.tree.column('Retard en jours', width=80, anchor=tk.CENTER)
+        self.tree.column('Montant Amende', width=80, anchor=tk.CENTER)
+
+        #Column headers style
+        style = ttk.Style()
+        style.configure("Treeview.Heading", font=('Helvetica', 10, 'bold'))
 
         # Frame for aligning buttons horizontally
         button_frame = tk.Frame(self.root)
@@ -228,9 +236,19 @@ class BorrowApp:
         # Reset tree content
         for item in self.tree.get_children():
             self.tree.delete(item)
-        
+                
         # Display search result
         for borrow in filtered_borrows:
+            #Calculate days late
+            due_date = datetime.strptime(borrow.due_date, '%Y-%m-%d')
+            return_date = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
+            
+            days_delayed = (return_date - due_date).days
+            if days_delayed < 0:
+                days_delayed = 0
+        
+            amount_to_pay = days_delayed * 0.20 # 0.20€ per day
+
             self.tree.insert('', 'end', values=(
                 borrow.borrow_id,
                 borrow.user_id,
@@ -239,6 +257,9 @@ class BorrowApp:
                 borrow.book_title,
                 borrow.start_date,
                 borrow.due_date,
+                days_delayed,
+                amount_to_pay
+
             ))
 
     #Refresh borrow list after search
@@ -249,6 +270,16 @@ class BorrowApp:
         for item in treeview.get_children():
             treeview.delete(item)
         for borrow in self.borrow_manager.borrows:
+            
+            #Calculate days late
+            due_date = datetime.strptime(borrow.due_date, '%Y-%m-%d')
+            return_date = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
+            
+            days_delayed = (return_date - due_date).days
+            if days_delayed < 0:
+                days_delayed = 0
+        
+            amount_to_pay = days_delayed * 0.20 # 0.20€ per day 
             treeview.insert('', 'end', values=(
                 borrow.borrow_id,
                 borrow.user_id,
@@ -257,9 +288,6 @@ class BorrowApp:
                 borrow.book_title,
                 borrow.start_date,
                 borrow.due_date,
+                days_delayed,
+                amount_to_pay,
             ))
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BorrowApp(root)
-    root.mainloop()
