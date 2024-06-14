@@ -85,11 +85,15 @@ class ShelfApp:
     def search_by_number(self):
         search_number = self.search_entry_number.get().strip().lower()
         filtered_shelves = [s for s in self.shelf_manager.shelves if search_number in str(s.number).lower()]
+        if not filtered_shelves :
+            messagebox.showwarning("Ce numéro d'allée n'existe pas.")
         self.update_treeview(filtered_shelves)
 
     def search_by_letter(self):
         search_letter = self.search_entry_letter.get().strip().lower()
         filtered_shelves = [s for s in self.shelf_manager.shelves if search_letter in str(s.letter).lower()]
+        if not filtered_shelves :
+            messagebox.showwarning("Cette lettre de rayon n'existe pas.")
         self.update_treeview(filtered_shelves)
 
     def update_treeview(self, shelves=None):
