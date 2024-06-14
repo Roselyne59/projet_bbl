@@ -105,7 +105,10 @@ class BorrowApp:
 
         self.form_window.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
 
-        borrow_id = borrow.borrow_id if borrow else len(self.borrow_manager.borrows) + 1
+        if borrow is None:
+            borrow_id = len(self.borrow_manager.borrows) + 1
+        else:
+            borrow_id = borrow.borrow_id
 
         self.borrow_id_label = tk.Label(self.form_window, text="ID Emprunt:")
         self.borrow_id_label.grid(row=0, column=0, sticky='E')
@@ -118,8 +121,13 @@ class BorrowApp:
         self.user_id_menu = ttk.Combobox(self.form_window, textvariable=self.user_id_var, values=[f"{user.user_id} - {user.firstname} {user.lastname}" for user in self.user_manager.users])
         self.user_id_menu.grid(row=1, column=1)
         if borrow:
-            user = next(user for user in self.user_manager.users if user.user_id == borrow.user_id)
-            self.user_id_var.set(f"{user.user_id} - {user.firstname} {user.lastname}")
+            user = next((user for user in self.user_manager.users if user.user_id == borrow.user_id), None)
+            if user:
+                self.user_id_var.set(f"{user.user_id} - {user.firstname} {user.lastname}")
+            else:
+                messagebox.showerror("Erreur", "Utilisateur non trouvé.")
+                self.form_window.destroy()
+                return
 
         self.book_id_label = tk.Label(self.form_window, text="Livre:")
         self.book_id_label.grid(row=2, column=0, sticky='E')
@@ -127,8 +135,13 @@ class BorrowApp:
         self.book_id_menu = ttk.Combobox(self.form_window, textvariable=self.book_id_var, values=self.get_available_books())
         self.book_id_menu.grid(row=2, column=1)
         if borrow:
-            book = next(book for book in self.book_manager.books if book.book_id == borrow.book_id)
-            self.book_id_var.set(f"{book.book_id} - {book.title}")
+            book = next((book for book in self.book_manager.books if book.book_id == borrow.book_id), None)
+            if book:
+                self.book_id_var.set(f"{book.book_id} - {book.title}")
+            else:
+                messagebox.showerror("Erreur", "Livre non trouvé.")
+                self.form_window.destroy()
+                return
 
         self.start_date_label = tk.Label(self.form_window, text="Date Emprunt:")
         self.start_date_label.grid(row=3, column=0, sticky='E')
@@ -209,6 +222,7 @@ class BorrowApp:
         selected_borrow_id = self.tree.item(selected_item[0])['values'][0]
         borrow = next((b for b in self.borrow_manager.borrows if b.borrow_id == selected_borrow_id), None)
         if borrow:
+            print(f"Debug: Emprunt sélectionné trouvé: {borrow}")  # Debug message
             self.show_borrow_form(borrow)
         else:
             messagebox.showerror("Erreur", f"Impossible de trouver l'emprunt avec l'ID {selected_borrow_id}.")
@@ -224,8 +238,9 @@ class BorrowApp:
     
     def search_borrow_by_user (self):
         selected_user = self.search_user_var.get().split(' - ')[0]
+               
         filtered_borrows = [borrow for borrow in self.borrow_manager.borrows if borrow.user_id == selected_user]
-
+        
         # Reset tree content
         for item in self.tree.get_children():
            self.tree.delete(item)
