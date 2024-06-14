@@ -22,7 +22,7 @@ class MemberHomePage(UserHomePage):
         self.reservation_button.pack(pady=10)
 
     def show_book_list(self):
-        self.book_app.update_list
+        self.book_app.update_treeview
 
     def open_reservation_app(self):
         reservation_window = Toplevel(self.root)

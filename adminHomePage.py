@@ -42,16 +42,16 @@ class AdminHomePage(UserHomePage):
         UserApp(user_window)
 
     def open_book_app(self):
-        user_window = tk.Tk()
-        BookApp(user_window)
+        book_window = tk.Tk()
+        BookApp(book_window)
 
     def open_shelf_app(self):
-        user_window = tk.Tk()
-        ShelfApp(user_window)
+        shelf_window = tk.Tk()
+        ShelfApp(shelf_window)
 
     def open_borrow_app(self):
-        user_window = tk.Tk()
-        BorrowApp(user_window)
+        borrow_window = tk.Tk()
+        BorrowApp(borrow_window)
 
     def open_reservation_app(self):
         reservation_window = tk.Tk()

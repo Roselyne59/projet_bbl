@@ -30,7 +30,7 @@ class BorrowApp:
         self.borrow_manager = BorrowManager()
         self.book_manager = BookManager()
         self.user_manager = UserManager()
-        #self.load_borrows()
+        
 
         #Search borrow by user button
         self.search_label = tk.Label(self.root, text="Liste emprunts par membre", font=('Helvetica', 10, 'bold'))
@@ -93,10 +93,7 @@ class BorrowApp:
 
         self.update_treeview(self.tree)
          
-    #Refresh user list
-    def refresh_list(self, treeview):
-        self.update_treeview()
-
+    
     def show_borrow_form(self, borrow=None):
         self.form_window = tk.Toplevel(self.root)
         self.form_window.title("Formulaire Emprunt")
@@ -235,7 +232,7 @@ class BorrowApp:
 
         # Reset tree content
         for item in self.tree.get_children():
-            self.tree.delete(item)
+           self.tree.delete(item)
                 
         # Display search result
         for borrow in filtered_borrows:
@@ -258,7 +255,7 @@ class BorrowApp:
                 borrow.start_date,
                 borrow.due_date,
                 days_delayed,
-                amount_to_pay
+                amount_to_pay,
 
             ))
 
