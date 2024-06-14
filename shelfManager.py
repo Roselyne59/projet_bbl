@@ -34,9 +34,15 @@ class ShelfManager:
                 return
         raise ValueError("Etagère introuvable...")
 
-    def remove_shelf(self, shelf_number):
-        self.shelves = [shelf for shelf in self.shelves if shelf.number != shelf_number]
+    def remove_shelf(self, shelf_id):
+        self.shelves = [shelf for shelf in self.shelves if shelf.shelf_id != shelf_id]
+        self.update_shelf_ids()
         self.save_shelves()
+        
+    def update_shelf_ids(self):
+        for i, shelf in enumerate(self.shelves):
+            shelf.shelf_id = i + 1
+        Shelf.shelf_number = len(self.shelves) + 1
 
     def add_book_to_shelf(self, shelf_number, book):
         if self.is_book_in_any_shelf(book.book_id):

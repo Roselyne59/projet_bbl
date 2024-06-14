@@ -13,9 +13,6 @@ class Book:
         self.is_available = is_available
         if book_id >= Book.book_number:
             Book.book_number = book_id + 1
-
-#    def __str__(self):
-#        return f"{self.title} by {', '.join(self.authors)} ({self.publication_year})"
     
     def to_dict (self):
         return{

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter.ttk import Treeview
-from tkinter import messagebox, Label, Entry, Button, Toplevel, Frame, StringVar, BOTH, LEFT
+from tkinter import messagebox, Label, Entry, Button, Toplevel, Frame, Listbox, StringVar, BOTH, LEFT, END
 from shelfManager import ShelfManager
 from bookManager import BookManager
 from shelf import Shelf
@@ -74,11 +74,11 @@ class ShelfApp:
         self.remove_button = Button(button_frame, text="Supprimer une étagère", font=('Verdana', 12, 'bold'), command=self.remove_shelf)
         self.remove_button.pack(side=LEFT, padx=10)
 
-#        self.add_book_button = tk.Button(button_frame, text="Ajouter un livre à l'étagère", command=self.add_book_to_shelf)
-#        self.add_book_button.pack(side=tk.LEFT, padx=10)
+        self.add_book_button = Button(button_frame, text="Ajouter un livre à une étagère", font=('Verdana', 12, 'bold'), command=self.add_book_to_shelf)
+        self.add_book_button.pack(side=LEFT, padx=10)
 
-#        self.remove_book_button = tk.Button(button_frame, text="Retirer un livre de l'étagère", command=self.remove_book_from_shelf)
-#        self.remove_book_button.pack(side=tk.LEFT, padx=10)
+        self.remove_book_button = Button(button_frame, text="Enlever un livre d'une étagère", font=('Verdana', 12, 'bold'), command=self.remove_book_from_shelf)
+        self.remove_book_button.pack(side=LEFT, padx=10)
 
         self.update_treeview()
 
@@ -192,3 +192,100 @@ class ShelfApp:
 
         self.update_treeview()
         self.shelf_wind.destroy()
+
+    def add_book_to_shelf(self) :
+        selected_item = self.tree.selection()
+        if not selected_item :
+            messagebox.showwarning("Veuillez sélectionner une étagère.")
+            return
+        
+        selected_shelf_id = self.tree.item(selected_item[0])['values'][0]
+        shelf = next((s for s in self.shelf_manager.shelves if s.shelf_id == selected_shelf_id), None)
+
+        self.book_wind = Toplevel(self.root)
+        self.book_wind.title("Ajouter un livre à l'étagère")
+
+        wind_width = 500
+        wind_height = 400
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        position_x = (screen_width // 2) - (wind_width // 2)
+        position_y = (screen_height // 2) - (wind_height // 2)
+        self.book_wind.geometry(f"{wind_width}x{wind_height}+{position_x}+{position_y}")
+
+        self.book_list = Listbox(self.book_wind, selectmode='single')
+        self.book_list.pack(pady=10, fill=BOTH, expand=True)
+
+        for book in self.book_manager.books :
+            self.book_list.insert(END, f"{book.book_id}: {book.title} by {', '.join(book.authors)}")
+
+        self.book_submit_button = Button(self.book_wind, text="Ajouter", command=lambda : self.save_book_to_shelf(shelf))
+        self.book_submit_button.pack(pady=10)
+
+    def save_book_to_shelf(self, shelf):
+        selected_book_index = self.book_list.curselection()
+        if not selected_book_index :
+            messagebox.showwarning("Veuillez sélectionner un livre.")
+            return
+    
+        book_id = int(self.book_list.get(selected_book_index[0]).split(":")[0].strip())
+        book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
+
+        if not book :
+            messagebox.showwarning("Livre introuvable")
+            return
+        
+        try :
+            self.shelf_manager.add_book_to_shelf(shelf.number, book)
+        except ValueError as e :
+            messagebox.showwarning("Erreur", str(e))
+            return
+        
+        self.update_treeview()
+        self.book_wind.destroy()
+
+    def remove_book_from_shelf(self):
+        selected_item = self.tree.selection()
+        if not selected_item :
+            messagebox.showwarning("Veuillez sélectionner une étagère.")
+            return
+    
+        selected_shelf_id = self.tree.item(selected_item[0])['values'][0]
+        shelf = next((s for s in self.shelf_manager.shelves if s.shelf_id == selected_shelf_id), None)
+
+        self.remove_book_wind = Toplevel(self.root)
+        self.remove_book_wind.title("Supprimer un livre de l'étagère")
+
+        wind_width = 500
+        wind_height = 400
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        position_x = (screen_width // 2) - (wind_width // 2)
+        position_y = (screen_height // 2) - (wind_height // 2)
+        self.remove_book_wind.geometry(f"{wind_width}x{wind_height}+{position_x}+{position_y}")
+
+        self.book_list = Listbox(self.remove_book_wind, selectmode='single')
+        self.book_list.pack(pady=10, fill=BOTH, expand=True)
+
+        for book in shelf.books :
+            self.book_list.insert(END, f"{book.book_id}: {book.title} by {', '.join(book.authors)}")
+
+        self.book_remove_button = Button(self.remove_book_wind, text="Supprimer", command=lambda : self.comfirm_remove_book(shelf))
+        self.book_remove_button.pack(pady=10)
+
+    def comfirm_remove_book(self, shelf): 
+        selected_book_index = self.book_list.curselection()
+        if not selected_book_index :
+            messagebox.showwarning("Veuillez sélectionner un livre.")
+            return
+        
+        book_id = int(self.book_list.get(selected_book_index[0]).split(":")[0].strip())
+
+        try :
+            self.shelf_manager.remove_book_from_shelf(shelf.number, book_id)
+        except ValueError as e :
+            messagebox.showwarning("Erreur", str(e))
+            return
+        
+        self.update_treeview()
+        self.remove_book_wind.destroy()
