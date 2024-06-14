@@ -40,7 +40,6 @@ class BorrowApp:
         self.search_combobox = ttk.Combobox(self.root, textvariable=self.search_user_var)
         self.search_combobox.pack(pady=10)
         self.search_combobox['values'] = [f"{user.user_id} - {user.firstname} {user.lastname}" for user in self.user_manager.users]
-        
         self.search_button = tk.Button(self.root, text="Rechercher", font=('Helvetica', 10, 'bold'), command=lambda : self.search_borrow_by_user())
         self.search_button.pack(pady=10)
 
@@ -74,10 +73,7 @@ class BorrowApp:
         self.tree.column('Retard en jours', width=80, anchor=tk.CENTER)
         self.tree.column('Montant Amende', width=80, anchor=tk.CENTER)
 
-        #Column headers style
-        style = ttk.Style()
-        style.configure("Treeview.Heading", font=('Helvetica', 10, 'bold'))
-
+        
         # Frame for aligning buttons horizontally
         button_frame = tk.Frame(self.root)
         button_frame.pack(pady=10)
@@ -288,8 +284,3 @@ class BorrowApp:
                 days_delayed,
                 amount_to_pay,
             ))
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BorrowApp(root)
-    root.mainloop()
