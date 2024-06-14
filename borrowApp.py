@@ -284,3 +284,8 @@ class BorrowApp:
                 days_delayed,
                 amount_to_pay,
             ))
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = BorrowApp(root)
+    root.mainloop()
