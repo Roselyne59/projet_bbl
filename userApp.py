@@ -303,5 +303,3 @@ class UserApp:
                                                 user.login, 
                                                 user.password, 
                                                 user.is_admin))
-
-        
