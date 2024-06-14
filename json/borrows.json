@@ -61,5 +61,23 @@
         "book_title": "Crime and Punishment",
         "start_date": "2024-06-14",
         "due_date": "2024-06-14"
+    },
+    {
+        "borrow_id": 8,
+        "user_id": "7",
+        "user_name": "WOODS Mark",
+        "book_id": "4",
+        "book_title": "The Great Gatsby",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-19"
+    },
+    {
+        "borrow_id": 9,
+        "user_id": "1",
+        "user_name": "ASLOUN Farid",
+        "book_id": "24",
+        "book_title": "The Road",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-14"
     }
 ]
