@@ -291,4 +291,3 @@ class BorrowApp:
                 days_delayed,
                 amount_to_pay,
             ))
- 
