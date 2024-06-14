@@ -6,6 +6,7 @@ from borrowManager import BorrowManager
 from userManager import UserManager
 from bookManager import BookManager
 from tkcalendar import DateEntry
+from datetime import datetime
 
 class BorrowApp:
     def __init__(self, root):
@@ -32,11 +33,15 @@ class BorrowApp:
         #self.load_borrows()
 
         #Search borrow by user button
-        self.search_label = tk.Label(self.root, text="Liste emprunts par membre")
+        self.search_label = tk.Label(self.root, text="Liste emprunts par membre", font=('Helvetica', 10, 'bold'))
         self.search_label.pack(pady=10)
-        self.search_entry = tk.Entry(self.root)
-        self.search_entry.pack(pady=10)
-        self.search_button = tk.Button(self.root, text="Rechercher", font=('Helvetica', 10, 'bold'), command=lambda : self.search_borrow(self.tree))
+
+        self.search_user_var = tk.StringVar()
+        self.search_combobox = ttk.Combobox(self.root, textvariable=self.search_user_var)
+        self.search_combobox.pack(pady=10)
+        self.search_combobox['values'] = [f"{user.user_id} - {user.firstname} {user.lastname}" for user in self.user_manager.users]
+        
+        self.search_button = tk.Button(self.root, text="Rechercher", font=('Helvetica', 10, 'bold'), command=lambda : self.search_borrow_by_user())
         self.search_button.pack(pady=10)
 
         #Refresh borrow list button 
@@ -126,17 +131,19 @@ class BorrowApp:
 
         self.start_date_label = tk.Label(self.form_window, text="Date Emprunt:")
         self.start_date_label.grid(row=3, column=0, sticky='E')
-        self.start_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day', year=2024, month=1, day=1)
+        self.start_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day')
         self.start_date_entry.grid(row=3, column=1)
         self.start_date_entry.configure(width=20)
+        self.start_date_entry.set_date(datetime.now())
         if borrow:
             self.start_date_entry.set_date(borrow.start_date)
 
         self.due_date_label = tk.Label(self.form_window, text="Date Retour:")
         self.due_date_label.grid(row=4, column=0, sticky='E')
-        self.due_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day', year=2024, month=1, day=1)
+        self.due_date_entry = DateEntry(self.form_window, date_pattern='dd/mm/yyyy', selectmode='day')
         self.due_date_entry.grid(row=4, column=1)
         self.due_date_entry.configure(width=20)
+        self.due_date_entry.set_date(datetime.now())
         if borrow:
             self.due_date_entry.set_date(borrow.due_date)
 
@@ -159,6 +166,12 @@ class BorrowApp:
 
         start_date = self.start_date_entry.get_date().strftime('%Y-%m-%d')
         due_date = self.due_date_entry.get_date().strftime('%Y-%m-%d')
+
+        # Check if selected start date is not earlier than actual date
+        today_date = datetime.now().strftime('%Y-%m-%d')
+        if start_date < today_date:
+            messagebox.showerror("Attention", "La date de début de l'emprunt ne peut pas être antérieure à la date d'aujourd'hui.")
+            return
 
         # Check if book is availble
         book = next((b for b in self.book_manager.books if b.book_id == book_id), None)
@@ -207,6 +220,30 @@ class BorrowApp:
         selected_borrow_id = self.tree.item(selected_item[0])['values'][0]
         self.borrow_manager.remove_borrow(selected_borrow_id)
         self.update_treeview(self.tree)
+    
+    def search_borrow_by_user (self):
+        selected_user = self.search_user_var.get().split(' - ')[0]
+        filtered_borrows = [borrow for borrow in self.borrow_manager.borrows if borrow.user_id == selected_user]
+
+        # Reset tree content
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+        
+        # Display search result
+        for borrow in filtered_borrows:
+            self.tree.insert('', 'end', values=(
+                borrow.borrow_id,
+                borrow.user_id,
+                borrow.user_name,
+                borrow.book_id,
+                borrow.book_title,
+                borrow.start_date,
+                borrow.due_date,
+            ))
+
+    #Refresh borrow list after search
+    def refresh_list(self, treeview):
+        self.update_treeview(treeview)
 
     def update_treeview(self, treeview):
         for item in treeview.get_children():
@@ -222,3 +259,7 @@ class BorrowApp:
                 borrow.due_date,
             ))
 
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = BorrowApp(root)
+    root.mainloop()
