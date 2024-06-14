@@ -282,23 +282,6 @@
         "is_available": true
     },
     {
-        "book_id": 19,
-        "titre": "Pride and Prejudice",
-        "auteurs": [
-            "Jane Austen"
-        ],
-        "année de publication": 1813,
-        "isbn": 9780141439518,
-        "éditeurs": [
-            "Penguin Classics"
-        ],
-        "collection": [],
-        "genres": [
-            "Romance"
-        ],
-        "is_available": true
-    },
-    {
         "book_id": 20,
         "titre": "The Lord of the Rings",
         "auteurs": [

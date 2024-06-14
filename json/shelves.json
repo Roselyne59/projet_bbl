@@ -41,6 +41,40 @@
                     "Fantasy"
                 ],
                 "is_available": "True"
+            },
+            {
+                "book_id": 13,
+                "titre": "The Road",
+                "auteurs": [
+                    "Cormac McCarthy"
+                ],
+                "année de publication": 2006,
+                "isbn": 9780307387899,
+                "éditeurs": [
+                    "Vintage International"
+                ],
+                "collection": [],
+                "genres": [
+                    "Fiction post-apocalyptique"
+                ],
+                "is_available": true
+            },
+            {
+                "book_id": 10,
+                "titre": "Crime and Punishment",
+                "auteurs": [
+                    "Fyodor Dostoevsky"
+                ],
+                "année de publication": 1866,
+                "isbn": 9780143107637,
+                "éditeurs": [
+                    "Penguin Classics"
+                ],
+                "collection": [],
+                "genres": [
+                    "Fiction philosophique"
+                ],
+                "is_available": true
             }
         ]
     },
@@ -70,14 +104,26 @@
     },
     {
         "shelf_id": 9,
-        "number": 2,
+        "number": 3,
         "letter": "B",
-        "books": []
-    },
-    {
-        "shelf_id": 10,
-        "number": 2,
-        "letter": "C",
-        "books": []
+        "books": [
+            {
+                "book_id": 22,
+                "titre": "The Hobbit",
+                "auteurs": [
+                    "J.R.R. Tolkien"
+                ],
+                "année de publication": 1937,
+                "isbn": 9780547928227,
+                "éditeurs": [
+                    "Houghton Mifflin Harcourt"
+                ],
+                "collection": [],
+                "genres": [
+                    "Fantasy"
+                ],
+                "is_available": true
+            }
+        ]
     }
 ]

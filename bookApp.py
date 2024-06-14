@@ -131,8 +131,7 @@ class BookApp:
                 ', '.join(book.genres),
                 'Disponible' if book.is_available else 'Indisponible'
                 ))
-
-
+    
     def refresh_list(self) :
         self.update_treeview()
 
