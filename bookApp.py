@@ -98,16 +98,22 @@ class BookApp:
     def research_book_by_title(self) :
         search_title = self.research_entry_title.get().strip().lower()
         filtered_books = [b for b in self.book_manager.books if search_title in b.title.lower()]
+        if not filtered_books :
+            messagebox.showwarning("Aucun livre de ce titre n'a été trouvé !")
         self.update_treeview(filtered_books)
 
     def research_book_by_isbn(self) :
         search_isbn = self.research_entry_isbn.get().strip().lower()
         filtered_books = [b for b in self.book_manager.books if search_isbn in str(b.isbn).lower()]
+        if not filtered_books :
+            messagebox.showwarning("Aucun livre avec ce numéro n'a été trouvé !")
         self.update_treeview(filtered_books)
 
     def research_book_by_authors(self) :
         search_authors = self.research_entry_authors.get().strip().lower()
         filtered_books = [b for b in self.book_manager.books if any(search_authors in author.lower() for author in b.authors)]
+        if not filtered_books :
+            messagebox.showwarning("Aucun livre avec cet/ces auteur(s) n'a été trouvé !")
         self.update_treeview(filtered_books)
 
     def update_treeview(self, books=None) :
