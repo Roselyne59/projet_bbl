@@ -56,16 +56,20 @@ class UserApp:
         self.tree.heading('Admin', text='Admin')
 
         # Define column widths
-        self.tree.column('ID', width=50)
-        self.tree.column('Nom', width=100)
-        self.tree.column('Prénom', width=100)
-        self.tree.column('Date de naissance', width=100)
-        self.tree.column('Email', width=150)
-        self.tree.column('Rue et Numéro', width=150)
-        self.tree.column('Code postal', width=100)
-        self.tree.column('Login', width=100)
-        self.tree.column('Password', width=100)
-        self.tree.column('Admin', width=50)
+        self.tree.column('ID', width=50, anchor=tk.CENTER)
+        self.tree.column('Nom', width=100, anchor=tk.CENTER)
+        self.tree.column('Prénom', width=100, anchor=tk.CENTER)
+        self.tree.column('Date de naissance', width=100, anchor=tk.CENTER)
+        self.tree.column('Email', width=150, anchor=tk.CENTER)
+        self.tree.column('Rue et Numéro', width=150, anchor=tk.CENTER)
+        self.tree.column('Code postal', width=100, anchor=tk.CENTER)
+        self.tree.column('Login', width=100, anchor=tk.CENTER)
+        self.tree.column('Password', width=100, anchor=tk.CENTER)
+        self.tree.column('Admin', width=50, anchor=tk.CENTER)
+
+        #Column headers style
+        style = ttk.Style()
+        style.configure("Treeview.Heading", font=('Helvetica', 10, 'bold'))
 
         # Frame for aligning buttons horizontally
         button_frame = tk.Frame(self.root)
@@ -299,4 +303,5 @@ class UserApp:
                                                 user.login, 
                                                 user.password, 
                                                 user.is_admin))
+
         
