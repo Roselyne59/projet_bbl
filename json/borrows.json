@@ -97,5 +97,14 @@
         "book_title": "The Picture of Dorian Gray",
         "start_date": "2024-06-14",
         "due_date": "2024-06-26"
+    },
+    {
+        "borrow_id": 12,
+        "user_id": "4",
+        "user_name": "BAKER Elizabeth",
+        "book_id": "23",
+        "book_title": "The Picture of Dorian Gray",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-26"
     }
 ]
