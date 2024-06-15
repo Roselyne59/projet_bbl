@@ -20,6 +20,23 @@
                     "Dystopian Fiction"
                 ],
                 "is_available": true
+            },
+            {
+                "book_id": 15,
+                "titre": "Moby-Dick",
+                "auteurs": [
+                    "Herman Melville"
+                ],
+                "année de publication": 1851,
+                "isbn": 9780142437247,
+                "éditeurs": [
+                    "Penguin Classics"
+                ],
+                "collection": [],
+                "genres": [
+                    "Action/Aventure"
+                ],
+                "is_available": true
             }
         ]
     },
