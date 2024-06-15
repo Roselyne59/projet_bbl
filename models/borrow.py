@@ -1,17 +1,28 @@
 class Borrow:
-    """_summary_
+    """
+    Class representing a book borrowing record.
+
+    Attributes:
+        borrow_id (int): The ID of the borrow record.
+        user_id (int): The ID of the user who borrowed the book.
+        user_name (str): The name of the user who borrowed the book.
+        book_id (int): The ID of the borrowed book.
+        book_title (str): The title of the borrowed book.
+        start_date (str): The start date of the borrowing period.
+        due_date (str): The due date for returning the book.
     """
     def __init__(self, borrow_id, user_id, user_name,book_id, book_title,start_date, return_date):
-        """_summary_
+        """
+        Initializes a Borrow object.
 
         Args:
-            borrow_id (_type_): _description_
-            user_id (_type_): _description_
-            user_name (_type_): _description_
-            book_id (_type_): _description_
-            book_title (_type_): _description_
-            start_date (_type_): _description_
-            return_date (_type_): _description_
+            borrow_id (int): The ID of the borrow record.
+            user_id (int): The ID of the user who borrowed the book.
+            user_name (str): The name of the user who borrowed the book.
+            book_id (int): The ID of the borrowed book.
+            book_title (str): The title of the borrowed book.
+            start_date (str): The start date of the borrowing period.
+            return_date (str): The due date for returning the book.
         """
         self.borrow_id = borrow_id
         self.user_id = user_id
@@ -22,10 +33,11 @@ class Borrow:
         self.due_date = return_date
        
     def to_dict(self):
-        """_summary_
+        """
+        Converts the Borrow object to a dictionary.
 
         Returns:
-            _type_: _description_
+            dict: A dictionary representation of the Borrow object.
         """
         return {
             "borrow_id": self.borrow_id,                
@@ -40,13 +52,14 @@ class Borrow:
 
     @staticmethod
     def from_dict(data):
-        """_summary_
+        """
+        Creates a Borrow object from a dictionary.
 
         Args:
-            data (_type_): _description_
+            data (dict): A dictionary containing borrow record data.
 
         Returns:
-            _type_: _description_
+            Borrow: A Borrow object created from the dictionary data.
         """
         return Borrow(
             data["borrow_id"],

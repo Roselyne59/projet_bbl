@@ -7,18 +7,24 @@ from apps.borrowApp import BorrowApp
 from apps.viewAllReservationsApp import ViewAllReservationsApp
 
 class AdminHomePage(UserHomePage):
-    """_summary_
+    """
+    GUI Application for the admin home page.
 
-    Args:
-        UserHomePage (_type_): _description_
+    Inherits from UserHomePage and adds admin-specific functionalities.
+
+    Attributes:
+        root (tk.Tk): The root window of the Tkinter application.
+        firstname (str): The first name of the admin.
+        lastname (str): The last name of the admin.
     """
     def __init__(self, root, firstname, lastname):
-        """_summary_
+        """
+        Initializes the AdminHomePage with the given root window, first name, and last name.
 
         Args:
-            root (_type_): _description_
-            firstname (_type_): _description_
-            lastname (_type_): _description_
+            root (tk.Tk): The root window of the Tkinter application.
+            firstname (str): The first name of the admin.
+            lastname (str): The last name of the admin.
         """
         super().__init__(root, firstname, lastname)
         self.root.title("Espace Administrateur")
@@ -27,13 +33,15 @@ class AdminHomePage(UserHomePage):
         self.admin_page_buttons()
 
     def admin_page_title(self):
-        """_summary_
+        """
+        Displays the title for the admin page.
         """
         title_label = tk.Label(self.root, text="Bibliothèque", font=("Helvetica", 26))
         title_label.pack(pady=20)
 
     def admin_page_buttons(self):
-        """_summary_
+        """
+        Displays buttons for accessing different admin functionalities.
         """
         button_frame = tk.Frame(self.root)
         button_frame.pack(expand=True)
@@ -54,31 +62,36 @@ class AdminHomePage(UserHomePage):
         self.borrow_button.grid(row=0, column=4, padx=20, pady=20)
 
     def open_user_app(self):
-        """_summary_
+        """
+        Opens the UserApp in a new window.
         """
         user_window = tk.Tk()
         UserApp(user_window)
 
     def open_book_app(self):
-        """_summary_
+        """
+        Opens the BookApp in a new window.
         """
         book_window = tk.Tk()
         BookApp(book_window)
 
     def open_shelf_app(self):
-        """_summary_
+        """
+        Opens the ShelfApp in a new window.
         """
         shelf_window = tk.Tk()
         ShelfApp(shelf_window)
 
     def open_borrow_app(self):
-        """_summary_
+        """
+        Opens the BorrowApp in a new window.
         """
         borrow_window = tk.Tk()
         BorrowApp(borrow_window)
 
     def open_reservation_app(self):
-        """_summary_
+        """
+        Opens the ViewAllReservationsApp in a new window.
         """
         reservation_window = tk.Tk()
         ViewAllReservationsApp(reservation_window)

@@ -1,20 +1,25 @@
 from models.book import Book
 
 class Shelf :
-    """_summary_
+    """
+    Class representing a shelf.
 
-    Returns:
-        _type_: _description_
+    Attributes:
+        shelf_id (int): The ID of the shelf.
+        number (int): The number of the shelf.
+        letter (str): The letter of the shelf.
+        books (list): List of Book objects on the shelf.
     """
     shelf_number = 1
     
     def __init__(self, shelf_id, number, letter) :
-        """_summary_
+        """
+        Initializes a Shelf object.
 
         Args:
-            shelf_id (_type_): _description_
-            number (_type_): _description_
-            letter (_type_): _description_
+            shelf_id (int): The ID of the shelf.
+            number (int): The number of the shelf.
+            letter (str): The letter of the shelf.
         """
         self.shelf_id = shelf_id
         self.number = number
@@ -24,15 +29,20 @@ class Shelf :
             Shelf.shelf_number = shelf_id + 1
 
     def __str__(self) :
-        """_summary_
+        """
+        Returns a string representation of the shelf.
 
         Returns:
-            _type_: _description_
+            str: The string representation of the shelf.
         """
         return f"{self.number}{self.letter}"
     
     def to_dict(self) :
-        """_summary_
+        """
+        Converts the Shelf object to a dictionary.
+
+        Returns:
+            dict: A dictionary representation of the Shelf object.
         """
         return{
             "shelf_id" : self.shelf_id,
@@ -43,13 +53,14 @@ class Shelf :
     
     @staticmethod
     def from_dict(data) :
-        """_summary_
+        """
+        Creates a Shelf object from a dictionary.
 
         Args:
-            data (_type_): _description_
+            data (dict): A dictionary containing shelf data.
 
         Returns:
-            _type_: _description_
+            Shelf: A Shelf object created from the dictionary data.
         """
         shelf = Shelf(data["shelf_id"], data["number"], data["letter"])
         shelf.books = [Book.from_dict(book) for book in data.get("books", [])]

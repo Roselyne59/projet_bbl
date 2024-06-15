@@ -7,13 +7,19 @@ from tkcalendar import DateEntry
 import re
 
 class UserApp:
-    """_summary_
+    """
+    GUI Application for managing users.
+
+    Attributes:
+        root (tk.Tk): The root window of the Tkinter application.
+        user_manager (UserManager): Manager for handling users.
     """
     def __init__(self, root):
-        """_summary_
+        """
+        Initializes the UserApp with the given root window.
 
         Args:
-            root (_type_): _description_
+            root (tk.Tk): The root window of the Tkinter application.
         """
         self.root = root
         self.root.title("Gestion des Utilisateurs")
@@ -74,10 +80,6 @@ class UserApp:
         self.tree.column('Password', width=100)
         self.tree.column('Admin', width=50)
 
-        #Column headers style
-        #style = ttk.Style()
-        #style.configure("Treeview.Heading", font=('Helvetica', 10, 'bold'))
-
         # Frame for aligning buttons horizontally
         button_frame = tk.Frame(self.root)
         button_frame.pack(pady=10)
@@ -92,40 +94,40 @@ class UserApp:
         self.delete_button.pack(side=tk.LEFT, padx=10)
 
         self.update_treeview()
-    
-    #Search user by firstname
+
     def search_user(self, treeview):
-        """_summary_
+        """
+        Searches for users by first name and displays the results in the treeview.
 
         Args:
-            treeview (_type_): _description_
+            treeview (ttk.Treeview): The treeview to display the search results in.
         """
         search_term = self.search_entry.get().strip().lower()
         filtered_users = [user for user in self.user_manager.users if search_term in user.firstname.lower()]
         self.show_search_results(treeview, filtered_users)
 
-    #Display the search Result in th treeview in parameters
     def show_search_results(self, treeview, filtered_users):
-        """_summary_
+        """
+        Displays the search results in the treeview.
 
         Args:
-            treeview (_type_): _description_
-            filtered_users (_type_): _description_
+            treeview (ttk.Treeview): The treeview to display the results in.
+            filtered_users (list): List of filtered users to display.
         """
         for item in treeview.get_children():
             treeview.delete(item)
         for user in filtered_users:
             treeview.insert('', 'end', values=(user.user_id, user.firstname, user.lastname, user.birthdate, user.email, user.street, user.zip_code, user.login, user.password, user.is_admin))
-    
-    #Refresh user list
+
     def refresh_list(self):
-        """_summary_
+        """
+        Refreshes the user list in the treeview.
         """
         self.update_treeview()
 
-    #Update selected user
     def modify_user_form(self):
-        """_summary_
+        """
+        Opens the form to modify the selected user.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -136,7 +138,8 @@ class UserApp:
         self.show_user_form(user)
 
     def delete_user(self):
-        """_summary_
+        """
+        Deletes the selected user.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -146,12 +149,12 @@ class UserApp:
         self.user_manager.remove_user(selected_user_id)
         self.update_treeview()
 
-    #Add user or modify existing one
     def show_user_form(self, user=None):
-        """_summary_
+        """
+        Opens the form to add or modify a user.
 
         Args:
-            user (_type_, optional): _description_. Defaults to None.
+            user (User, optional): The user to modify. Defaults to None.
         """
         self.form_window = tk.Toplevel(self.root)
         self.form_window.title("Formulaire Utilisateur")
@@ -244,75 +247,72 @@ class UserApp:
 
         self.submit_button = tk.Button(self.form_window, text="Valider", font=('Helvetica', 10, 'bold'), command=lambda: self.save_user(user))
         self.submit_button.grid(row=10, column=0, columnspan=2)
-    
-    #Firstname and Lastename entry validation (allow only alphabetic, "-" and " ")
+
     def validate_alphabetic(self, value_if_allowed):
-        """_summary_
+        """
+        Validates that the input is alphabetic, allowing letters, hyphens, and spaces.
 
         Args:
-            value_if_allowed (_type_): _description_
+            value_if_allowed (str): The input value to validate.
 
         Returns:
-            _type_: _description_
+            bool: True if the input is valid, False otherwise.
         """
         if re.match("^[A-Za-zÀ-ÿ -]*$", value_if_allowed):
             return True
         else:
             return False
-        
-    #Email entry format validation
+
     def check_email_format(self, event):
-        """_summary_
+        """
+        Validates the email format.
 
         Args:
-            event (_type_): _description_
+            event (tk.Event): The event object.
         """
         email = self.email_entry.get()
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             messagebox.showerror("Erreur", "Format de l'email invalide. Veuillez entrer un email valide.")
             self.email_entry.focus_set()
-    
-    #Street and number entry validation (allow only alphabetic, "-" and " " and digits)
+
     def validate_street(self, value_if_allowed):
-        """_summary_
+        """
+        Validates the street input, allowing letters, digits, hyphens, and spaces.
 
         Args:
-            value_if_allowed (_type_): _description_
+            value_if_allowed (str): The input value to validate.
 
         Returns:
-            _type_: _description_
+            bool: True if the input is valid, False otherwise.
         """
         if re.match("^[A-Za-zÀ-ÿ0-9 -]*$", value_if_allowed):
             return True
         else:
             return False
 
-    #check if login exists
     def check_login(self, event):
-        """_summary_
+        """
+        Validates that the login does not already exist.
 
         Args:
-            event (_type_): _description_
+            event (tk.Event): The event object.
         """
         current_login = self.login_entry.get()
         if self.user_manager.login_exists(current_login):
             messagebox.showerror("Erreur", "Ce login existe déjà. Choisissez un autre.")
             self.login_entry.delete(0, tk.END)
             self.login_entry.focus_set()
-            # Mettez à jour l'état du login
             self.valid_login = False
         else:
-            # If login valid
             self.valid_login = True
 
-    # Check password format
     def check_password_format(self, event):
-        """_summary_
+        """
+        Validates the password format.
 
         Args:
-            event (_type_): _description_
+            event (tk.Event): The event object.
         """
-        # Check login validation before password validation
         if self.valid_login:
             password = self.password_entry.get()
             if not re.match(r"^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", password):
@@ -322,12 +322,12 @@ class UserApp:
         else:
             pass
 
-    #Create new user, or modify existing
     def save_user(self, old_user=None):
-        """_summary_
+        """
+        Saves the new or modified user.
 
         Args:
-            old_user (_type_, optional): _description_. Defaults to None.
+            old_user (User, optional): The existing user to update. Defaults to None.
         """
         user_id = int(self.user_id_entry.get())
         first_name = self.first_name_entry.get()
@@ -355,7 +355,8 @@ class UserApp:
         self.form_window.destroy()
 
     def update_treeview(self):
-        """_summary_
+        """
+        Updates the treeview with the current list of users.
         """
         for item in self.tree.get_children():
             self.tree.delete(item)
