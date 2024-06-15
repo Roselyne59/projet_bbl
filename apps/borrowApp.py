@@ -9,13 +9,21 @@ from tkcalendar import DateEntry
 from datetime import datetime
 
 class BorrowApp:
-    """_summary_
+    """
+    GUI Application for managing book borrows.
+
+    Attributes:
+        root (tk.Tk): The root window of the Tkinter application.
+        borrow_manager (BorrowManager): Manager for handling borrows.
+        book_manager (BookManager): Manager for handling books.
+        user_manager (UserManager): Manager for handling users.
     """
     def __init__(self, root):
-        """_summary_
+        """
+        Initializes the BorrowApp with the given root window.
 
         Args:
-            root (_type_): _description_
+            root (tk.Tk): The root window of the Tkinter application.
         """
         self.root = root
         self.root.title("Gestion des Emprunts")
@@ -95,13 +103,13 @@ class BorrowApp:
         self.delete_button.pack(side=tk.LEFT, padx=10)
 
         self.update_treeview(self.tree)
-         
-    #Add new or modify existing borrow
+
     def show_borrow_form(self, borrow=None):
-        """_summary_
+        """
+        Displays the form for adding or modifying a borrow record.
 
         Args:
-            borrow (_type_, optional): _description_. Defaults to None.
+            borrow (Borrow, optional): The borrow record to modify. Defaults to None.
         """
         self.form_window = tk.Toplevel(self.root)
         self.form_window.title("Formulaire Emprunt")
@@ -176,21 +184,22 @@ class BorrowApp:
         self.submit_button = tk.Button(self.form_window, text="Valider", font=('Helvetica', 10, 'bold'), command=lambda: self.save_borrow(borrow))
         self.submit_button.grid(row=8, column=0, columnspan=2)
 
-    #User to filtre available books
     def get_available_books(self):
-        """_summary_
+        """
+        Returns a list of available books.
 
         Returns:
-            _type_: _description_
+            list: List of available books in the format "book_id - book_title".
         """
         available_books = [book for book in self.book_manager.books if book.is_available]
         return [f"{book.book_id} - {book.title}" for book in available_books]
 
     def save_borrow(self, borrow):
-        """_summary_
+        """
+        Saves the borrow information entered in the form.
 
         Args:
-            borrow (_type_): _description_
+            borrow (Borrow): The borrow record to save.
         """
         borrow_id = int(self.borrow_id_entry.get())
         user_info = self.user_id_var.get().split(' - ')
@@ -237,7 +246,8 @@ class BorrowApp:
         self.form_window.destroy()
 
     def modify_borrow_form(self):
-        """_summary_
+        """
+        Modifies the selected borrow record.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -253,7 +263,8 @@ class BorrowApp:
             messagebox.showerror("Erreur", f"Impossible de trouver l'emprunt avec l'ID {selected_borrow_id}.")
 
     def delete_borrow(self):
-        """_summary_
+        """
+        Deletes the selected borrow record.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -264,7 +275,8 @@ class BorrowApp:
         self.update_treeview(self.tree)
     
     def search_borrow_by_user (self):
-        """_summary_
+        """
+        Searches for borrows by user ID.
         """
         selected_user = self.search_user_var.get().split(' - ')[0]
                
@@ -301,18 +313,20 @@ class BorrowApp:
 
     #Refresh borrow list after search
     def refresh_list(self, treeview):
-        """_summary_
+        """
+        Refreshes the borrow list in the treeview.
 
         Args:
-            treeview (_type_): _description_
+            treeview (ttk.Treeview): The treeview to refresh.
         """
         self.update_treeview(treeview)
 
     def update_treeview(self, treeview):
-        """_summary_
+        """
+        Updates the treeview with the current list of borrows.
 
         Args:
-            treeview (_type_): _description_
+            treeview (ttk.Treeview): The treeview to update.
         """
         for item in treeview.get_children():
             treeview.delete(item)
@@ -339,9 +353,7 @@ class BorrowApp:
                 amount_to_pay,
             ))
 
-#the search_borrow_by_user function works perfectly if borrowApp is executed separately
-# but the same function does not work on the borrwApp 
-# once called from the adminHomePage page by clicking on the "Emprunts" button
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = BorrowApp(root)

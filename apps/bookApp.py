@@ -6,14 +6,20 @@ from models.book import Book
 from managers.bookManager import BookManager
 
 class BookApp:
-    """_summary_
+    """
+    GUI Application for managing books.
+
+    Attributes:
+        root (tk.Tk): The root window of the Tkinter application.
+        book_manager (BookManager): Manager for handling books.
     """
     def __init__(self, root, show_books_buttons=True):
-        """_summary_
+        """
+        Initializes the BookApp with the given root window.
 
         Args:
-            root (_type_): _description_
-            show_books_buttons (bool, optional): _description_. Defaults to True.
+            root (tk.Tk): The root window of the Tkinter application.
+            show_books_buttons (bool, optional): Whether to show book management buttons. Defaults to True.
         """
         self.root = root
         self.root.title("Gestion des livres")
@@ -103,7 +109,8 @@ class BookApp:
         self.update_treeview()
 
     def research_book_by_title(self):
-        """_summary_
+        """
+        Searches for books by title.
         """
         search_title = self.research_entry_title.get().strip().lower()
         filtered_books = [b for b in self.book_manager.books if search_title in b.title.lower()]
@@ -112,7 +119,8 @@ class BookApp:
         self.update_treeview(filtered_books)
 
     def research_book_by_isbn(self):
-        """_summary_
+        """
+        Searches for books by ISBN.
         """
         search_isbn = self.research_entry_isbn.get().strip().lower()
         filtered_books = [b for b in self.book_manager.books if search_isbn in str(b.isbn).lower()]
@@ -121,7 +129,8 @@ class BookApp:
         self.update_treeview(filtered_books)
 
     def research_book_by_authors(self):
-        """_summary_
+        """
+        Searches for books by authors.
         """
         search_authors = self.research_entry_authors.get().strip().lower()
         filtered_books = [b for b in self.book_manager.books if any(search_authors in author.lower() for author in b.authors)]
@@ -130,10 +139,11 @@ class BookApp:
         self.update_treeview(filtered_books)
 
     def update_treeview(self, books=None):
-        """_summary_
+        """
+        Updates the treeview with the current list of books.
 
         Args:
-            books (_type_, optional): _description_. Defaults to None.
+            books (list, optional): List of books to display. Defaults to None.
         """
         self.tree.delete(*self.tree.get_children())
         books = books or self.book_manager.books
@@ -151,12 +161,14 @@ class BookApp:
             ))
 
     def refresh_list(self):
-        """_summary_
+        """
+        Refreshes the book list in the treeview.
         """
         self.update_treeview()
 
     def edit_book(self):
-        """_summary_
+        """
+        Edits the selected book.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -169,7 +181,8 @@ class BookApp:
         self.add_book(book)
 
     def remove_book(self):
-        """_summary_
+        """
+        Removes the selected book.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -181,10 +194,11 @@ class BookApp:
         self.update_treeview()
 
     def add_book(self, book=None):
-        """_summary_
+        """
+        Opens the form to add or edit a book.
 
         Args:
-            book (_type_, optional): _description_. Defaults to None.
+            book (Book, optional): The book to edit. Defaults to None.
         """
         self.form_wind = Toplevel(self.root)
         self.form_wind.title("Formulaire Livre")
@@ -284,45 +298,49 @@ class BookApp:
         self.submit_button.grid(row=9, column=0, columnspan=2, pady=10)
 
     def validate_title(self, value):
-        """_summary_
+        """
+        Validates the title input to ensure it starts with a capital letter.
 
         Args:
-            value (_type_): _description_
+            value (str): The value to validate.
 
         Returns:
-            _type_: _description_
+            bool: True if valid, False otherwise.
         """
         if value == "":
             return True
         return bool(re.match(r'^[A-Z].*$', value))
         
     def validate_year(self, value):
-        """_summary_
+        """
+        Validates the year input to ensure it is a four-digit number.
 
         Args:
-            value (_type_): _description_
+            value (str): The value to validate.
 
         Returns:
-            _type_: _description_
+            bool: True if valid, False otherwise.
         """
         return bool(re.match(r'^\d{0,4}$', value))
         
     def validate_number(self, value):
-        """_summary_
+        """
+        Validates the number input to ensure it is a 13-digit number.
 
         Args:
-            value (_type_): _description_
+            value (str): The value to validate.
 
         Returns:
-            _type_: _description_
+            bool: True if valid, False otherwise.
         """
         return bool(re.match(r'^\d{0,13}$', value))
         
     def save_book(self, book=None):
-        """_summary_
+        """
+        Saves the book information entered in the form.
 
         Args:
-            book (_type_, optional): _description_. Defaults to None.
+            book (Book, optional): The book to save. Defaults to None.
         """
         book_id = int(self.book_id_entry.get())
         title = self.title_entry.get().strip()

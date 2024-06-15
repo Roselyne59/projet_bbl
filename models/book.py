@@ -1,24 +1,34 @@
 class Book:
-    """_summary_
+    """
+    Class representing a book.
 
-    Returns:
-        _type_: _description_
+    Attributes:
+        book_id (int): The ID of the book.
+        title (str): The title of the book.
+        authors (str): The authors of the book.
+        publication_year (int): The publication year of the book.
+        isbn (str): The ISBN of the book.
+        editors (list): The editors of the book.
+        collections (str): The collection the book belongs to.
+        genres (str): The genres of the book.
+        is_available (bool): Availability status of the book. Defaults to True.
     """
     book_number = 1
 
     def __init__(self, book_id,title, authors, publication_year, isbn, editors, collections, genres, is_available = True):
-        """_summary_
+        """
+        Initializes a Book object.
 
         Args:
-            book_id (_type_): _description_
-            title (_type_): _description_
-            authors (_type_): _description_
-            publication_year (_type_): _description_
-            isbn (bool): _description_
-            editors (_type_): _description_
-            collections (_type_): _description_
-            genres (_type_): _description_
-            is_available (bool, optional): _description_. Defaults to True.
+            book_id (int): The ID of the book.
+            title (str): The title of the book.
+            authors (str): The authors of the book.
+            publication_year (int): The publication year of the book.
+            isbn (str): The ISBN of the book.
+            editors (list or str): The editors of the book.
+            collections (str): The collection the book belongs to.
+            genres (str): The genres of the book.
+            is_available (bool, optional): Availability status of the book. Defaults to True.
         """
         self.book_id = book_id
         self.title = title
@@ -33,7 +43,11 @@ class Book:
             Book.book_number = book_id + 1
     
     def to_dict (self):
-        """_summary_
+        """
+        Converts the Book object to a dictionary.
+
+        Returns:
+            dict: A dictionary representation of the Book object.
         """
         return{
             "book_id" : self.book_id,
@@ -49,13 +63,14 @@ class Book:
 
     @staticmethod
     def from_dict (data) :
-        """_summary_
+        """
+        Creates a Book object from a dictionary.
 
         Args:
-            data (_type_): _description_
+            data (dict): A dictionary containing book data.
 
         Returns:
-            _type_: _description_
+            Book: A Book object created from the dictionary data.
         """
         return Book(
             data["book_id"],

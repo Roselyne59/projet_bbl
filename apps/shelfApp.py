@@ -7,13 +7,20 @@ from models.shelf import Shelf
 
 
 class ShelfApp:
-    """_summary_
+    """
+    GUI Application for managing shelves.
+
+    Attributes:
+        root (tk.Tk): The root window of the Tkinter application.
+        shelf_manager (ShelfManager): Manager for handling shelves.
+        book_manager (BookManager): Manager for handling books.
     """
     def __init__(self, root):
-        """_summary_
+        """
+        Initializes the ShelfApp with the given root window.
 
         Args:
-            root (_type_): _description_
+            root (tk.Tk): The root window of the Tkinter application.
         """
         self.root = root
         self.root.title("Gestion des Étagères")
@@ -90,7 +97,8 @@ class ShelfApp:
         self.update_treeview()
 
     def search_by_number(self):
-        """_summary_
+        """
+        Searches for shelves by aisle number.
         """
         search_number = self.search_entry_number.get().strip().lower()
         filtered_shelves = [s for s in self.shelf_manager.shelves if search_number in str(s.number).lower()]
@@ -99,7 +107,8 @@ class ShelfApp:
         self.update_treeview(filtered_shelves)
 
     def search_by_letter(self):
-        """_summary_
+        """
+        Searches for shelves by shelf letter.
         """
         search_letter = self.search_entry_letter.get().strip().lower()
         filtered_shelves = [s for s in self.shelf_manager.shelves if search_letter in str(s.letter).lower()]
@@ -108,10 +117,11 @@ class ShelfApp:
         self.update_treeview(filtered_shelves)
 
     def update_treeview(self, shelves=None):
-        """_summary_
+        """
+        Updates the treeview with the current list of shelves.
 
         Args:
-            shelves (_type_, optional): _description_. Defaults to None.
+            shelves (list, optional): List of shelves to display. Defaults to None.
         """
         self.tree.delete(*self.tree.get_children())
         shelves = shelves or self.shelf_manager.shelves
@@ -126,12 +136,14 @@ class ShelfApp:
                              ))
         
     def refresh_list(self):
-        """_summary_
+        """
+        Refreshes the shelf list in the treeview.
         """
         self.update_treeview()
             
     def edit_shelf(self):
-        """_summary_
+        """
+        Refreshes the shelf list in the treeview.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -144,7 +156,8 @@ class ShelfApp:
         self.add_shelf(shelf)
 
     def remove_shelf(self):
-        """_summary_
+        """
+        Removes the selected shelf.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -157,10 +170,11 @@ class ShelfApp:
         self.update_treeview()
 
     def add_shelf(self, shelf=None):
-        """_summary_
+        """
+        Opens the form to add or edit a shelf.
 
         Args:
-            shelf (_type_, optional): _description_. Defaults to None.
+            shelf (Shelf, optional): The shelf to edit. Defaults to None.
         """
         self.shelf_wind = tk.Toplevel(self.root)
         self.shelf_wind.title("Formulaire Étagère")
@@ -195,10 +209,11 @@ class ShelfApp:
         self.submit_button.grid(row=3, column=0, columnspan=2)
 
     def save_shelf(self, shelf=None):
-        """_summary_
+        """
+        Saves the shelf information entered in the form.
 
         Args:
-            shelf (_type_, optional): _description_. Defaults to None.
+            shelf (Shelf, optional): The shelf to save. Defaults to None.
         """
         shelf_id = int(self.shelf_id_entry.get())
         try:
@@ -230,7 +245,8 @@ class ShelfApp:
         self.shelf_wind.destroy()
 
     def add_book_to_shelf(self) :
-        """_summary_
+        """
+        Adds a book to the selected shelf.
         """
         selected_item = self.tree.selection()
         if not selected_item :
@@ -261,10 +277,11 @@ class ShelfApp:
         self.book_submit_button.pack(pady=10)
 
     def save_book_to_shelf(self, shelf):
-        """_summary_
+        """
+        Saves the selected book to the shelf.
 
         Args:
-            shelf (_type_): _description_
+            shelf (Shelf): The shelf to add the book to.
         """
         selected_book_index = self.book_list.curselection()
         if not selected_book_index :
@@ -288,7 +305,8 @@ class ShelfApp:
         self.book_wind.destroy()
 
     def remove_book_from_shelf(self):
-        """_summary_
+        """
+        Removes a book from the selected shelf.
         """
         selected_item = self.tree.selection()
         if not selected_item :
@@ -319,10 +337,8 @@ class ShelfApp:
         self.book_remove_button.pack(pady=10)
 
     def comfirm_remove_book(self, shelf): 
-        """_summary_
-
-        Args:
-            shelf (_type_): _description_
+        """
+        Removes a book from the selected shelf.
         """
         selected_book_index = self.book_list.curselection()
         if not selected_book_index :
