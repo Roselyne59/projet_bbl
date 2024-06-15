@@ -1,7 +1,7 @@
 from tkinter import Toplevel
-from userHomePage import UserHomePage
-from bookApp import BookApp
-from reservationApp import ReservationApp
+from homepages.userHomePage import UserHomePage
+from apps.bookApp import BookApp
+from apps.reservationApp import ReservationApp
 import tkinter as tk
 
 class MemberHomePage(UserHomePage):

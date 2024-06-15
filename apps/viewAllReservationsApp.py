@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from reservationManager import ReservationManager
-from reservation import Reservation
-from bookManager import BookManager
-from userManager import UserManager
+from managers.reservationManager import ReservationManager
+from models.reservation import Reservation
+from managers.bookManager import BookManager
+from managers.userManager import UserManager
 
 class ViewAllReservationsApp:
     def __init__(self, root):

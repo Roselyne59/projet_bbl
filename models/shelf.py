@@ -1,4 +1,4 @@
-from book import Book
+from models.book import Book
 
 class Shelf :
     shelf_number = 1

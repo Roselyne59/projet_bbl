@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from borrow import Borrow
-from borrowManager import BorrowManager
-from userManager import UserManager
-from bookManager import BookManager
+from models.borrow import Borrow
+from managers.borrowManager import BorrowManager
+from managers.userManager import UserManager
+from managers.bookManager import BookManager
 from tkcalendar import DateEntry
 from datetime import datetime
 

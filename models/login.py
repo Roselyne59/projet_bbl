@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
-from userManager import UserManager
-from memberHomePage import MemberHomePage
-from adminHomePage import AdminHomePage
+from managers.userManager import UserManager
+from homepages.memberHomePage import MemberHomePage
+from homepages.adminHomePage import AdminHomePage
 
 
 class LoginApp:
