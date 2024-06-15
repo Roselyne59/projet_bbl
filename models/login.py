@@ -6,7 +6,14 @@ from homepages.adminHomePage import AdminHomePage
 
 
 class LoginApp:
+    """_summary_
+    """
     def __init__(self, root):
+        """_summary_
+
+        Args:
+            root (_type_): _description_
+        """
         self.root = root
         self.root.title("Connexion")
 
@@ -17,6 +24,8 @@ class LoginApp:
         self.login_page()
     
     def login_page(self):
+        """_summary_
+        """
         self.clear_screen()
 
         login_frame = tk.Frame(self.root)
@@ -42,6 +51,8 @@ class LoginApp:
         self.login_button.grid(row=2, column=0, columnspan=2, pady=20)
 
     def check_login(self):
+        """_summary_
+        """
         login = self.login_entry.get()
         password = self.password_entry.get()
 
@@ -57,7 +68,8 @@ class LoginApp:
         messagebox.showerror("Erreur", "Login ou mot de passe incorrect.")
 
     def clear_screen(self):
+        """_summary_
+        """
         for widget in self.root.winfo_children():
             widget.destroy()
- 
 
