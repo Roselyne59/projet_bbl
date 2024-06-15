@@ -256,7 +256,7 @@ class BorrowApp:
             if days_delayed < 0:
                 days_delayed = 0
         
-            amount_to_pay = days_delayed * 0.20 # 0.20€ per day
+            amount_to_pay = round(days_delayed * 0.20, 2) # 0.20€ per day, round to 2 decimal places
 
             self.tree.insert('', 'end', values=(
                 borrow.borrow_id,
@@ -287,7 +287,7 @@ class BorrowApp:
             if days_delayed < 0:
                 days_delayed = 0
         
-            amount_to_pay = days_delayed * 0.20 # 0.20€ per day 
+            amount_to_pay = round(days_delayed * 0.20, 2) # 0.20€ per day, round to 2 decimal places
             treeview.insert('', 'end', values=(
                 borrow.borrow_id,
                 borrow.user_id,
