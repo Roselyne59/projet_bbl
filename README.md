@@ -232,7 +232,7 @@ Auteurs:
 
 Remérciements:
 *************
-Merci à Monsieur BURNIAUX pour nous avoir assistés, orientés et guidés pour la réalisation de ce projet.
+Merci à Monsieur BURNIAUX François pour nous avoir assistés, orientés et guidés pour la réalisation de ce projet.
 
 
 
