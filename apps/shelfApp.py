@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter.ttk import Treeview
 from tkinter import messagebox, Label, Entry, Button, Toplevel, Frame, Listbox, StringVar, BOTH, LEFT, END
-from shelfManager import ShelfManager
-from bookManager import BookManager
-from shelf import Shelf
+from managers.shelfManager import ShelfManager
+from managers.bookManager import BookManager
+from models.shelf import Shelf
 
 
 class ShelfApp:

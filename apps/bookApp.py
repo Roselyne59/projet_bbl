@@ -2,8 +2,8 @@ import tkinter as tk
 from tkinter.ttk import Treeview
 import re
 from tkinter import messagebox, Label, Entry, Button, Toplevel, Frame, Listbox, StringVar, BooleanVar, Checkbutton, END, MULTIPLE, LEFT, BOTH, W
-from book import Book
-from bookManager import BookManager
+from models.book import Book
+from managers.bookManager import BookManager
 
 class BookApp:
     def __init__(self, root, show_books_buttons=True):

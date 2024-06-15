@@ -1,6 +1,6 @@
 import json
 import os
-from book import Book
+from models.book import Book
 
 class BookManager:
     def __init__(self, books_json="json/books.json", editors_json="json/editors.json", collections_json="json/collections.json", genres_json="json/genres.json"):

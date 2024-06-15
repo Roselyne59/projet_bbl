@@ -1,7 +1,7 @@
-from userManager import UserManager
+from managers.userManager import UserManager
 import tkinter as tk
 from tkinter import ttk
-from user import User
+from models.user import User
 from tkinter import messagebox
 from tkcalendar import DateEntry
 import re

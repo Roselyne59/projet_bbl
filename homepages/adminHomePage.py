@@ -1,10 +1,10 @@
 import tkinter as tk
-from userHomePage import UserHomePage
-from userApp import UserApp
-from bookApp import BookApp
-from shelfApp import ShelfApp
-from borrowApp import BorrowApp
-from viewAllReservationsApp import ViewAllReservationsApp
+from homepages.userHomePage import UserHomePage
+from apps.userApp import UserApp
+from apps.bookApp import BookApp
+from apps.shelfApp import ShelfApp
+from apps.borrowApp import BorrowApp
+from apps.viewAllReservationsApp import ViewAllReservationsApp
 
 class AdminHomePage(UserHomePage):
     def __init__(self, root, firstname, lastname):

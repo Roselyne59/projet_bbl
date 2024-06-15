@@ -1,5 +1,5 @@
 import tkinter as tk
-from login import LoginApp
+from models.login import LoginApp
 
 
 
