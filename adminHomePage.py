@@ -7,8 +7,8 @@ from borrowApp import BorrowApp
 from viewAllReservationsApp import ViewAllReservationsApp
 
 class AdminHomePage(UserHomePage):
-    def __init__(self, root, nom, prenom):
-        super().__init__(root, nom, prenom)
+    def __init__(self, root, firstname, lastname):
+        super().__init__(root, firstname, lastname)
         self.root.title("Espace Administrateur")
 
         self.admin_page_title()
