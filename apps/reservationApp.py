@@ -8,14 +8,23 @@ from datetime import date
 
 
 class ReservationApp:
-    """_summary_
+    """
+    GUI Application for managing book reservations.
+
+    Attributes:
+        root (tk.Tk): The root window of the Tkinter application.
+        user_id (int): The ID of the current user.
+        reservation_manager (ReservationManager): Manager for handling reservations.
+        book_manager (BookManager): Manager for handling books.
+        book_list (list): List of book titles available for reservation.
     """
     def __init__(self, root, user_id):
-        """_summary_
+        """
+        Initializes the ReservationApp with the given root window and user ID.
 
         Args:
-            root (_type_): _description_
-            user_id (_type_): _description_
+            root (tk.Tk): The root window of the Tkinter application.
+            user_id (int): The ID of the current user.
         """
         self.root = root
         self.root.title("Application de Réservation")
@@ -62,7 +71,8 @@ class ReservationApp:
         self.view_reservations()
 
     def submit_reservation(self):
-        """_summary_
+        """
+        Submits a new reservation for the current user.
         """
         book_title = self.book_combobox.get()
         book_id = self.book_manager.get_book_id_by_title(book_title)
@@ -94,7 +104,8 @@ class ReservationApp:
         self.view_reservations()
 
     def view_reservations(self):
-        """_summary_
+        """
+        Displays all reservations for the current user in the Treeview.
         """
         for row in self.reservation_tree.get_children():
             self.reservation_tree.delete(row)

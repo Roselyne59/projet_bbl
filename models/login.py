@@ -6,13 +6,20 @@ from homepages.adminHomePage import AdminHomePage
 
 
 class LoginApp:
-    """_summary_
+    """
+    GUI Application for user login.
+
+    Attributes:
+        root (tk.Tk): The root window of the Tkinter application.
+        user_manager (UserManager): Manager for handling users.
+        user_app (tk.Frame or None): The user-specific homepage application.
     """
     def __init__(self, root):
-        """_summary_
+        """
+        Initializes the LoginApp with the given root window.
 
         Args:
-            root (_type_): _description_
+            root (tk.Tk): The root window of the Tkinter application.
         """
         self.root = root
         self.root.title("Connexion")
@@ -24,7 +31,8 @@ class LoginApp:
         self.login_page()
     
     def login_page(self):
-        """_summary_
+        """
+        Displays the login page.
         """
         self.clear_screen()
 
@@ -51,7 +59,10 @@ class LoginApp:
         self.login_button.grid(row=2, column=0, columnspan=2, pady=20)
 
     def check_login(self):
-        """_summary_
+        """
+        Checks the login credentials and opens the appropriate user homepage.
+
+        Displays an error message if the login credentials are incorrect.
         """
         login = self.login_entry.get()
         password = self.password_entry.get()
@@ -68,7 +79,8 @@ class LoginApp:
         messagebox.showerror("Erreur", "Login ou mot de passe incorrect.")
 
     def clear_screen(self):
-        """_summary_
+        """
+        Clears the current screen by destroying all widgets in the root window.
         """
         for widget in self.root.winfo_children():
             widget.destroy()
