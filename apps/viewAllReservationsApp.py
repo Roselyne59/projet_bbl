@@ -6,13 +6,23 @@ from managers.bookManager import BookManager
 from managers.userManager import UserManager
 
 class ViewAllReservationsApp:
-    """_summary_
+    """
+    GUI Application for viewing and managing all book reservations.
+
+    Attributes:
+        root (tk.Tk): The root window of the Tkinter application.
+        reservation_manager (ReservationManager): Manager for handling reservations.
+        book_manager (BookManager): Manager for handling books.
+        user_manager (UserManager): Manager for handling users.
+        reservation_dict (dict): Dictionary to store reservation items.
+        tree (ttk.Treeview): Treeview widget to display reservations.
     """
     def __init__(self, root):
-        """_summary_
+        """
+        Initializes the ViewAllReservationsApp with the given root window.
 
         Args:
-            root (_type_): _description_
+            root (tk.Tk): The root window of the Tkinter application.
         """
         self.root = root
         self.root.title("Toutes les réservations")
@@ -47,7 +57,8 @@ class ViewAllReservationsApp:
         self.delete_button.pack(side=tk.LEFT, padx=10, pady=10)
 
     def populate_tree(self):
-        """_summary_
+        """
+        Populates the Treeview with all reservations.
         """
         self.tree.delete(*self.tree.get_children())
         for reservation in self.reservation_manager.get_all_reservations():
@@ -59,7 +70,8 @@ class ViewAllReservationsApp:
             self.reservation_dict[item_id] = reservation
 
     def accept_reservation(self):
-        """_summary_
+        """
+        Accepts the selected reservation.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -76,7 +88,8 @@ class ViewAllReservationsApp:
                 print(f"Réservation acceptée: {reservation.to_dict()}")
 
     def reject_reservation(self):
-        """_summary_
+        """
+        Rejects the selected reservation.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -93,7 +106,8 @@ class ViewAllReservationsApp:
                 print(f"Réservation refusée: {reservation.to_dict()}")
 
     def delete_reservation(self):
-        """_summary_
+        """
+        Deletes the selected reservation.
         """
         selected_item = self.tree.selection()
         if not selected_item:
@@ -109,10 +123,11 @@ class ViewAllReservationsApp:
         self.populate_tree()
 
     def update_reservation(self, reservation):
-        """_summary_
+        """
+        Updates the given reservation in the manager.
 
         Args:
-            reservation (_type_): _description_
+            reservation (Reservation): The reservation to update.
         """
         self.reservation_manager.update_reservation(reservation)
         print(f"Réservation mise à jour dans le gestionnaire: {reservation.to_dict()}")

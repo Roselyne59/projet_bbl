@@ -1,17 +1,26 @@
 from datetime import datetime
 
 class Reservation:
-    """_summary_
+    """
+    Class representing a book reservation.
+
+    Attributes:
+        user_id (int): The user ID.
+        book_id (int): The book ID.
+        start_date (date): The start date of the reservation.
+        end_date (date): The end date of the reservation.
+        status (str): The status of the reservation. Defaults to "pending".
     """
     def __init__(self, user_id, book_id, start_date, end_date, status="en attente"):
-        """_summary_
+        """
+        Initializes a new reservation.
 
         Args:
-            user_id (_type_): _description_
-            book_id (_type_): _description_
-            start_date (_type_): _description_
-            end_date (_type_): _description_
-            status (str, optional): _description_. Defaults to "en attente".
+            user_id (int): The user ID.
+            book_id (int): The book ID.
+            start_date (str or date): The start date of the reservation (format 'YYYY-MM-DD' or date object).
+            end_date (str or date): The end date of the reservation (format 'YYYY-MM-DD' or date object).
+            status (str, optional): The status of the reservation. Defaults to "pending".
         """
         self.user_id = user_id
         self.book_id = book_id
@@ -20,23 +29,25 @@ class Reservation:
         self.status = status
 
     def _convert_to_date(self, date_str):
-        """_summary_
+        """
+        Converts a string to a date object.
 
         Args:
-            date_str (_type_): _description_
+            date_str (str or date): The date as a string (format 'YYYY-MM-DD') or date object.
 
         Returns:
-            _type_: _description_
+            date: The converted date object.
         """
         if isinstance(date_str, str):
             return datetime.strptime(date_str, '%Y-%m-%d').date()
         return date_str
 
     def to_dict(self):
-        """_summary_
+        """
+        Converts the Reservation object to a dictionary.
 
         Returns:
-            _type_: _description_
+            dict: A dictionary representing the reservation.
         """
         return {
             'user_id': self.user_id,
@@ -48,13 +59,14 @@ class Reservation:
 
     @classmethod
     def from_dict(cls, data):
-        """_summary_
+        """
+        Creates a Reservation instance from a dictionary.
 
         Args:
-            data (_type_): _description_
+            data (dict): A dictionary containing the reservation data.
 
         Returns:
-            _type_: _description_
+            Reservation: An instance of the Reservation class.
         """
         return cls(
             user_id=data['user_id'],
