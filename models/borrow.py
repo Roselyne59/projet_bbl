@@ -2,6 +2,17 @@ class Borrow:
     """_summary_
     """
     def __init__(self, borrow_id, user_id, user_name,book_id, book_title,start_date, return_date):
+        """_summary_
+
+        Args:
+            borrow_id (_type_): _description_
+            user_id (_type_): _description_
+            user_name (_type_): _description_
+            book_id (_type_): _description_
+            book_title (_type_): _description_
+            start_date (_type_): _description_
+            return_date (_type_): _description_
+        """
         self.borrow_id = borrow_id
         self.user_id = user_id
         self.user_name = user_name
