@@ -353,6 +353,9 @@ class BorrowApp:
                 amount_to_pay,
             ))
 
+#the search_borrow_by_user function works perfectly if borrowApp is executed separately
+# but the same function does not work on the borrwApp 
+# once called from the adminHomePage page by clicking on the "Emprunts" button
 
 if __name__ == "__main__":
     root = tk.Tk()
