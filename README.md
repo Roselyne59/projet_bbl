@@ -187,39 +187,39 @@ Bouton "se deconnecter" : sert à quitter la page "Espace administrateur", et re
 Page Espace membre:
 *******************
 
-  Fenêtre principale : Affiche le catalogue des livres disponible.
-  ******************
-
-  Bouton Recherche par titre: sert à effectuer une recherche par titre de livre
-  **************************
-
-  Bouton Recherche par N° ISBN: sert à effectuer une recherche par N° ISBN ( Les trois premieres chiffres sont identiques pour tous les livres "978....")
-  ****************************
-
-  Bouton Recherche par auteurs: sert à effectuer une recherche par auteur
-  ****************************
-
-  Bouton Actualiser la liste: sert à rafraîchir la liste des livres après une recherche
-  **************************
-
-  Bouton Faire une réservation: sert à effectuer une demande de réservation d'un livre 
-  ****************************
-
-    Page Application de réservation:
-    ********************************
-  
     Fenêtre principale : Affiche le catalogue des livres disponible.
     ******************
- 
-      Encodage : 
-      *********
-        * Séléctionner un livre
-        * Date de début : Date souhaitée pour le début de la réservation ( ne peut être anterieure à la date du jour)
-        * Date de fin : date de fin de la période de réservation.
-        * Bouton soumettre la réservation : Valider la demande.  
-
-  Bouton "se deconnecter" : sert à quitter la page "Espace membre", et retourner à la page de connexion.
-  ***********************
+  
+    Bouton Recherche par titre: sert à effectuer une recherche par titre de livre
+    **************************
+  
+    Bouton Recherche par N° ISBN: sert à effectuer une recherche par N° ISBN ( Les trois premieres chiffres sont identiques pour tous les livres "978....")
+    ****************************
+  
+    Bouton Recherche par auteurs: sert à effectuer une recherche par auteur
+    ****************************
+  
+    Bouton Actualiser la liste: sert à rafraîchir la liste des livres après une recherche
+    **************************
+  
+    Bouton Faire une réservation: sert à effectuer une demande de réservation d'un livre 
+    ****************************
+  
+      Page Application de réservation:
+      ********************************
+    
+      Fenêtre principale : Affiche le catalogue des livres disponible.
+      ******************
+   
+        Encodage : 
+        *********
+          * Séléctionner un livre
+          * Date de début : Date souhaitée pour le début de la réservation ( ne peut être anterieure à la date du jour)
+          * Date de fin : date de fin de la période de réservation.
+          * Bouton soumettre la réservation : Valider la demande.  
+  
+    Bouton "se deconnecter" : sert à quitter la page "Espace membre", et retourner à la page de connexion.
+    ***********************
 
   
 ************************************************************************************************************
