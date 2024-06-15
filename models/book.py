@@ -1,7 +1,25 @@
 class Book:
+    """_summary_
+
+    Returns:
+        _type_: _description_
+    """
     book_number = 1
 
     def __init__(self, book_id,title, authors, publication_year, isbn, editors, collections, genres, is_available = True):
+        """_summary_
+
+        Args:
+            book_id (_type_): _description_
+            title (_type_): _description_
+            authors (_type_): _description_
+            publication_year (_type_): _description_
+            isbn (bool): _description_
+            editors (_type_): _description_
+            collections (_type_): _description_
+            genres (_type_): _description_
+            is_available (bool, optional): _description_. Defaults to True.
+        """
         self.book_id = book_id
         self.title = title
         self.authors = authors
@@ -15,6 +33,8 @@ class Book:
             Book.book_number = book_id + 1
     
     def to_dict (self):
+        """_summary_
+        """
         return{
             "book_id" : self.book_id,
             "titre" : self.title,
@@ -29,6 +49,14 @@ class Book:
 
     @staticmethod
     def from_dict (data) :
+        """_summary_
+
+        Args:
+            data (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         return Book(
             data["book_id"],
             data["titre"],
