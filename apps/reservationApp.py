@@ -8,7 +8,15 @@ from datetime import date
 
 
 class ReservationApp:
+    """_summary_
+    """
     def __init__(self, root, user_id):
+        """_summary_
+
+        Args:
+            root (_type_): _description_
+            user_id (_type_): _description_
+        """
         self.root = root
         self.root.title("Application de Réservation")
         self.user_id = user_id
@@ -54,6 +62,8 @@ class ReservationApp:
         self.view_reservations()
 
     def submit_reservation(self):
+        """_summary_
+        """
         book_title = self.book_combobox.get()
         book_id = self.book_manager.get_book_id_by_title(book_title)
         start_date = self.start_date_entry.get_date()
@@ -84,6 +94,8 @@ class ReservationApp:
         self.view_reservations()
 
     def view_reservations(self):
+        """_summary_
+        """
         for row in self.reservation_tree.get_children():
             self.reservation_tree.delete(row)
 

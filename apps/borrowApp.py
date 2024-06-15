@@ -9,7 +9,14 @@ from tkcalendar import DateEntry
 from datetime import datetime
 
 class BorrowApp:
+    """_summary_
+    """
     def __init__(self, root):
+        """_summary_
+
+        Args:
+            root (_type_): _description_
+        """
         self.root = root
         self.root.title("Gestion des Emprunts")
 
@@ -91,6 +98,11 @@ class BorrowApp:
          
     #Add new or modify existing borrow
     def show_borrow_form(self, borrow=None):
+        """_summary_
+
+        Args:
+            borrow (_type_, optional): _description_. Defaults to None.
+        """
         self.form_window = tk.Toplevel(self.root)
         self.form_window.title("Formulaire Emprunt")
 
@@ -166,10 +178,20 @@ class BorrowApp:
 
     #User to filtre available books
     def get_available_books(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
         available_books = [book for book in self.book_manager.books if book.is_available]
         return [f"{book.book_id} - {book.title}" for book in available_books]
 
     def save_borrow(self, borrow):
+        """_summary_
+
+        Args:
+            borrow (_type_): _description_
+        """
         borrow_id = int(self.borrow_id_entry.get())
         user_info = self.user_id_var.get().split(' - ')
         user_id = user_info[0]
@@ -215,6 +237,8 @@ class BorrowApp:
         self.form_window.destroy()
 
     def modify_borrow_form(self):
+        """_summary_
+        """
         selected_item = self.tree.selection()
         if not selected_item:
             messagebox.showwarning("Attention", "Veuillez sélectionner un emprunt à modifier.")
@@ -229,6 +253,8 @@ class BorrowApp:
             messagebox.showerror("Erreur", f"Impossible de trouver l'emprunt avec l'ID {selected_borrow_id}.")
 
     def delete_borrow(self):
+        """_summary_
+        """
         selected_item = self.tree.selection()
         if not selected_item:
             messagebox.showwarning("Attention", "Veuillez sélectionner un emprunt à supprimer !")
@@ -238,12 +264,15 @@ class BorrowApp:
         self.update_treeview(self.tree)
     
     def search_borrow_by_user (self):
+        """_summary_
+        """
         selected_user = self.search_user_var.get().split(' - ')[0]
                
         filtered_borrows = [borrow for borrow in self.borrow_manager.borrows if borrow.user_id == selected_user]
         
         # Reset tree content
         for item in self.tree.get_children():
+
            self.tree.delete(item)
                 
         # Display search result
@@ -272,9 +301,19 @@ class BorrowApp:
 
     #Refresh borrow list after search
     def refresh_list(self, treeview):
+        """_summary_
+
+        Args:
+            treeview (_type_): _description_
+        """
         self.update_treeview(treeview)
 
     def update_treeview(self, treeview):
+        """_summary_
+
+        Args:
+            treeview (_type_): _description_
+        """
         for item in treeview.get_children():
             treeview.delete(item)
         for borrow in self.borrow_manager.borrows:

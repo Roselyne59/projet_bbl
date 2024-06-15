@@ -6,7 +6,14 @@ from managers.bookManager import BookManager
 from managers.userManager import UserManager
 
 class ViewAllReservationsApp:
+    """_summary_
+    """
     def __init__(self, root):
+        """_summary_
+
+        Args:
+            root (_type_): _description_
+        """
         self.root = root
         self.root.title("Toutes les réservations")
 
@@ -40,6 +47,8 @@ class ViewAllReservationsApp:
         self.delete_button.pack(side=tk.LEFT, padx=10, pady=10)
 
     def populate_tree(self):
+        """_summary_
+        """
         self.tree.delete(*self.tree.get_children())
         for reservation in self.reservation_manager.get_all_reservations():
             user = self.user_manager.get_user_by_id(reservation.user_id)
@@ -50,6 +59,8 @@ class ViewAllReservationsApp:
             self.reservation_dict[item_id] = reservation
 
     def accept_reservation(self):
+        """_summary_
+        """
         selected_item = self.tree.selection()
         if not selected_item:
             messagebox.showerror("Erreur", "Veuillez sélectionner une réservation.")
@@ -65,6 +76,8 @@ class ViewAllReservationsApp:
                 print(f"Réservation acceptée: {reservation.to_dict()}")
 
     def reject_reservation(self):
+        """_summary_
+        """
         selected_item = self.tree.selection()
         if not selected_item:
             messagebox.showerror("Erreur", "Veuillez sélectionner une réservation.")
@@ -80,6 +93,8 @@ class ViewAllReservationsApp:
                 print(f"Réservation refusée: {reservation.to_dict()}")
 
     def delete_reservation(self):
+        """_summary_
+        """
         selected_item = self.tree.selection()
         if not selected_item:
             messagebox.showerror("Erreur", "Veuillez sélectionner une réservation.")
@@ -94,6 +109,11 @@ class ViewAllReservationsApp:
         self.populate_tree()
 
     def update_reservation(self, reservation):
+        """_summary_
+
+        Args:
+            reservation (_type_): _description_
+        """
         self.reservation_manager.update_reservation(reservation)
         print(f"Réservation mise à jour dans le gestionnaire: {reservation.to_dict()}")
 

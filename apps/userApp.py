@@ -7,7 +7,14 @@ from tkcalendar import DateEntry
 import re
 
 class UserApp:
+    """_summary_
+    """
     def __init__(self, root):
+        """_summary_
+
+        Args:
+            root (_type_): _description_
+        """
         self.root = root
         self.root.title("Gestion des Utilisateurs")
         
@@ -24,7 +31,7 @@ class UserApp:
 
         # Window geometry
         self.root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
-                           
+
         self.user_manager = UserManager()
 
         #Search user by name button
@@ -39,7 +46,7 @@ class UserApp:
         self.refresh_list_button = tk.Button(self.root, text="Actualiser la liste", font=('Helvetica', 10, 'bold'), command=lambda : self.refresh_list(self.tree))
         self.refresh_list_button.pack(pady=10)
 
-         # Treeview for displaying users
+        # Treeview for displaying users
         self.tree = ttk.Treeview(self.root, columns=('ID', 'Nom', 'Prénom', 'Date de naissance', 'Email', 'Rue et Numéro', 'Code postal', 'Login', 'Password', 'Admin'), show='headings')
         self.tree.pack(pady=10, fill=tk.BOTH, expand=True)
 
@@ -88,23 +95,38 @@ class UserApp:
     
     #Search user by firstname
     def search_user(self, treeview):
+        """_summary_
+
+        Args:
+            treeview (_type_): _description_
+        """
         search_term = self.search_entry.get().strip().lower()
         filtered_users = [user for user in self.user_manager.users if search_term in user.firstname.lower()]
         self.show_search_results(treeview, filtered_users)
-     
+
     #Display the search Result in th treeview in parameters
     def show_search_results(self, treeview, filtered_users):
+        """_summary_
+
+        Args:
+            treeview (_type_): _description_
+            filtered_users (_type_): _description_
+        """
         for item in treeview.get_children():
             treeview.delete(item)
         for user in filtered_users:
             treeview.insert('', 'end', values=(user.user_id, user.firstname, user.lastname, user.birthdate, user.email, user.street, user.zip_code, user.login, user.password, user.is_admin))
     
     #Refresh user list
-    def refresh_list(self, treeview):
+    def refresh_list(self):
+        """_summary_
+        """
         self.update_treeview()
 
     #Update selected user
     def modify_user_form(self):
+        """_summary_
+        """
         selected_item = self.tree.selection()
         if not selected_item:
             messagebox.showwarning("Attention", "Veuillez sélectionner un utilisateur à modifier.")
@@ -112,8 +134,10 @@ class UserApp:
         selected_user_id = self.tree.item(selected_item[0])['values'][0]
         user = next((u for u in self.user_manager.users if u.user_id == selected_user_id), None)
         self.show_user_form(user)
-   
+
     def delete_user(self):
+        """_summary_
+        """
         selected_item = self.tree.selection()
         if not selected_item:
             messagebox.showwarning("Attention", "Veuillez sélectionner un utilisateur à supprimer.")
@@ -124,6 +148,11 @@ class UserApp:
 
     #Add user or modify existing one
     def show_user_form(self, user=None):
+        """_summary_
+
+        Args:
+            user (_type_, optional): _description_. Defaults to None.
+        """
         self.form_window = tk.Toplevel(self.root)
         self.form_window.title("Formulaire Utilisateur")
 
@@ -168,7 +197,7 @@ class UserApp:
         self.birthdate_entry.configure(width=17)
         if user:
             self.birthdate_entry.set_date(user.birthdate)
- 
+
         self.email_label = tk.Label(self.form_window, text="Email:")  
         self.email_label.grid(row=4, column=0, sticky='E')
         self.email_entry = tk.Entry(self.form_window)
@@ -218,6 +247,14 @@ class UserApp:
     
     #Firstname and Lastename entry validation (allow only alphabetic, "-" and " ")
     def validate_alphabetic(self, value_if_allowed):
+        """_summary_
+
+        Args:
+            value_if_allowed (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         if re.match("^[A-Za-zÀ-ÿ -]*$", value_if_allowed):
             return True
         else:
@@ -225,6 +262,11 @@ class UserApp:
         
     #Email entry format validation
     def check_email_format(self, event):
+        """_summary_
+
+        Args:
+            event (_type_): _description_
+        """
         email = self.email_entry.get()
         if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             messagebox.showerror("Erreur", "Format de l'email invalide. Veuillez entrer un email valide.")
@@ -232,6 +274,14 @@ class UserApp:
     
     #Street and number entry validation (allow only alphabetic, "-" and " " and digits)
     def validate_street(self, value_if_allowed):
+        """_summary_
+
+        Args:
+            value_if_allowed (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         if re.match("^[A-Za-zÀ-ÿ0-9 -]*$", value_if_allowed):
             return True
         else:
@@ -239,6 +289,11 @@ class UserApp:
 
     #check if login exists
     def check_login(self, event):
+        """_summary_
+
+        Args:
+            event (_type_): _description_
+        """
         current_login = self.login_entry.get()
         if self.user_manager.login_exists(current_login):
             messagebox.showerror("Erreur", "Ce login existe déjà. Choisissez un autre.")
@@ -252,6 +307,11 @@ class UserApp:
 
     # Check password format
     def check_password_format(self, event):
+        """_summary_
+
+        Args:
+            event (_type_): _description_
+        """
         # Check login validation before password validation
         if self.valid_login:
             password = self.password_entry.get()
@@ -264,6 +324,11 @@ class UserApp:
 
     #Create new user, or modify existing
     def save_user(self, old_user=None):
+        """_summary_
+
+        Args:
+            old_user (_type_, optional): _description_. Defaults to None.
+        """
         user_id = int(self.user_id_entry.get())
         first_name = self.first_name_entry.get()
         last_name = self.last_name_entry.get()
@@ -290,6 +355,8 @@ class UserApp:
         self.form_window.destroy()
 
     def update_treeview(self):
+        """_summary_
+        """
         for item in self.tree.get_children():
             self.tree.delete(item)
         for user in self.user_manager.users:
