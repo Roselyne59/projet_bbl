@@ -72,8 +72,8 @@ Bouton Utilisateurs: sert à afficher la page "Gestion des utilisateurs"
     *******************************
      
 
-Bouton Livres: sert à afficher la page "Gestion des livres"
-**************
+  Bouton Livres: sert à afficher la page "Gestion des livres"
+  **************
 
     Fenêtre principale : Affiche le catalogue des livres.
     ******************
@@ -104,8 +104,8 @@ Bouton Livres: sert à afficher la page "Gestion des livres"
     Bouton supprimer un livre: sert à supprimer un livre existant.
     **************************
 
-Bouton Etagères: sert à afficher la page "Gestion des étagères"
-***************
+  Bouton Etagères: sert à afficher la page "Gestion des étagères"
+  ***************
 
     (Une allée représente un couloir, et représentée par un chiffre, une allée contient des rayons représentés par des lettres)
     
@@ -126,46 +126,46 @@ Bouton Etagères: sert à afficher la page "Gestion des étagères"
         * Saisir la lettre du rayon de l'allée
         * Bouton de validation: valider
         
-    Bouton modifier une étagère: sert à modifier une étagère.
-    ***************************
-    Bouton supprimer une étagère: sert à supprimer une étagère existante.
-    ****************************
-    Bouton ajouter un livre à une étagère: sert à ajouter un livre à une étagère.
-    *************************************
-      * Choisir le livre dans la liste
-      * Bouton ajouter : Valider
-    Bouton enlever un livre d'une étagère: sert à retirer un livre d'une étagère.
-    *************************************
-      * Choisir le livre dans l'étagère
-      * Bouton supprimer : Valider le retrait du livre de l'étagère
+      Bouton modifier une étagère: sert à modifier une étagère.
+      ***************************
+      Bouton supprimer une étagère: sert à supprimer une étagère existante.
+      ****************************
+      Bouton ajouter un livre à une étagère: sert à ajouter un livre à une étagère.
+      *************************************
+        * Choisir le livre dans la liste
+        * Bouton ajouter : Valider
+      Bouton enlever un livre d'une étagère: sert à retirer un livre d'une étagère.
+      *************************************
+        * Choisir le livre dans l'étagère
+        * Bouton supprimer : Valider le retrait du livre de l'étagère
 
-Bouton Réservations: sert à afficher la page "Gestion des résérvations"
-*******************
-  Fenêtre pricipale: Affiche toutes les demandes de réservation soumises par les membres
-  *****************
-  Bouton accepter : permet d'accepter une demande de réservation
-  ****************
-  Bouton refuser : permet de refuser une demande de réservation
-  **************
-  Bouton supprimer : permet de supprimer une demande de réservation
-  ****************
+  Bouton Réservations: sert à afficher la page "Gestion des résérvations"
+  *******************
+    Fenêtre pricipale: Affiche toutes les demandes de réservation soumises par les membres
+    *****************
+    Bouton accepter : permet d'accepter une demande de réservation
+    ****************
+    Bouton refuser : permet de refuser une demande de réservation
+    **************
+    Bouton supprimer : permet de supprimer une demande de réservation
+    ****************
 
 Bouton Emprunts: sert à afficher la page "Gestion des emprunts"
 ****************
-  Fenêtre pricipale: Affiche tous les emprunts
-  *****************
-    Retard et Amende: affichés sur la fenêtre principale avec le reste des informations concernant l'emprunt.
+    Fenêtre pricipale: Affiche tous les emprunts
     *****************
-  Bouton Recherche des emprunts par utilisateur: sert à afficher l'historique des empruts efféctué par un utilisateur.
-  *********************************************
+      Retard et Amende: affichés sur la fenêtre principale avec le reste des informations concernant l'emprunt.
+      *****************
+    Bouton Recherche des emprunts par utilisateur: sert à afficher l'historique des empruts efféctué par un utilisateur.
+    *********************************************
     
     Ps: La fonction d'affichage d'historique des emprunts par utilisateur fonctionne parfaitement lorsque l'interface borrowApp est executé seule,
         mais cette dernière ne fonctionne pas une fois borrwApp liée au programme principale ( apelée depuis adminHomePage) 
   
-  Bouton Actualiser la liste: sert à rafraîchir la liste des emprunts après une recherche
-  **************************
-  Bouton ajouter emprunt: sert à afficher le formulaire de saisie d'un nouvel emprunt
-  **********************
+    Bouton Actualiser la liste: sert à rafraîchir la liste des emprunts après une recherche
+    **************************
+    Bouton ajouter emprunt: sert à afficher le formulaire de saisie d'un nouvel emprunt
+    **********************
       Encodage : 
       *********
         * Sélectionner un utilisateur
@@ -187,40 +187,41 @@ Bouton "se deconnecter" : sert à quitter la page "Espace administrateur", et re
 Page Espace membre:
 *******************
 
-Bouton Recherche par titre: sert à effectuer une recherche par titre de livre
-**************************
-
-Bouton Recherche par N° ISBN: sert à effectuer une recherche par N° ISBN ( Les trois premieres chiffres sont identiques pour tous les livres "978....")
-****************************
-
-Bouton Recherche par auteurs: sert à effectuer une recherche par auteur
-****************************
-
-Bouton Actualiser la liste: sert à rafraîchir la liste des livres après une recherche
-**************************
-
-Bouton Faire une réservation: sert à effectuer une demande de réservation d'un livre 
-****************************
-
-  Page Application de réservation:
-  ********************************
-  
   Fenêtre principale : Affiche le catalogue des livres disponible.
   ******************
+
+  Bouton Recherche par titre: sert à effectuer une recherche par titre de livre
+  **************************
+
+  Bouton Recherche par N° ISBN: sert à effectuer une recherche par N° ISBN ( Les trois premieres chiffres sont identiques pour tous les livres "978....")
+  ****************************
+
+  Bouton Recherche par auteurs: sert à effectuer une recherche par auteur
+  ****************************
+
+  Bouton Actualiser la liste: sert à rafraîchir la liste des livres après une recherche
+  **************************
+
+  Bouton Faire une réservation: sert à effectuer une demande de réservation d'un livre 
+  ****************************
+
+    Page Application de réservation:
+    ********************************
+  
+    Fenêtre principale : Affiche le catalogue des livres disponible.
+    ******************
  
-  Encodage : 
-  *********
-    * Séléctionner un livre
-    * Date de début : Date souhaitée pour le début de la réservation ( ne peut être anterieure à la date du jour)
-    * Date de fin : date de fin de la période de réservation.
-    * Bouton soumettre la réservation : Valider la demande.  
+      Encodage : 
+      *********
+        * Séléctionner un livre
+        * Date de début : Date souhaitée pour le début de la réservation ( ne peut être anterieure à la date du jour)
+        * Date de fin : date de fin de la période de réservation.
+        * Bouton soumettre la réservation : Valider la demande.  
 
-Bouton "se deconnecter" : sert à quitter la page "Espace membre", et retourner à la page de connexion.
-***********************
+  Bouton "se deconnecter" : sert à quitter la page "Espace membre", et retourner à la page de connexion.
+  ***********************
 
-Fenêtre principale : Affiche le catalogue des livres disponible.
-******************
-
+  
 ************************************************************************************************************
 
 Auteurs:
@@ -229,6 +230,8 @@ Auteurs:
   * Abdelkadir KIRATLI
   * Farid ASLOUN
   * Néhémie MUBENGA MAWEJA
+
+*************************************************************************************************************
 
 Remérciements:
 *************
