@@ -1,5 +1,6 @@
 from userManager import UserManager
 import tkinter as tk
+from tkinter import ttk
 from user import User
 from tkinter import messagebox
 from tkcalendar import DateEntry
@@ -26,94 +27,100 @@ class UserApp:
                            
         self.user_manager = UserManager()
 
-        #Search user by name
-        self.search_label = tk.Label(self.root, text="Recherche par nom")
+        #Search user by name button
+        self.search_label = tk.Label(self.root, font=('Helvetica', 10, 'bold'), text="Recherche par nom")
         self.search_label.pack(pady=10)
         self.search_entry = tk.Entry(self.root)
         self.search_entry.pack(pady=10)
-        self.search_button = tk.Button(self.root, text="Rechercher", command=self.search_user)
+        self.search_button = tk.Button(self.root, text="Rechercher", font=('Helvetica', 10, 'bold'), command=lambda : self.search_user(self.tree))
         self.search_button.pack(pady=10)
 
-        self.listbox = tk.Listbox(self.root, width=150, height=20)
-        self.listbox.pack(pady=10)
+        #Refresh users list button
+        self.refresh_list_button = tk.Button(self.root, text="Actualiser la liste", font=('Helvetica', 10, 'bold'), command=lambda : self.refresh_list(self.tree))
+        self.refresh_list_button.pack(pady=10)
+
+         # Treeview for displaying users
+        self.tree = ttk.Treeview(self.root, columns=('ID', 'Nom', 'Prénom', 'Date de naissance', 'Email', 'Rue et Numéro', 'Code postal', 'Login', 'Password', 'Admin'), show='headings')
+        self.tree.pack(pady=10, fill=tk.BOTH, expand=True)
+
+        # Define headings
+        self.tree.heading('ID', text='ID')
+        self.tree.heading('Nom', text='Nom')
+        self.tree.heading('Prénom', text='Prénom')
+        self.tree.heading('Date de naissance', text='Date de naissance')
+        self.tree.heading('Email', text='Email')
+        self.tree.heading('Rue et Numéro', text='Rue et Numéro')
+        self.tree.heading('Code postal', text='Code postal')
+        self.tree.heading('Login', text='Login')
+        self.tree.heading('Password', text='Password')
+        self.tree.heading('Admin', text='Admin')
+
+        # Define column widths
+        self.tree.column('ID', width=50)
+        self.tree.column('Nom', width=100)
+        self.tree.column('Prénom', width=100)
+        self.tree.column('Date de naissance', width=100)
+        self.tree.column('Email', width=150)
+        self.tree.column('Rue et Numéro', width=150)
+        self.tree.column('Code postal', width=100)
+        self.tree.column('Login', width=100)
+        self.tree.column('Password', width=100)
+        self.tree.column('Admin', width=50)
+
+        #Column headers style
+        #style = ttk.Style()
+        #style.configure("Treeview.Heading", font=('Helvetica', 10, 'bold'))
 
         # Frame for aligning buttons horizontally
         button_frame = tk.Frame(self.root)
         button_frame.pack(pady=10)
 
-        self.add_button = tk.Button(button_frame, text="Ajouter Utilisateur", command=self.show_user_form)
+        self.add_button = tk.Button(button_frame, text="Ajouter Utilisateur", font=('Helvetica', 10, 'bold'), command=self.show_user_form)
         self.add_button.pack(side=tk.LEFT, padx=10)
 
-        self.modify_button = tk.Button(button_frame, text="Modifier Utilisateur", command=self.modify_user_form)
+        self.modify_button = tk.Button(button_frame, text="Modifier Utilisateur", font=('Helvetica', 10, 'bold'), command=self.modify_user_form)
         self.modify_button.pack(side=tk.LEFT, padx=10)
 
-        self.delete_button = tk.Button(button_frame, text="Supprimer Utilisateur", command=self.delete_user)
+        self.delete_button = tk.Button(button_frame, text="Supprimer Utilisateur", font=('Helvetica', 10, 'bold'), command=self.delete_user)
         self.delete_button.pack(side=tk.LEFT, padx=10)
 
-        self.update_listbox()
+        self.update_treeview()
     
     #Search user by firstname
-    def search_user(self):
+    def search_user(self, treeview):
         search_term = self.search_entry.get().strip().lower()
         filtered_users = [user for user in self.user_manager.users if search_term in user.firstname.lower()]
-        self.show_search_results(filtered_users)
-    
-    #Search Result in new window
-    def show_search_results(self, filtered_users):
-        search_window = tk.Toplevel(self.root)
-        search_window.title("Résultats de la recherche")
-        
-        window_width = 700
-        window_height = 400
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-        position_x = (screen_width // 2) - (window_width // 2)
-        position_y = (screen_height // 2) - (window_height // 2)
-        
-        search_window.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
-        
-        search_listbox = tk.Listbox(search_window, width=150, height=30)
-        search_listbox.pack(pady=10)
-        
+        self.show_search_results(treeview, filtered_users)
+     
+    #Display the search Result in th treeview in parameters
+    def show_search_results(self, treeview, filtered_users):
+        for item in treeview.get_children():
+            treeview.delete(item)
         for user in filtered_users:
-            search_listbox.insert(tk.END, f"Numero : {user.user_id}")
-            user_info = [
-                f"Nom : {user.firstname}",
-                f"Prénom : {user.lastname}",
-                f"Date de naissance : {user.birthdate}",
-                f"Email : {user.email}",
-                f"Rue et Numero : {user.street}",
-                f"Code postale : {user.zip_code}",
-                f"Login : {user.login}",
-                f"Password : {user.password}",
-                f"Admin : {user.is_admin}"
-            ]
-            for item in user_info:
-                search_listbox.insert(tk.END, item)
-            search_listbox.insert(tk.END, "------------------------------")
+            treeview.insert('', 'end', values=(user.user_id, user.firstname, user.lastname, user.birthdate, user.email, user.street, user.zip_code, user.login, user.password, user.is_admin))
+    
+    #Refresh user list
+    def refresh_list(self, treeview):
+        self.update_treeview()
 
     #Update selected user
     def modify_user_form(self):
-        selected_user_index = self.listbox.curselection()
-        if not selected_user_index:
+        selected_item = self.tree.selection()
+        if not selected_item:
             messagebox.showwarning("Attention", "Veuillez sélectionner un utilisateur à modifier.")
             return
-
-        user_id = int(self.listbox.get(selected_user_index[0]).split(":")[1].strip())
-        user = next((u for u in self.user_manager.users if u.user_id == user_id), None)
-
+        selected_user_id = self.tree.item(selected_item[0])['values'][0]
+        user = next((u for u in self.user_manager.users if u.user_id == selected_user_id), None)
         self.show_user_form(user)
-
-    #Delete selected user 
+   
     def delete_user(self):
-        selected_user_index = self.listbox.curselection()
-        if not selected_user_index:
+        selected_item = self.tree.selection()
+        if not selected_item:
             messagebox.showwarning("Attention", "Veuillez sélectionner un utilisateur à supprimer.")
             return
-
-        user_id = int(self.listbox.get(selected_user_index[0]).split(":")[1].strip())
-        self.user_manager.remove_user(user_id)
-        self.update_listbox()
+        selected_user_id = self.tree.item(selected_item[0])['values'][0]
+        self.user_manager.remove_user(selected_user_id)
+        self.update_treeview()
 
     #Add user or modify existing one
     def show_user_form(self, user=None):
@@ -206,7 +213,7 @@ class UserApp:
         self.is_admin_checkbutton = tk.Checkbutton(self.form_window, text="Oui", variable=self.is_admin_var)
         self.is_admin_checkbutton.grid(row=9, column=1)
 
-        self.submit_button = tk.Button(self.form_window, text="Valider", command=lambda: self.save_user(user))
+        self.submit_button = tk.Button(self.form_window, text="Valider", font=('Helvetica', 10, 'bold'), command=lambda: self.save_user(user))
         self.submit_button.grid(row=10, column=0, columnspan=2)
     
     #Firstname and Lastename entry validation (allow only alphabetic, "-" and " ")
@@ -279,24 +286,20 @@ class UserApp:
         else:
             self.user_manager.add_user(new_user)
 
-        self.update_listbox()
+        self.update_treeview()
         self.form_window.destroy()
 
-    def update_listbox(self):                  
-        self.listbox.delete(0, tk.END)
+    def update_treeview(self):
+        for item in self.tree.get_children():
+            self.tree.delete(item)
         for user in self.user_manager.users:
-            self.listbox.insert(tk.END, f"Numero : {user.user_id}")
-            user_info = [
-                f"Nom : {user.firstname}",
-                f"Prénom : {user.lastname}",
-                f"Date de naissance : {user.birthdate}",
-                f"Email : {user.email}",
-                f"Rue et Numero : {user.street}",
-                f"Code postale : {user.zip_code}",
-                f"Login : {user.login}",
-                f"Password : {user.password}",
-                f"Admin : {user.is_admin}"
-            ]
-            for item in user_info:
-                self.listbox.insert(tk.END, item)
-            self.listbox.insert(tk.END, "------------------------------")
+            self.tree.insert('', 'end', values=(user.user_id, 
+                                                user.firstname, 
+                                                user.lastname, 
+                                                user.birthdate, 
+                                                user.email, 
+                                                user.street, 
+                                                user.zip_code, 
+                                                user.login, 
+                                                user.password, 
+                                                user.is_admin))

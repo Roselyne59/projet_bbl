@@ -12,22 +12,28 @@
         "Historique",
         "Horreur",
         "Mythe",
-        "Mysterère",
+        "Mystère",
         "Noir",
         "Performance",
         "Policier",
         "Philosophique",
         "Romance",
         "Satire",
-        "Science-fiction",
+        "Science-Fiction",
         "Superhero",
         "Surnaturel",
         "Suspense",
         "Jeunesse",
         "Tragédie",
         "Thriller",
-        "Guerre"
-]
-
+        "Guerre",
+        "Fiction",
+        "Fiction dystopique",
+        "Classique",
+        "Fiction philosophique",
+        "Fiction gothique",
+        "Fiction post-apocalyptique"
+    ]
+    
 
 

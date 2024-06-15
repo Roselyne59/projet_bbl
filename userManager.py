@@ -42,3 +42,15 @@ class UserManager:
     #Check if login exists
     def login_exists(self, login):
         return any(user.login == login for user in self.users)
+
+    def get_user_by_login(self, login):
+        for user in self.users:
+            if user.login == login:
+                return user
+        return None
+
+    def get_user_by_id(self, user_id):
+        for user in self.users:
+            if user.user_id == user_id:
+                return user
+        return None

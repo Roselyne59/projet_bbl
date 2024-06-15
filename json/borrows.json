@@ -1,0 +1,119 @@
+[
+    {
+        "borrow_id": 1,
+        "user_id": "1",
+        "user_name": "ASLOUN Farid",
+        "book_id": "7",
+        "book_title": "To Kill a Mockingbird",
+        "start_date": "2024-01-17",
+        "due_date": "2024-01-31"
+    },
+    {
+        "borrow_id": 2,
+        "user_id": "2",
+        "user_name": "MEMBER Member",
+        "book_id": "9",
+        "book_title": "The Lord of the Rings",
+        "start_date": "2024-01-17",
+        "due_date": "2024-01-31"
+    },
+    {
+        "borrow_id": 3,
+        "user_id": "2",
+        "user_name": "MEMBER Member",
+        "book_id": "8",
+        "book_title": "Pride and Prejudice",
+        "start_date": "2024-01-01",
+        "due_date": "2024-01-01"
+    },
+    {
+        "borrow_id": 4,
+        "user_id": "1",
+        "user_name": "ASLOUN Farid",
+        "book_id": "9",
+        "book_title": "The Lord of the Rings",
+        "start_date": "2024-01-25",
+        "due_date": "2024-01-31"
+    },
+    {
+        "borrow_id": 5,
+        "user_id": "3",
+        "user_name": "YOUNG Andrew",
+        "book_id": "4",
+        "book_title": "The Great Gatsby",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-27"
+    },
+    {
+        "borrow_id": 6,
+        "user_id": "9",
+        "user_name": "BROWN Alicia",
+        "book_id": "11",
+        "book_title": "The Hobbit",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-26"
+    },
+    {
+        "borrow_id": 8,
+        "user_id": "9",
+        "user_name": "BROWN Alicia",
+        "book_id": "21",
+        "book_title": "Crime and Punishment",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-14"
+    },
+    {
+        "borrow_id": 8,
+        "user_id": "7",
+        "user_name": "WOODS Mark",
+        "book_id": "4",
+        "book_title": "The Great Gatsby",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-19"
+    },
+    {
+        "borrow_id": 9,
+        "user_id": "1",
+        "user_name": "ASLOUN Farid",
+        "book_id": "24",
+        "book_title": "The Road",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-14"
+    },
+    {
+        "borrow_id": 10,
+        "user_id": "4",
+        "user_name": "BAKER Elizabeth",
+        "book_id": "23",
+        "book_title": "The Picture of Dorian Gray",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-19"
+    },
+    {
+        "borrow_id": 11,
+        "user_id": "6",
+        "user_name": "MITCHELL Luis",
+        "book_id": "23",
+        "book_title": "The Picture of Dorian Gray",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-26"
+    },
+    {
+        "borrow_id": 12,
+        "user_id": "4",
+        "user_name": "BAKER Elizabeth",
+        "book_id": "23",
+        "book_title": "The Picture of Dorian Gray",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-26"
+    },
+    {
+        "borrow_id": 13,
+        "user_id": "2",
+        "user_name": "MEMBER Member",
+        "book_id": "5",
+        "book_title": "1984",
+        "start_date": "2024-06-14",
+        "due_date": "2024-06-14"
+    }
+]

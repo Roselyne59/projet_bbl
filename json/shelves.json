@@ -1,0 +1,86 @@
+[
+    {
+        "shelf_id": 1,
+        "number": 1,
+        "letter": "A",
+        "books": [
+            {
+                "book_id": 14,
+                "titre": "Brave New World",
+                "auteurs": [
+                    "Aldous Huxley"
+                ],
+                "année de publication": 1932,
+                "isbn": 9780060850524,
+                "éditeurs": [
+                    ""
+                ],
+                "collection": [],
+                "genres": [
+                    "Dystopian Fiction"
+                ],
+                "is_available": true
+            }
+        ]
+    },
+    {
+        "shelf_id": 2,
+        "number": 1,
+        "letter": "B",
+        "books": []
+    },
+    {
+        "shelf_id": 3,
+        "number": 2,
+        "letter": "D",
+        "books": []
+    },
+    {
+        "shelf_id": 4,
+        "number": 5,
+        "letter": "H",
+        "books": [
+            {
+                "book_id": 10,
+                "titre": "Crime and Punishment",
+                "auteurs": [
+                    "Fyodor Dostoevsky"
+                ],
+                "année de publication": 1866,
+                "isbn": 9780143107637,
+                "éditeurs": [
+                    "Penguin Classics"
+                ],
+                "collection": [],
+                "genres": [
+                    "Fiction philosophique"
+                ],
+                "is_available": true
+            }
+        ]
+    },
+    {
+        "shelf_id": 5,
+        "number": 3,
+        "letter": "A",
+        "books": [
+            {
+                "book_id": 12,
+                "titre": "The Picture of Dorian Gray",
+                "auteurs": [
+                    "Oscar Wilde"
+                ],
+                "année de publication": 1890,
+                "isbn": 9780141442464,
+                "éditeurs": [
+                    "Penguin Classics"
+                ],
+                "collection": [],
+                "genres": [
+                    "Fiction gothique"
+                ],
+                "is_available": true
+            }
+        ]
+    }
+]
