@@ -1,6 +1,6 @@
 import os
 import json
-from borrow import Borrow
+from models.borrow import Borrow
 
 class BorrowManager:
     def __init__(self, json_file="json/borrows.json"):

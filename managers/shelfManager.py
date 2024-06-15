@@ -1,6 +1,6 @@
 import json
 import os
-from shelf import Shelf
+from models.shelf import Shelf
 
 class ShelfManager:
     def __init__(self, json_file="json/shelves.json"):

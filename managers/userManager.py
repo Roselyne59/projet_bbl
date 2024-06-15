@@ -1,6 +1,6 @@
 import os
 import json
-from user import User
+from models.user import User
 
 
 #It takes an optional parameter, default :json_file

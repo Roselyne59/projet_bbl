@@ -1,9 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkcalendar import DateEntry
-from reservationManager import ReservationManager
-from reservation import Reservation
-from bookManager import BookManager
+from managers.reservationManager import ReservationManager
+from models.reservation import Reservation
+from managers.bookManager import BookManager
 from datetime import date
 
 

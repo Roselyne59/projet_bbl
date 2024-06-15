@@ -1,5 +1,5 @@
 import json
-from reservation import Reservation
+from models.reservation import Reservation
 
 class ReservationManager:
     def __init__(self, filepath='json/reservations.json'):
