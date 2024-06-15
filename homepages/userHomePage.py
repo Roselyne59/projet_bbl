@@ -23,7 +23,7 @@ class UserHomePage:
 
     def logout(self):
         self.clear_screen()
-        from login import LoginApp #Avoid cicular import between LoginApp and MemberHomePage
+        from models.login import LoginApp #Avoid cicular import between LoginApp and MemberHomePage
         LoginApp(self.root)
     
 
