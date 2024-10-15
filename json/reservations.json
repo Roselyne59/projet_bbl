@@ -39,13 +39,13 @@
         "book_id": 12,
         "start_date": "2024-06-15",
         "end_date": "2024-06-15",
-        "status": "en attente"
+        "status": "Accept\u00e9e"
     },
     {
         "user_id": 2,
         "book_id": 5,
         "start_date": "2024-06-15",
         "end_date": "2024-06-27",
-        "status": "en attente"
+        "status": "Refus\u00e9e"
     }
 ]
